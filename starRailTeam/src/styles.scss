@@ -1,0 +1,15 @@
+:root{
+    --bg: #262626;
+    --fg: #1E1E1E;
+    --accent: #7D5BED;
+    --text: white; 
+}
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    background-color: var(--bg);
+    color: var(--text);
+}
