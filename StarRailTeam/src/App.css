@@ -1,0 +1,14 @@
+:root {
+  --bg: #262626;
+  --fg: #1E1E1E;
+  --accent: #7D5BED;
+  --text: white;
+}
+
+.app{
+  position: relative;
+}
+
+body{
+  background-color: var(--bg);
+}
