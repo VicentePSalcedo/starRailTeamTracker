@@ -1,1 +1,5 @@
-<app-card *ngFor="for let x of teamSize"></app-card>
+<div class="card-holder">
+    <div *ngFor="let character of selectedCharacters$ | async">
+        <app-card [character] = "character"></app-card>
+    </div>
+</div>

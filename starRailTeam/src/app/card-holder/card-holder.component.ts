@@ -1,15 +1,23 @@
-import { Component } from '@angular/core';
-import { DataServiceService } from '../data-service.service';
+import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data.service';
+import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-card-holder',
   templateUrl: './card-holder.component.html',
   styleUrls: ['./card-holder.component.scss']
 })
-export class CardHolderComponent {
-  teamSize: number[] = [];
-  constructor(ds: DataServiceService){
-    this.teamSize = Array(ds.MAX_TEAM_SIZE).fill(0);
+export class CardHolderComponent implements OnInit{
+  
+  selectedCharacters$: Observable<String[]>;
+
+  constructor(private dataService: DataService){
+    // this._currentCharacters = dataService;
+    this.selectedCharacters$ = this.dataService.selectedCharacters$;
   }
 
+  ngOnInit(){
+
+  }
 }
