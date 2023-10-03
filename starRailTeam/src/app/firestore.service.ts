@@ -11,7 +11,7 @@ import { Firestore, collection, getFirestore, getDocs, DocumentData, QueryDocume
 })
 export class FirestoreService {
   db: Firestore;
-  snapshot: any[] = [];
+  snapshot: characterType[];
   constructor() {
     console.log("test");
     const key = {
@@ -27,12 +27,12 @@ export class FirestoreService {
     const _app = initializeApp(key);
     this.db = getFirestore(_app);
 
-    this.getSnapShot();
+    this.snapshot = this.getSnapShot();
     
   }
   async getSnapShot(){
     const snapShot = await getDocs(collection(this.db, "Characters"));
-     this.snapshot = snapShot.docs.map(data => (
+     return snapShot.docs.map(data => (
       data.data()
     ));
   }
