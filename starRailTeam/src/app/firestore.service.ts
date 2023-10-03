@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { characterType } from './Models/character.model';
 import { initializeApp } from "firebase/app";
-import { Firestore, collection, getFirestore, getDocs, query, getDoc, CollectionReference, DocumentData, Query} from "firebase/firestore";
+import { Firestore, collection, getFirestore, getDocs, DocumentData, QueryDocumentSnapshot} from "firebase/firestore";
 
 
 
@@ -11,6 +11,7 @@ import { Firestore, collection, getFirestore, getDocs, query, getDoc, Collection
 })
 export class FirestoreService {
   db: Firestore;
+  snapshot: any[] = [];
   constructor() {
     console.log("test");
     const key = {
@@ -26,21 +27,19 @@ export class FirestoreService {
     const _app = initializeApp(key);
     this.db = getFirestore(_app);
 
-    const characterData = this.getSnapShot();
-    console.log(characterData);
+    this.getSnapShot();
     
   }
   async getSnapShot(){
-    const snapShot = await getDocs(query(collection(this.db, "Characters")));
-    snapShot.forEach(doc =>{
-      console.log(`${doc.id} ${doc.data()['Artifacts']['Rope'][0]}`)
-    })
-    return snapShot;
+    const snapShot = await getDocs(collection(this.db, "Characters"));
+     this.snapshot = snapShot.docs.map(data => (
+      data.data()
+    ));
   }
 
 
-  private _character: BehaviorSubject<characterType[]> = new BehaviorSubject<characterType[]>([]);
-  get character$(): Observable<characterType[]>{
-    return this._character.asObservable();
+  private _snapshotData: BehaviorSubject<characterType[]> = new BehaviorSubject<characterType[]>([]);
+  get snapshotData$(): Observable<characterType[]>{
+    return this._snapshotData.asObservable();
   }
 }

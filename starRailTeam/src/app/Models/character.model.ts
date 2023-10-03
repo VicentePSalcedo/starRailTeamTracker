@@ -1,12 +1,12 @@
 
 export interface characterType{
-    Name: string,
+    Name: String,
     Artifacts: artifacts
   
   }
   
   interface artifacts{
-    Body: string[],
+    Body: String[],
     BodyMainStat: String[],
     Feet: String[],
     FeetMainStat: String[],
