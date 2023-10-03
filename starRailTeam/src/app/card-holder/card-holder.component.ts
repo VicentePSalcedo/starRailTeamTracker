@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { FirestoreService } from '../firestore.service';
+import { characterType } from '../Models/character.model';
 
 
 @Component({
@@ -11,16 +12,16 @@ import { FirestoreService } from '../firestore.service';
 })
 export class CardHolderComponent implements OnInit{
   
-  
-  selectedCharacters$: Observable<String[]>;
-
-  constructor(private dataService: DataService, private fireStoreService: FirestoreService){
-    // this._currentCharacters = dataService;
-    this.selectedCharacters$ = this.dataService.selectedCharacters$;
-    // console.log(this.fireStoreService.snapshot)
+  constructor(private dataService: DataService, private fireStoreService: FirestoreService){}
+  private _behaviorCharacter: BehaviorSubject<characterType[]> = new BehaviorSubject<characterType[]>([]);
+  get behaviorCharacter$(): Observable<characterType[]>{
+    return this._behaviorCharacter.asObservable()
   }
 
-  ngOnInit(){
-    console.log(this.fireStoreService.snapshot);
+  ngOnInit(): void {
+    this.fireStoreService.characterData$.subscribe(data => {
+      next: this._behaviorCharacter.next(data);
+    })
+    
   }
 }

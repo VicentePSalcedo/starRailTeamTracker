@@ -30,8 +30,8 @@ export class DataService implements OnInit{
   }
 
   ngOnInit(): void {
+
       this.selectedCharacters$.subscribe(data =>{
-        next: this.AddCharacterDataToArray(data)
       })
   }
 

@@ -1,5 +1,5 @@
 <div class="card-holder">
-    <div *ngFor="let character of selectedCharacters$ | async">
+    <div *ngFor="let character of behaviorCharacter$ | async">
         <app-card [character] = "character"></app-card>
     </div>
 </div>
