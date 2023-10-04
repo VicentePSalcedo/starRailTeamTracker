@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Observable, BehaviorSubject, filter, map } from 'rxjs';
+import { Observable, BehaviorSubject, filter, map, take } from 'rxjs';
 import { characterType } from './Models/character.model';
 import { FirestoreService } from './firestore.service';
 
@@ -11,26 +11,34 @@ import { FirestoreService } from './firestore.service';
 export class DataService {
 
   selectedCharactersData$!: Observable<characterType[]>;
+  MAXTEAMSIZE: number = 4;
 
-  constructor(private fireStoreService: FirestoreService){
+  constructor(private fireStoreService: FirestoreService) {
 
-    // this.selectedCharactersData$ = this.fireStoreService.characterData$
-    //   .pipe(map(arr => (arr
-    //   .filter(character => this._selectedCharacters.value
-    //   .includes(character.Name))
-    // )))
+    this._selectedCharacters.subscribe(data => {
+      console.log(data)
+      this.selectedCharactersData$ = this.fireStoreService.characterData$
+        .pipe(map(arr => (data.map(name => (arr.find(character => character.Name === name)))).filter((character): character is characterType => !!character)))
+    })
 
-    this.selectedCharactersData$ = this.fireStoreService.characterData$
-    .pipe(map(arr => (this._selectedCharacters.value.map(name => (arr.find(character => character.Name === name)))).filter(character => !!character)))
 
   }
-  private _selectedCharacters: BehaviorSubject<String[]> = new BehaviorSubject<String[]>(["Kafka", "Silver Wolf", "Dan Heng"])
-  get selectedCharacters$(): Observable<String[]>{
+  private _selectedCharacters: BehaviorSubject<String[]> = new BehaviorSubject<String[]>([])
+  get selectedCharacters$(): Observable<String[]> {
     return this._selectedCharacters.asObservable();
   }
 
-  AddCharacter(characterName: String): void{
-    this._selectedCharacters.next([...this._selectedCharacters.value, characterName])
+  AddCharacter(characterName: String): void {
+    this.selectedCharactersData$.pipe(
+      take(1)
+    ).subscribe(characters => {
+      if(characters.length < this.MAXTEAMSIZE){
+        console.log(characters)
+        this._selectedCharacters.next([...this._selectedCharacters.value, characterName])
+      }else{
+        console.log("Ran out of team space.")
+      }
+    })
   }
 
 }

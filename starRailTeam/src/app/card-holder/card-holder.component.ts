@@ -22,13 +22,15 @@ export class CardHolderComponent implements OnInit{
   
   ngOnInit(): void {
     this.selectedCharacterList$ = this.dataService.selectedCharactersData$;
+    this.selectedCharacterList$.subscribe(data => {
+      console.log(data)
+    })
     this.fireStoreService.characterData$.subscribe(data => {
       next: this._behaviorCharacter.next(data);
     })
-    this.dataService.AddCharacter("Kafka")
-    this.dataService.AddCharacter("Silver Wolf")
-    this.dataService.AddCharacter("Dan Heng")
-    this.dataService.AddCharacter("Arlan")
     
+  }
+  testClick(){
+    this.dataService.AddCharacter("Silver Wolf");
   }
 }
