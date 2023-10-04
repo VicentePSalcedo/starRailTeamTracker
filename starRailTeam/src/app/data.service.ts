@@ -23,7 +23,7 @@ export class DataService {
 
 
   }
-  private _selectedCharacters: BehaviorSubject<String[]> = new BehaviorSubject<String[]>([])
+  private _selectedCharacters: BehaviorSubject<String[]> = new BehaviorSubject<String[]>(["Kaska", "Silver Wolf"])
   get selectedCharacters$(): Observable<String[]> {
     return this._selectedCharacters.asObservable();
   }

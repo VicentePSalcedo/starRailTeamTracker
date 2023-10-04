@@ -26,7 +26,7 @@ export class CardHolderComponent implements OnInit{
       console.log(data)
     })
     this.fireStoreService.characterData$.subscribe(data => {
-      next: this._behaviorCharacter.next(data);
+      this._behaviorCharacter.next(data);
     })
     
   }
