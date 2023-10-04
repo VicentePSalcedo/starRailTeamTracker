@@ -28,7 +28,7 @@ export class DataService {
     return this._selectedCharacters.asObservable();
   }
 
-  AddCharacter(characterName: String): void {
+  AddCharacter(characterName: string): void {
     this.selectedCharactersData$.pipe(
       take(1)
     ).subscribe(characters => {
