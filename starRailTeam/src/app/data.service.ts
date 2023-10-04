@@ -23,12 +23,12 @@ export class DataService {
 
 
   }
-  private _selectedCharacters: BehaviorSubject<String[]> = new BehaviorSubject<String[]>([])
-  get selectedCharacters$(): Observable<String[]> {
+  private _selectedCharacters: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([])
+  get selectedCharacters$(): Observable<string[]> {
     return this._selectedCharacters.asObservable();
   }
 
-  AddCharacter(characterName: String): void {
+  AddCharacter(characterName: string): void {
     this.selectedCharactersData$.pipe(
       take(1)
     ).subscribe(characters => {

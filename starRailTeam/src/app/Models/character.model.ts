@@ -1,20 +1,20 @@
 
 export interface characterType{
-    Name: String,
+    Name: string,
     Artifacts: artifacts
   
   }
   
   interface artifacts{
-    Body: String[],
-    BodyMainStat: String[],
-    Feet: String[],
-    FeetMainStat: String[],
-    Gloves: String[],
-    Head: String[],
-    Lightcone: String[],
-    Rope: String[],
-    RopeMainStat: String[],
-    Sphere: String[],
-    SphereMainStat: String[]
+    Body: string[],
+    BodyMainStat: string[],
+    Feet: string[],
+    FeetMainStat: string[],
+    Gloves: string[],
+    Head: string[],
+    Lightcone: string[],
+    Rope: string[],
+    RopeMainStat: string[],
+    Sphere: string[],
+    SphereMainStat: string[]
   }
