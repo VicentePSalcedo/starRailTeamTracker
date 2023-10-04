@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, filter, map } from 'rxjs';
 import { characterType } from './Models/character.model';
 import { FirestoreService } from './firestore.service';
 
@@ -8,10 +8,23 @@ import { FirestoreService } from './firestore.service';
   providedIn: 'root'
 })
 //TODO Make two different services for characterData and selectedData
-export class DataService implements OnInit{
+export class DataService {
 
-  constructor(private fireStoreService: FirestoreService){}
-  private _selectedCharacters: BehaviorSubject<String[]> = new BehaviorSubject<String[]>(["Kafka", "Silver Wolf"])
+  selectedCharactersData$!: Observable<characterType[]>;
+
+  constructor(private fireStoreService: FirestoreService){
+
+    // this.selectedCharactersData$ = this.fireStoreService.characterData$
+    //   .pipe(map(arr => (arr
+    //   .filter(character => this._selectedCharacters.value
+    //   .includes(character.Name))
+    // )))
+
+    this.selectedCharactersData$ = this.fireStoreService.characterData$
+    .pipe(map(arr => (this._selectedCharacters.value.map(name => (arr.find(character => character.Name === name)))).filter(character => !!character)))
+
+  }
+  private _selectedCharacters: BehaviorSubject<String[]> = new BehaviorSubject<String[]>(["Kafka", "Silver Wolf", "Dan Heng"])
   get selectedCharacters$(): Observable<String[]>{
     return this._selectedCharacters.asObservable();
   }
@@ -19,22 +32,5 @@ export class DataService implements OnInit{
   AddCharacter(characterName: String): void{
     this._selectedCharacters.next([...this._selectedCharacters.value, characterName])
   }
-
-  private _selectedCharactersData: BehaviorSubject<characterType[]> = new BehaviorSubject<characterType[]>([]);
-  get selectedCharactersData$(): Observable<characterType[]>{
-    return this._selectedCharactersData.asObservable();
-  }
-
-  AddCharacterDataToArray(characterArray: String[]){
-    // console.log(this.fireStoreService.snapshot);
-  }
-
-  ngOnInit(): void {
-
-      this.selectedCharacters$.subscribe(data =>{
-      })
-  }
-
-
 
 }

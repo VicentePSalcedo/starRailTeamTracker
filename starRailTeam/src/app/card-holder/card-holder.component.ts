@@ -11,17 +11,24 @@ import { characterType } from '../Models/character.model';
   styleUrls: ['./card-holder.component.scss']
 })
 export class CardHolderComponent implements OnInit{
+  selectedCharacterList$!: Observable<characterType[]>;
   
-  constructor(private dataService: DataService, private fireStoreService: FirestoreService){}
+  constructor(private dataService: DataService, private fireStoreService: FirestoreService){
+  }
   private _behaviorCharacter: BehaviorSubject<characterType[]> = new BehaviorSubject<characterType[]>([]);
   get behaviorCharacter$(): Observable<characterType[]>{
     return this._behaviorCharacter.asObservable()
   }
-
+  
   ngOnInit(): void {
+    this.selectedCharacterList$ = this.dataService.selectedCharactersData$;
     this.fireStoreService.characterData$.subscribe(data => {
       next: this._behaviorCharacter.next(data);
     })
+    this.dataService.AddCharacter("Kafka")
+    this.dataService.AddCharacter("Silver Wolf")
+    this.dataService.AddCharacter("Dan Heng")
+    this.dataService.AddCharacter("Arlan")
     
   }
 }
