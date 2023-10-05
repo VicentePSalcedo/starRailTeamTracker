@@ -23,22 +23,19 @@ export class DataService {
 
 
   }
-  private _selectedCharacters: BehaviorSubject<String[]> = new BehaviorSubject<String[]>(["Kaska", "Silver Wolf"])
-  get selectedCharacters$(): Observable<String[]> {
+  //                                                                        WHY IS THIS PRINTING INIT BUT NOT AFTER UPDATES
+  private _selectedCharacters: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(["Kafka", "Silver Wolf"])
+  get selectedCharacters$(): Observable<string[]> {
     return this._selectedCharacters.asObservable();
   }
 
   AddCharacter(characterName: string): void {
-    this.selectedCharactersData$.pipe(
-      take(1)
-    ).subscribe(characters => {
-      if(characters.length < this.MAXTEAMSIZE){
-        console.log(characters)
-        this._selectedCharacters.next([...this._selectedCharacters.value, characterName])
-      }else{
-        console.log("Ran out of team space.")
-      }
-    })
-  }
+    const currentCharacters = this._selectedCharacters.value;
+    if (currentCharacters.length < this.MAXTEAMSIZE) {
+        this._selectedCharacters.next([...currentCharacters, characterName]);
+    } else {
+        console.log("Ran out of team space.");
+    }
+}
 
 }
