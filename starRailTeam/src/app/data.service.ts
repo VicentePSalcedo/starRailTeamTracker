@@ -1,6 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { characterType } from './Models/character.model';
 import { FirestoreService } from './firestore.service';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 
 @Injectable({
@@ -12,8 +13,10 @@ export class DataService {
   selectedCharactersData$!: characterType[];
   MAXTEAMSIZE: number = 4;
   selectedCharacters: string[] = ["Kafka", "Silver Wolf"]
-  displayedCharacters: characterType[] = [];
-  private _allCharacters: characterType[] = []
+  private _displayedCharacters: BehaviorSubject<characterType[]> = new BehaviorSubject<characterType[]>([]);
+  displayedCharacters$ = this._displayedCharacters.asObservable();
+
+  private _allCharacters: characterType[] = [];
 
   constructor(private fireStoreService: FirestoreService) {
     this.fireStoreService.characterData$.subscribe(data => {
@@ -23,15 +26,15 @@ export class DataService {
   }
 
   AddCharacter(characterName: string): void {
+    if(this.selectedCharacters.length >= this.MAXTEAMSIZE) return
     this.selectedCharacters.push(characterName);
+    this.filterCharacterList();
   }
 
   filterCharacterList() {
-    this.displayedCharacters = this._allCharacters.filter(character => (
+    this._displayedCharacters.next(this._allCharacters.filter(character => (
       this.selectedCharacters.includes(character.Name)
-      ));
-      console.log(this.displayedCharacters)
-      console.log(this._allCharacters)
+      )));
 
   }
 

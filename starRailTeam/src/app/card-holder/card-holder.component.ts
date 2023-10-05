@@ -24,6 +24,8 @@ export class CardHolderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.displayedCharacters = this.dataService.displayedCharacters;
+    this.dataService.displayedCharacters$.subscribe(data => {
+      this.displayedCharacters = data;
+    });
     }
 }
