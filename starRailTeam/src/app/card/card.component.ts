@@ -10,6 +10,5 @@ export class CardComponent {
   @Input() character!: characterType;
 
   constructor(){
-    console.log(this.character)
   }
 }
