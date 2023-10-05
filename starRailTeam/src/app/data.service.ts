@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Observable, BehaviorSubject, filter, map, take } from 'rxjs';
 import { characterType } from './Models/character.model';
 import { FirestoreService } from './firestore.service';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 
 @Injectable({
@@ -10,35 +10,32 @@ import { FirestoreService } from './firestore.service';
 //TODO Make two different services for characterData and selectedData
 export class DataService {
 
-  selectedCharactersData$!: Observable<characterType[]>;
+  selectedCharactersData$!: characterType[];
   MAXTEAMSIZE: number = 4;
+  selectedCharacters: string[] = ["Kafka", "Silver Wolf"]
+  private _displayedCharacters: BehaviorSubject<characterType[]> = new BehaviorSubject<characterType[]>([]);
+  displayedCharacters$ = this._displayedCharacters.asObservable();
+
+  private _allCharacters: characterType[] = [];
 
   constructor(private fireStoreService: FirestoreService) {
-
-    this._selectedCharacters.subscribe(data => {
-      console.log(data)
-      this.selectedCharactersData$ = this.fireStoreService.characterData$
-        .pipe(map(arr => (data.map(name => (arr.find(character => character.Name === name)))).filter((character): character is characterType => !!character)))
+    this.fireStoreService.characterData$.subscribe(data => {
+      this._allCharacters = data;
+      this.filterCharacterList()
     })
-
-
-  }
-  private _selectedCharacters: BehaviorSubject<String[]> = new BehaviorSubject<String[]>(["Kaska", "Silver Wolf"])
-  get selectedCharacters$(): Observable<String[]> {
-    return this._selectedCharacters.asObservable();
   }
 
   AddCharacter(characterName: string): void {
-    this.selectedCharactersData$.pipe(
-      take(1)
-    ).subscribe(characters => {
-      if(characters.length < this.MAXTEAMSIZE){
-        console.log(characters)
-        this._selectedCharacters.next([...this._selectedCharacters.value, characterName])
-      }else{
-        console.log("Ran out of team space.")
-      }
-    })
+    if(this.selectedCharacters.length >= this.MAXTEAMSIZE) return
+    this.selectedCharacters.push(characterName);
+    this.filterCharacterList();
+  }
+
+  filterCharacterList() {
+    this._displayedCharacters.next(this._allCharacters.filter(character => (
+      this.selectedCharacters.includes(character.Name)
+      )));
+
   }
 
 }
