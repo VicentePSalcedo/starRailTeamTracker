@@ -32,9 +32,9 @@ export class DataService {
   }
 
   filterCharacterList() {
-    this._displayedCharacters.next(this._allCharacters.filter(character => (
-      this.selectedCharacters.includes(character.Name)
-      )));
+    this._displayedCharacters.next(this.selectedCharacters
+      .map(selectedCharacter =>(this._allCharacters
+      .find(character => selectedCharacter == character.Name))).filter(Boolean) as characterType[]);
 
   }
 

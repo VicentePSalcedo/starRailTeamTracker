@@ -1,20 +1,19 @@
 
 export interface characterType{
     Name: string,
-    Artifacts: artifacts
-  
+    Relics: relics,
+    Ornament: ornament,
+    LightCone: string
   }
-  
-  interface artifacts{
+
+  interface relics {
+    Set: string,
     Body: string[],
-    BodyMainStat: string[],
     Feet: string[],
-    FeetMainStat: string[],
-    Gloves: string[],
-    Head: string[],
-    Lightcone: string[],
-    Rope: string[],
-    RopeMainStat: string[],
+  }
+
+  interface ornament {
+    Set: string,
     Sphere: string[],
-    SphereMainStat: string[]
+    Rope: string[]
   }

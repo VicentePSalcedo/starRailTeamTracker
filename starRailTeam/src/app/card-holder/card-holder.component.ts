@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { DataService } from '../data.service';
 import { FirestoreService } from '../firestore.service';
 import { characterType } from '../Models/character.model';
-import { take } from 'rxjs';
 
 
 @Component({
@@ -15,12 +14,12 @@ export class CardHolderComponent implements OnInit {
   displayedCharacters: characterType[] = [];
 
   constructor(private dataService: DataService, private fireStoreService: FirestoreService) {
-
+    
   }
 
   testClick() {
     this.dataService.AddCharacter("Arlan");
-    console.log(this.dataService.selectedCharacters);
+    console.log(this.displayedCharacters);
   }
 
   ngOnInit(): void {
