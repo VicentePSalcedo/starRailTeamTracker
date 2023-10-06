@@ -7,13 +7,13 @@ export interface characterType{
   }
 
   interface relics {
-    Set: string,
-    Body: string[],
-    Feet: string[],
+    Set: string[],
+    BodyMainStat: string[],
+    FeetMainStat: string[],
   }
 
   interface ornament {
     Set: string,
-    Sphere: string[],
-    Rope: string[]
+    SphereMainStat: string[],
+    RopeMainStat: string[]
   }
