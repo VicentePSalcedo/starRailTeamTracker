@@ -1,0 +1,39 @@
+.card {
+    height: 100%;
+    width: 315px;
+    background-color: var(--fg);
+    border-radius: 36px;
+
+    text-align: center;
+
+    filter: drop-shadow(0px 0px 6px rgba(0, 0, 0, 0.4));
+}
+
+.Card-Header{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.characterImage{
+    height: 100px;
+    position: absolute;
+    transform: translate(-50px, -10px);
+}
+
+.characterImageDiv{
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+    height: 80px;
+    width: 80px;
+    background-color: black;
+}
+
+.characterNameText{
+    position: relative;
+    display: inline;
+}
