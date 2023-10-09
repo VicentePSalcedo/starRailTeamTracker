@@ -10,7 +10,6 @@ import { characterType } from '../Models/character.model';
   styleUrls: ['./card-holder.component.scss'],
 })
 export class CardHolderComponent implements OnInit {
-  allCharacters!: characterType[];
   displayedCharacters: characterType[] = [];
 
   constructor(private dataService: DataService, private fireStoreService: FirestoreService) {
@@ -26,5 +25,5 @@ export class CardHolderComponent implements OnInit {
     this.dataService.displayedCharacters$.subscribe(data => {
       this.displayedCharacters = data;
     });
-    }
+  }
 }

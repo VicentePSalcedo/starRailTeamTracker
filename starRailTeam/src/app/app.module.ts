@@ -9,6 +9,7 @@ import { environment } from '../environments/environment';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { SectionComponent } from './section/section.component';
 import { TodoComponent } from './todo/todo.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { TodoComponent } from './todo/todo.component';
     CardHolderComponent,
     CardComponent,
     SectionComponent,
-    TodoComponent
+    TodoComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
