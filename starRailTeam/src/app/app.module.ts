@@ -7,12 +7,16 @@ import { CardComponent } from './card/card.component';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { SectionComponent } from './section/section.component';
+import { TodoComponent } from './todo/todo.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CardHolderComponent,
-    CardComponent
+    CardComponent,
+    SectionComponent,
+    TodoComponent
   ],
   imports: [
     BrowserModule,

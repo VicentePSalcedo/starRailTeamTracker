@@ -1,0 +1,8 @@
+<div class="section" *ngIf="todoData != undefined">
+    <h2 class="title">{{name}}</h2>
+    <div class="allTodos">
+        <ng-container *ngFor="let key of objectKeys(todoData)">
+            <app-todo [todoKey]="key" [todoData]=todoData></app-todo>
+        </ng-container>
+    </div>
+</div>

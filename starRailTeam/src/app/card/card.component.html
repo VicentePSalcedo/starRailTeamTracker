@@ -7,4 +7,17 @@
             {{character.Name}}
         </h1>
     </div>  
+    <!-- <app-section 
+        name = "LIGHTCONE"
+        [todoData] = 'character.LightCone'
+        ></app-section> -->
+        <app-section 
+        name = "RELICS"
+        set = {{character.Relics.Set}}
+        [todoData] = '{"Body": character.Relics.Body, "Feet": character.Relics.Feet}'
+        ></app-section>
+    <app-section 
+        name = "ORNAMENTS"
+        set = {{character.Ornament.Set}}
+        [todoData] = '{"Rope": character.Ornament.Rope, "Sphere": character.Ornament.Sphere}'></app-section>
 </div>
