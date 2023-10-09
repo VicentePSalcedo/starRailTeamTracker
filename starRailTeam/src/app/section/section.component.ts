@@ -13,6 +13,13 @@ export class SectionComponent implements OnInit{
   objectKeys(obj: object): string[]{
     return Object.keys(obj)
   }
+  // objectKeys(obj: string){
+  //   return obj;
+  // }
+
+  typeOfTodo(todo: String | object): string{
+    return typeof todo;
+  }
 
   ngOnInit(): void {
     console.log(this.todoData)
