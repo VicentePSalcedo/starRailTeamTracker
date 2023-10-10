@@ -5,37 +5,38 @@
     position: absolute;
     height: 100%;
     filter: drop-shadow(0px 0px 0.6276150627615062vh rgba(0, 0, 0, 0.4));
-    padding: 10px;
+    padding: 0.7347538574577517vh;
 }
 .sidebarOpen {
     display: flex;
     flex-wrap: wrap;
-    width: 490px;
+    width: 36.00293901542983vh;
     height: 100%;
     position: absolute;
     background-color: var(--fg);
     filter: drop-shadow(0px 0px 0.6276150627615062vh rgba(0, 0, 0, 0.4));
     align-content: flex-start;
-    padding: 10px;
-    gap: 10px;
+    padding: 0.7347538574577517vh;;
+    gap: 0.7347538574577517vh;;
 }
 .sidebarHeader {
     width: fill;
 }
 .characterContainer {
-    height: 86px;
-    width: 86px;
+    height: 6.318883174136664vh;
+    width: 6.318883174136664vh;
 }
 .characterButton {
-    height: 86px;
-    width: 86px;
+    height: 6.318883174136664vh;
+    width: 6.318883174136664vh;
 }
+// TODO make this a componenet pls, thank you
 .characterButton:hover {
     cursor: pointer;
     color: whitesmoke;
 }
 .material-symbols-outlined {
-    font-size: 66px;
+    font-size: 4.849375459221161vh;
     color: var(--accent);
     float: right;
     transition-duration: 0.2s;
