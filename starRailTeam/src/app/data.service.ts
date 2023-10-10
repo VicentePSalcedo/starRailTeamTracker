@@ -9,10 +9,12 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 //TODO Make two different services for characterData and selectedData
 export class DataService {
-
+  // Remeber to use this variable and not displayed character in card-holder 
+  // --- --- ---
   selectedCharactersData$!: characterType[];
+  // --- --- ---
   MAXTEAMSIZE: number = 4;
-  selectedCharacters: string[] = ["Kafka", "Imbibitor Lunae", "Silver Wolf", "Blade"]
+  selectedCharacters: string[] = []
   private _displayedCharacters: BehaviorSubject<characterType[]> = new BehaviorSubject<characterType[]>([]);
   displayedCharacters$ = this._displayedCharacters.asObservable();
 
@@ -21,7 +23,7 @@ export class DataService {
   constructor(private fireStoreService: FirestoreService) {
     this.fireStoreService.characterData$.subscribe(data => {
       this._allCharacters = data;
-      this.filterCharacterList()
+      this.filterCharacterList();
     })
   }
 
@@ -29,17 +31,25 @@ export class DataService {
     return this._allCharacters;
   }
 
-  AddCharacter(characterName: string): void {
-    if(this.selectedCharacters.length >= this.MAXTEAMSIZE) return
+  addCharacter(characterName: string): void {
+    if (this.selectedCharacters.length >= this.MAXTEAMSIZE) return;
     this.selectedCharacters.push(characterName);
     this.filterCharacterList();
+  }
+  removeCharacter(characterName: string): void {
+    if (this.selectedCharacters.length < 0) return;
+    const index = this.selectedCharacters.indexOf(characterName);
+    if (index !== -1) {
+      this.selectedCharacters.splice(index, 1)
+    }
+    this.filterCharacterList();
+    console.log(this.selectedCharacters)
   }
 
   filterCharacterList() {
     this._displayedCharacters.next(this.selectedCharacters
       .map(selectedCharacter =>(this._allCharacters
       .find(character => selectedCharacter == character.Name))).filter(Boolean) as characterType[]);
-
   }
 
 }

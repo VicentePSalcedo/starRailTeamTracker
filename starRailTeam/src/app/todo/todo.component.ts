@@ -10,8 +10,6 @@ export class TodoComponent implements OnInit{
     @Input() todoData!: any;
  
   ngOnInit(): void {
-      console.log(this.todoData)
-      console.log(this.todoKey);
   }
   // ngOnInit(): void {
   //   if (this.isArray(this.todoData)) {

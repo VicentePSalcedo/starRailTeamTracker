@@ -12,14 +12,7 @@ import { characterType } from '../Models/character.model';
 export class CardHolderComponent implements OnInit {
   displayedCharacters: characterType[] = [];
 
-  constructor(private dataService: DataService, private fireStoreService: FirestoreService) {
-    
-  }
-
-  testClick() {
-    this.dataService.AddCharacter("Arlan");
-    console.log(this.displayedCharacters);
-  }
+  constructor(private dataService: DataService) {}
 
   ngOnInit(): void {
     this.dataService.displayedCharacters$.subscribe(data => {

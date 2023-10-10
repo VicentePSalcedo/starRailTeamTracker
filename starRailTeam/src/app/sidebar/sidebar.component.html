@@ -1,13 +1,20 @@
-<div class="sidebar">
-    <div class="sidebarHeader">
-        <!-- <span class="material-symbols-outlined">
+<div *ngIf="sidebarOpen; then thenBlock else elseBlock"></div>
+<ng-template #thenBlock>
+    <div class="sidebarClosed">
+        <span class="material-symbols-outlined" (click)="toggleSidebar()">
             menu
-        </span> -->
-        <span class="material-symbols-outlined">
-            menu_open
         </span>
     </div>
-    <div class="characterContainer" *ngFor="let character of characterList">
-        <img class="characterButton" src="\assets\{{character.Name}}.png" alt="{{character.Name}}.png">
+</ng-template>
+<ng-template #elseBlock>
+    <div class="sidebarOpen">
+        <div class="sidebarHeader">
+            <span class="material-symbols-outlined" (click)="toggleSidebar()">
+                menu_open
+            </span>
+        </div>
+        <div class="characterContainer" *ngFor="let character of characterList">
+            <img class="characterButton" src="\assets\{{character.Name}}.png" alt="{{character.Name}}.png" (click)="toggleCharacter(character.Name)">
+        </div>
     </div>
-</div>
+</ng-template>
