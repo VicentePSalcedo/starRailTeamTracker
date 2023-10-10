@@ -1,8 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-interface TodoData {
-  [key: string]: any
-}
+type TodoData = {[key: string]: any} | string;
 
 @Component({
   selector: 'app-todo',
@@ -13,10 +11,18 @@ export class TodoComponent implements OnInit{
   @Input() todoKey!: string;
   @Input() todoData!: TodoData;
 
-  stat!: string[];
+  stat!: string[] | string;
+
+  isArray(stat: any): stat is any[]{
+    return Array.isArray(stat);
+  }
 
   ngOnInit(): void {
-      this.stat = this.todoData[this.todoKey]
+      if(typeof this.todoData === 'string'){
+        this.stat = this.todoData;
+      }else{
+        this.stat = this.todoData[this.todoKey]
+      }
       console.log(this.stat)
   }
 
