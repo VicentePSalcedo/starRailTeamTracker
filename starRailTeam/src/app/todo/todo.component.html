@@ -1,15 +1,11 @@
 <div class="todoLine">
-    <p class="label">{{todoKey}}:</p>
-    <ng-container *ngIf="isArray(stat) else stringTemplate">
-        <div class="todo" *ngFor="let singleStat of stat">
-            <input type="checkbox" value="todo">
-            <label for="todo">{{singleStat}}</label>
-        </div>
+    <ng-container *ngIf="todoKey">
+        <p class="label">{{todoKey}}:</p>
     </ng-container>
-    <ng-template #stringTemplate>
+    <ng-container  *ngFor="let stat of todoData">
         <div class="todo">
-            <input type="checkbox" value="stat">
-            <label for="stat">{{stat}}</label>
-        </div>
-    </ng-template>
+            <input type="checkbox" value="todo">
+            <label for="todo">{{stat}}</label>
+            </div>
+    </ng-container>
 </div>

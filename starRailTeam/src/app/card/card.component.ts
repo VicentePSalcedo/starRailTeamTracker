@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { characterType } from '../Models/character.model';
 
 @Component({
@@ -6,8 +6,9 @@ import { characterType } from '../Models/character.model';
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss']
 })
-export class CardComponent {
+export class CardComponent{
   @Input() character!: characterType;
+
 
   constructor(){
   }

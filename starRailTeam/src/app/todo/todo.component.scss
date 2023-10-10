@@ -1,10 +1,20 @@
 input[type=checkbox]{
+    position: relative;
     appearance: none;
     background-color: white;
     height: 1em;
     width: 1em;
     border-radius: 25%;
     
+}
+input[type=checkbox]:checked::before{
+    content: '\2714';
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.9em;
+    position: absolute;
+    color: var(--text);
 }
 input[type=checkbox]:checked{
     background-color: var(--accent);
