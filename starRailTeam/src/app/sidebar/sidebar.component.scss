@@ -11,14 +11,18 @@
     gap: 10px;
 }
 .sidebarHeader {
-    width: 490px;
+    width: fill;
+}
+.characterContainer {
     height: 86px;
+    width: 86px;
 }
 .characterButton {
     height: 86px;
     width: 86px;
 }
-.characterContainer {
-    height: 86px;
-    width: 86px;
+// default stylings for the sidebar menu buttons
+.material-symbols-outlined {
+    font-size: 66px;
+    color: var(--accent);
 }

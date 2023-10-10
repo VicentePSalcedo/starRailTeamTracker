@@ -1,5 +1,12 @@
 <div class="sidebar">
-    <div class="sidebarHeader"></div>
+    <div class="sidebarHeader">
+        <!-- <span class="material-symbols-outlined">
+            menu
+        </span> -->
+        <span class="material-symbols-outlined">
+            menu_open
+        </span>
+    </div>
     <div class="characterContainer" *ngFor="let character of characterList">
         <img class="characterButton" src="\assets\{{character.Name}}.png" alt="{{character.Name}}.png">
     </div>
