@@ -13,11 +13,18 @@
     font-size: 2.510460251046025vh;
 }
 
-.allTodos{
+.allTodosContainer{
     display: flex;
-    justify-content: center;
     flex-direction: column;
     align-items: center;
+    // border: green 1px solid;
+}
+
+.allTodos{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    // border: 4px solid blue;
 }
 
 .set{
