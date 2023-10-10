@@ -10,7 +10,7 @@ import { DataService } from '../data.service';
 })
 export class SidebarComponent {
   characterList!: characterType[];
-  sidebarOpen: boolean = false;
+  sidebarOpen: boolean = true;
   constructor(private firestoreService: FirestoreService, private dataService: DataService) { }
   toggleSidebar() {
     this.sidebarOpen = this.sidebarOpen ? false : true;
@@ -26,6 +26,9 @@ export class SidebarComponent {
     this.firestoreService.characterData$.subscribe(data => {
       this.characterList = data;
     });
+    if (this.dataService.selectedCharacters.length > 0){
+      this.sidebarOpen = false;
+    }
   }
 }
 
