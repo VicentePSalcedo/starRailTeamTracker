@@ -14,7 +14,7 @@ export class DataService {
   selectedCharactersData$!: characterType[];
   // --- --- ---
   MAXTEAMSIZE: number = 4;
-  selectedCharacters: string[] = []
+  selectedCharacters: string[] = ["Kafka", "Dan Heng", "Silver Wolf", "Blade"]
   private _displayedCharacters: BehaviorSubject<characterType[]> = new BehaviorSubject<characterType[]>([]);
   displayedCharacters$ = this._displayedCharacters.asObservable();
 

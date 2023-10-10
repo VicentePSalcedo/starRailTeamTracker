@@ -23,6 +23,7 @@ input[type=checkbox]:checked{
 .todoLine{
     display: flex;
     gap: 1.0460251046025104vh;
+    // border: red 1px solid;
 }
 
 .todo{
@@ -40,4 +41,11 @@ input[type=checkbox]:hover{
 
 label, p{
     font-size: 1.5690376569037656vh;
+}
+
+.todoContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    // border: 1px pink solid;
 }
