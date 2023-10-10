@@ -4,7 +4,10 @@
         <p class="set">{{set}}</p>
     </ng-container>
     <div class="allTodos">
-            <ng-container *ngFor="let key of objectKeys(todoData)">
-                <app-todo [todoKey]="key" [todoData]=todoData></app-todo>
+            <ng-container *ngIf="isArray(); else objectsection">
+                <app-todo *ngFor="let key of todoData" [todoData]='key'></app-todo>
             </ng-container>
+            <ng-template #objectsection>
+                <app-todo *ngFor="let key of todoData | keyvalue" [todoKey]='key.key' [todoData]='key.value'></app-todo>
+            </ng-template>
 </div>

@@ -1,29 +1,31 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-type TodoData = {[key: string]: any} | string;
-
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.scss']
 })
 export class TodoComponent implements OnInit{
-  @Input() todoKey!: string;
-  @Input() todoData!: TodoData;
-
-  stat!: string[] | string;
-
-  isArray(stat: any): stat is any[]{
-    return Array.isArray(stat);
-  }
-
+    @Input() todoKey!: any;
+    @Input() todoData!: any;
+ 
   ngOnInit(): void {
-      if(typeof this.todoData === 'string'){
-        this.stat = this.todoData;
-      }else{
-        this.stat = this.todoData[this.todoKey]
-      }
-      console.log(this.stat)
+      console.log(this.todoData)
+      console.log(this.todoKey);
   }
+  // ngOnInit(): void {
+  //   if (this.isArray(this.todoData)) {
+  //     this.stat = this.todoData[0];
+  //   } else if (this.isObject(this.todoData)) {
+  //     this.stat = this.todoData[this.todoKey];
+  //   }
+  // }
 
+  // isArray(data: TodoData): data is string[] {
+  //   return Array.isArray(data);
+  // }
+
+  // isObject(data: TodoData): data is {[key: string]: any} {
+  //   return typeof data === 'object' && data !== null && !Array.isArray(data);
+  // }
 }

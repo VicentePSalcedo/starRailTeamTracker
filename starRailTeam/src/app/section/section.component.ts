@@ -7,28 +7,17 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class SectionComponent implements OnInit{
   @Input({required: true}) name!: string;
+  @Input({required: true}) todoData!: any
   @Input() set!: string;
-  @Input({required: true}) todoData!: object | string
 
-  objectKeys(obj: object | string): string[]{
-    if(typeof obj === 'object' && obj !== null){
-      return Object.keys(obj)
-    } else
-    return []
+
+  isArray(): boolean{
+    return Array.isArray(this.todoData)
   }
 
-  isString(val: object | string) : boolean{
-    if(typeof val === 'string') return true
-    return false;
-  }
-
-
-  typeOfTodo(todo: String | object): string{
-    return typeof todo;
-  }
 
   ngOnInit(): void {
-    console.log(this.todoData)
+    // console.log(this.todoData)
   }
 
 }
