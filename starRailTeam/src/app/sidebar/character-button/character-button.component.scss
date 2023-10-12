@@ -1,0 +1,13 @@
+.characterButton {
+  z-index: 2;
+  height: 6.318883174136664vh;
+  width: 6.318883174136664vh;
+  filter: drop-shadow(1px 1px 0.6276150627615062vh rgba(0, 0, 0, 0.4));
+}
+.characterBoarder {
+  z-index: 3;
+  border: 10px solid black;
+}
+.characterButton:hover {
+  cursor: pointer;
+}

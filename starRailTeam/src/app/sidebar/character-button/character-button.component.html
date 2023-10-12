@@ -1,0 +1,16 @@
+<div *ngIf="characterIsSelected(name); else elseBlock">
+  <div class="characterBoarder">
+    <img
+      class="characterButton"
+      src="\assets\{{ name }}.png"
+      alt="{{ name }}.png"
+    />
+  </div>
+</div>
+<ng-template #elseBlock>
+  <img
+    class="characterButton"
+    src="\assets\{{ name }}.png"
+    alt="{{ name }}.png"
+  />
+</ng-template>

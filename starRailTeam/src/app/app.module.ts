@@ -10,6 +10,10 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { SectionComponent } from './section/section.component';
 import { TodoComponent } from './todo/todo.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { CharacterButtonComponent } from './sidebar/character-button/character-button.component';
+import { TeamselectComponent } from './teamselect/teamselect.component';
+import { LoginButtonComponent } from './login-button/login-button.component';
+import { RemoveAddsButtonComponent } from './remove-adds-button/remove-adds-button.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +22,11 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     CardComponent,
     SectionComponent,
     TodoComponent,
-    SidebarComponent
+    SidebarComponent,
+    CharacterButtonComponent,
+    TeamselectComponent,
+    LoginButtonComponent,
+    RemoveAddsButtonComponent
   ],
   imports: [
     BrowserModule,

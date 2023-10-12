@@ -6,29 +6,34 @@ import { DataService } from '../data.service';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent {
   characterList!: characterType[];
   sidebarOpen: boolean = true;
-  constructor(private firestoreService: FirestoreService, private dataService: DataService) { }
+  constructor(
+    private firestoreService: FirestoreService,
+    private dataService: DataService,
+  ) {}
   toggleSidebar() {
     this.sidebarOpen = this.sidebarOpen ? false : true;
   }
   toggleCharacter(name: string) {
-    if (!this.dataService.selectedCharacters.includes(name) && (this.dataService.selectedCharacters.length < this.dataService.MAXTEAMSIZE)) {
+    if (
+      !this.dataService.selectedCharacters.includes(name) &&
+      this.dataService.selectedCharacters.length < this.dataService.MAXTEAMSIZE
+    ) {
       this.dataService.addCharacter(name);
     } else {
       this.dataService.removeCharacter(name);
     }
   }
   ngOnInit(): void {
-    this.firestoreService.characterData$.subscribe(data => {
+    this.firestoreService.characterData$.subscribe((data) => {
       this.characterList = data;
     });
-    if (this.dataService.selectedCharacters.length > 0){
+    if (this.dataService.selectedCharacters.length > 0) {
       this.sidebarOpen = false;
     }
   }
 }
-

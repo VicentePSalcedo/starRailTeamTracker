@@ -3,20 +3,20 @@ import { characterType } from './Models/character.model';
 import { Firestore, collectionData, collection } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FirestoreService {
-  private _characterData: BehaviorSubject<characterType[]> = new BehaviorSubject<characterType[]>([]);
-  characterData$: Observable<characterType[]> = this._characterData.asObservable();
+  private _characterData: BehaviorSubject<characterType[]> =
+    new BehaviorSubject<characterType[]>([]);
+  characterData$: Observable<characterType[]> =
+    this._characterData.asObservable();
   private _fireStore: Firestore = inject(Firestore);
 
-  constructor(){
+  constructor() {
     const collectionRef = collection(this._fireStore, 'Characters');
-    collectionData(collectionRef).subscribe(data => {
-      this._characterData.next(data as characterType[])
+    collectionData(collectionRef).subscribe((data) => {
+      this._characterData.next(data as characterType[]);
     });
   }
 }
