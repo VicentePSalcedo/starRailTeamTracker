@@ -5,7 +5,7 @@ input[type=checkbox]{
     height: 1em;
     width: 1em;
     border-radius: 25%;
-    margin-right: 7px;
+    margin-right: 0.7322175732217573vh;
     
 }
 input[type=checkbox]:checked::before{
@@ -28,8 +28,8 @@ input[type=checkbox]:checked{
     align-items: center;
     text-align: center;
     align-self: center;
-    border-radius: 10px;
-    margin-bottom: 10px;
+    border-radius: 1.0460251046025104vh;
+    margin-bottom: 1.0460251046025104vh;
     // border: red 1px solid;
 }
 
@@ -43,7 +43,7 @@ input[type=checkbox]:hover{
 
 .label{
     font-weight: lighter;
-    font-size: 20px;
+    font-size: 2.092050209205021vh;
     align-self: center;
     
 }
@@ -53,7 +53,7 @@ label, p{
     font-size: 1.5690376569037656vh;
 }
 label{
-    margin-right: 10px;
+    margin-right: 1.0460251046025104vh;
 }
 
 .todoContainer{
@@ -63,7 +63,7 @@ label{
 }
 
 .hasLabel{
-    border: rgba(255, 255, 255, 0.10) 1.5px solid;
+    border: rgba(255, 255, 255, 0.10) 0.15690376569037656vh solid;
 }
 .noLabel{
     border: none;
