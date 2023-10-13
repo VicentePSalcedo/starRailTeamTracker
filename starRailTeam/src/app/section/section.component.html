@@ -1,8 +1,10 @@
 <div class="section" *ngIf="todoData != undefined">
-    <h2 class="title">{{name}}</h2>
-    <ng-container *ngIf="set">
-        <p class="set">{{set}}</p>
-    </ng-container>
+    <div class="sectionHeader">
+        <h2 class="title">{{name}}</h2>
+        <ng-container *ngIf="set">
+            <p class="set">{{set}}</p>
+        </ng-container>
+    </div>
     <div class="allTodosContainer">
         <div class="allTodos">
             <ng-container *ngIf="isArray(); else objectsection">
