@@ -5,8 +5,8 @@
     <div class="todoContainer">
         <ng-container *ngFor="let stat of todoData">
             <div class="todo">
-                <input type="checkbox" id={{stat}}>
-                <label for={{stat}}>{{stat}}</label>
+                <input type="checkbox" id={{stat}}{{checkboxID}}>
+                <label for={{stat}}{{checkboxID}}>{{stat}}</label>
                 </div>
         </ng-container>
     </div>

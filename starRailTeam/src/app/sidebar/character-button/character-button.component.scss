@@ -6,8 +6,27 @@
 }
 .characterBoarder {
   z-index: 3;
-  border: 10px solid black;
+  outline: 6px solid white;
+  outline-offset: -6px;
+  border-radius: 10px;
 }
 .characterButton:hover {
   cursor: pointer;
 }
+
+.characterContainer{
+  position: relative;
+}
+.borderNumber{
+  position: absolute;
+  color: var(--accent);
+  top: -8px;
+  left: -8px;
+  background-color: var(--text);
+  height: 20px;
+  width: 20px;
+  z-index: 3;
+  text-align: center;
+  border-radius: 100%;
+}
+

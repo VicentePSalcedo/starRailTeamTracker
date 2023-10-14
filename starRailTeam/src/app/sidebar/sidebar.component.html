@@ -10,6 +10,7 @@
       <app-character-button
         (click)="toggleCharacter(character.Name)"
         [name]="character.Name"
+        [index]="getCharacterInArray(character.Name)"
       ></app-character-button>
     </div>
   </div>

@@ -5,8 +5,17 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './todo.component.html',
   styleUrls: ['./todo.component.scss']
 })
-export class TodoComponent{
+export class TodoComponent implements OnInit{
     @Input() todoKey!: any;
     @Input() todoData!: any;
- 
+
+    checkboxID!: string;
+
+    assignCheckBoxId(): void{
+      this.checkboxID = crypto.randomUUID();
+    }
+
+    ngOnInit(): void {
+        this.assignCheckBoxId();
+    }
 }

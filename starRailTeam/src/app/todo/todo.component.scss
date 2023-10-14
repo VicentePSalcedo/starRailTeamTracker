@@ -54,11 +54,12 @@ label, p{
 }
 label{
     margin-right: 1.0460251046025104vh;
+    cursor: pointer;
 }
 
 .todoContainer{
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     // border: 1px pink solid;
 }
 
@@ -68,5 +69,5 @@ label{
 .noLabel{
     border: none;
     text-align: start;
-    align-items: start;
+    align-items: flex-start;
 }

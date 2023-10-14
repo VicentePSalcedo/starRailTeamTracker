@@ -15,6 +15,11 @@ export class SidebarComponent {
     private firestoreService: FirestoreService,
     private dataService: DataService,
   ) {}
+
+  getCharacterInArray(character: string): number{
+    return this.dataService.selectedCharacters.findIndex(data => data == character) + 1
+  }
+
   toggleSidebar() {
     this.sidebarOpen = this.sidebarOpen ? false : true;
   }

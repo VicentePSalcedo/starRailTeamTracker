@@ -1,7 +1,8 @@
 <div *ngIf="characterIsSelected(name); else elseBlock">
-  <div class="characterBoarder">
-    <img
-      class="characterButton"
+  <div class="characterContainer">
+    <p class="borderNumber">{{index}}</p>
+    <img 
+      class="characterButton characterBoarder"
       src="\assets\{{ name }}.png"
       alt="{{ name }}.png"
     />

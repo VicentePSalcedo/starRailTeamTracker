@@ -8,6 +8,7 @@ import { DataService } from '../../data.service';
 })
 export class CharacterButtonComponent {
   @Input() name!: string;
+  @Input() index!: number;
   characterIsSelected(name: string): boolean {
     if (this.dataService.selectedCharacters.includes(this.name)) {
       return true;
