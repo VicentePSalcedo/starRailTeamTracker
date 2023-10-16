@@ -14,6 +14,8 @@ import { CharacterButtonComponent } from './sidebar/character-button/character-b
 import { TeamselectComponent } from './teamselect/teamselect.component';
 import { LoginButtonComponent } from './login-button/login-button.component';
 import { RemoveAddsButtonComponent } from './remove-adds-button/remove-adds-button.component';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -26,12 +28,15 @@ import { RemoveAddsButtonComponent } from './remove-adds-button/remove-adds-butt
     CharacterButtonComponent,
     TeamselectComponent,
     LoginButtonComponent,
-    RemoveAddsButtonComponent
+    RemoveAddsButtonComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideFirestore(() => getFirestore())
+    provideFirestore(() => getFirestore()),
+    provideAuth(() => getAuth())
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

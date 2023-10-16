@@ -2,13 +2,13 @@
   z-index: 2;
   height: 6.318883174136664vh;
   width: 6.318883174136664vh;
-  filter: drop-shadow(1px 1px 0.6276150627615062vh rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0.10460251046025104vh 0.10460251046025104vh 0.6276150627615062vh rgba(0, 0, 0, 0.4));
 }
 .characterBoarder {
   z-index: 3;
-  outline: 6px solid white;
-  outline-offset: -6px;
-  border-radius: 10px;
+  outline: 0.6276150627615062vh solid white;
+  outline-offset: -0.6276150627615062vh;
+  border-radius: 1.0460251046025104vh;
 }
 .characterButton:hover {
   cursor: pointer;
@@ -20,11 +20,11 @@
 .borderNumber{
   position: absolute;
   color: var(--accent);
-  top: -8px;
-  left: -8px;
+  top: -0.8368200836820083vh;
+  left: -0.8368200836820083vh;
   background-color: var(--text);
-  height: 20px;
-  width: 20px;
+  height: 2.092050209205021vh;
+  width: 2.092050209205021vh;
   z-index: 3;
   text-align: center;
   border-radius: 100%;
