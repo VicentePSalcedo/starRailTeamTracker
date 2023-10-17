@@ -3,17 +3,22 @@ export interface characterType{
     Name: string,
     Relics: relics,
     Ornament: ornament,
-    LightCone: string
+    LightCone: checkData
   }
 
   interface relics {
     Set: string[],
-    Body: string[],
-    Feet: string[],
+    Body: checkData[],
+    Feet: checkData[],
   }
 
   interface ornament {
     Set: string[],
-    Sphere: string[],
-    Rope: string[]
+    Sphere: checkData[],
+    Rope: checkData[]
+  }
+
+  interface checkData{
+    data: string,
+    checked: boolean
   }
