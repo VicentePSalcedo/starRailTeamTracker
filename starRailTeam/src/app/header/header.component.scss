@@ -1,0 +1,39 @@
+.header{
+    position: absolute;
+    display: flex;
+    height: 8.368200836820083vh;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.endButtonsContainer{
+    display: flex;
+}
+
+
+.endButtons{
+    text-align: center;
+    cursor: pointer;
+    margin-right: 2.092050209205021vh;
+    font-size: 2.092050209205021vh;
+    color: var(--accent);
+    font-weight: 800;
+}
+
+.LoginToSave{
+    padding: 1.0460251046025104vh;
+    outline: var(--accent) 0.20920502092050208vh solid;
+    align-self: center;
+    border-radius: 1.0460251046025104vh;
+
+}
+
+.RemoveAds{
+    align-self: center;
+}
+
+.devLogOut{
+    width: 5.2301255230125525vh;
+    height: 5.2301255230125525vh;
+    margin-right: 2.092050209205021vh;
+}

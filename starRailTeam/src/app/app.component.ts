@@ -10,6 +10,7 @@ export class AppComponent {
   title = 'starRailTeam';
   constructor(private fireStoreService: FirestoreService){
   }
+
 }
 
 
