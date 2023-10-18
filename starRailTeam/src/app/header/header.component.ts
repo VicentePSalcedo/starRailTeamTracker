@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
 
   logOut(){
     this.userAuth.logOut();
+
   }
 
   ngOnInit(): void {
