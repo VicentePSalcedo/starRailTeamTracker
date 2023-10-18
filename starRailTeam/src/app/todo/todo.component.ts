@@ -16,6 +16,7 @@ export class TodoComponent implements OnInit{
     }
 
     ngOnInit(): void {
+      // console.log(this.todoData)
         this.assignCheckBoxId();
     }
 }
