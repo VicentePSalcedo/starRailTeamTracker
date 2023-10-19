@@ -22,3 +22,10 @@ export interface characterType{
     data: string,
     checked: boolean
   }
+  
+
+export interface dataType{
+    CharacterName: string,
+    EquipmentType: string,
+    ArtifactName: string
+  }
