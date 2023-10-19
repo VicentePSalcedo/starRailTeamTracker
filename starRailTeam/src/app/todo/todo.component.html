@@ -5,7 +5,7 @@
     <div class="todoContainer">
         <ng-container *ngFor="let stat of todoData">
             <div class="todo">
-                <input type="checkbox" id={{stat.data}}{{checkboxID}} [checked]="stat.checked">
+                <input [ngClass] = "sectionID" [value]="stat.data" type="checkbox" id={{stat.data}}{{checkboxID}} [checked]="stat.checked" (change)="toggleSectionCheckBox($event, stat.data, sectionID)">
                 <label for={{stat.data}}{{checkboxID}}>{{stat.data}}</label>
                 </div>
         </ng-container>

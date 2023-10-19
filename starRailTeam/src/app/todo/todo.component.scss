@@ -21,6 +21,28 @@ input[type=checkbox]:checked{
     background-color: var(--accent);
 }
 
+// TINKER WITH THIS
+// input[type=checkbox]:checked + label::after{
+//     content: "";
+//     position: absolute;
+//     width: 100%;
+//     height: 4px;
+//     left: 0;
+//     top: 50%;
+//     transform: translate(0, -50%);
+//     border-radius: 10px;
+//     background-color: var(--accent);
+//     opacity: 100%;
+// }
+input[type=checkbox]:checked + label{
+    text-decoration: line-through;
+    text-decoration-thickness: 3px;
+    color: var(--accent);
+}
+
+
+
+
 .todoLine{
     display: flex;
     // gap: 1.0460251046025104vh;
@@ -55,6 +77,7 @@ label, p{
 label{
     margin-right: 1.0460251046025104vh;
     cursor: pointer;
+    position: relative;
 }
 
 .todoContainer{
@@ -71,3 +94,4 @@ label{
     text-align: start;
     align-items: flex-start;
 }
+

@@ -9,14 +9,23 @@ export class TodoComponent implements OnInit{
     @Input() todoKey!: any;
     @Input() todoData!: any;
 
-    checkboxID!: string;
+    checkboxID: string = this.returnUUID();
+    sectionID: string = this.returnUUID();
 
-    assignCheckBoxId(): void{
-      this.checkboxID = crypto.randomUUID();
+    returnUUID(): string{
+      return crypto.randomUUID();
+    }
+    toggleSectionCheckBox(event: Event, stat: string, Id: string){
+      const sectionElement = document.getElementsByClassName(Id)
+      if (sectionElement.length <= 1) return;
+      for(const x of sectionElement){
+        if(x instanceof HTMLInputElement && x.value != stat){
+         x.checked = false; 
+        }
+      }
     }
 
     ngOnInit(): void {
-      // console.log(this.todoData)
-        this.assignCheckBoxId();
+      console.log(this.todoData)
     }
 }
