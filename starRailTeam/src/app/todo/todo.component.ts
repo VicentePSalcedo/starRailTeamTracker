@@ -11,7 +11,7 @@ import { dataType } from '../Models/character.model';
 export class TodoComponent implements OnInit{
     @Input() todoKey!: any;
     @Input() todoData!: any;
-    @Input({required: true}) data!: dataType | unknown;
+    @Input({required: true}) data!: any;
 
     checkboxID: string = this.returnUUID();
     sectionID: string = this.returnUUID();
@@ -30,10 +30,12 @@ export class TodoComponent implements OnInit{
         if(x instanceof HTMLInputElement && x.value != stat){
          x.checked = false; 
         }
-      }
+      }const isChecked = (event.target as HTMLInputElement).checked;
+      this.dataService.updateChecked(this.data.CharacterName, this.data.ArtifactName, this.data.EquipmentType);
+      console.log(this.todoKey)
     }
 
     ngOnInit(): void {
-      console.log(this.todoData)
+      // console.log(this.todoData)
     }
 }

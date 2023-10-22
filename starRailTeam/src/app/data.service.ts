@@ -1,11 +1,12 @@
 import { Injectable, OnInit } from '@angular/core';
-import { characterType, dataType } from './Models/character.model';
+import { characterType, checkData, dataType, ornament, relics } from './Models/character.model';
 import { FirestoreService } from './firestore.service';
 import { BehaviorSubject, Observable } from 'rxjs';
-
+type EquipmentKey = 'Body' | 'Feet' | 'Sphere' | 'Rope';
 @Injectable({
   providedIn: 'root',
 })
+
 //TODO Make two different services for characterData and selectedData
 export class DataService {
   // Remeber to use this variable and not displayed character in card-holder
@@ -59,6 +60,19 @@ export class DataService {
         )
         .filter(Boolean) as characterType[],
     );
+  }
+
+  // updateDisplayedChecked(test: dataType){
+  //   const p = Object.values(Object.values(this._displayedCharacters.value.find(data =>(data.Name == test.CharacterName)) as any)).forEach(d => {console.log(d)})
+  //   console.log(this._displayedCharacters.value[0])
+  // }
+  
+  updateChecked(characterName: string, equipmentType: keyof characterType, artifactType: keyof ornament): void {
+    const character = this._displayedCharacters.value.find(data => data.Name == characterName)
+    if(character && artifactType != "Set" && equipmentType == "Ornament") {
+      console.log(character[equipmentType][artifactType])
+      console.log(character.  Ornament.        Sphere)
+    }
   }
 
   importIntoDisplayedCharacter(characters: characterType[]): void{
