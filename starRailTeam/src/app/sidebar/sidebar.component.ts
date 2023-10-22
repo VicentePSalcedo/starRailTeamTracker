@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { characterType } from '../Models/character.model';
 import { FirestoreService } from '../firestore.service';
-import { DataService } from '../data.service';
+import { DataService } from '../DataService';
 
 @Component({
   selector: 'app-sidebar',

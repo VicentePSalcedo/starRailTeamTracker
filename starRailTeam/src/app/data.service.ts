@@ -67,12 +67,22 @@ export class DataService {
   //   console.log(this._displayedCharacters.value[0])
   // }
   
-  updateChecked(characterName: string, equipmentType: keyof characterType, artifactType: keyof ornament): void {
+  updateChecked(characterName: string, equipmentType: keyof characterType, artifactType: keyof ornament | keyof relics): void {
     const character = this._displayedCharacters.value.find(data => data.Name == characterName)
-    if(character && artifactType != "Set" && equipmentType == "Ornament") {
-      console.log(character[equipmentType][artifactType])
-      console.log(character.  Ornament.        Sphere)
-    }
+    // if(character && artifactType != "Set") {
+    //   switch(equipmentType){
+    //     case "Relics":
+    //       console.log(character[equipmentType][artifactType][0]["checked"])
+    //       break;
+    //     case "LightCone":
+    //       console.log(character[equipmentType]["checked"])
+    //       break;
+    //     case "Relics":
+    //       console.log(character[equipmentType][artifactType][0]["checked"])
+
+    //   }
+    // }
+    
   }
 
   importIntoDisplayedCharacter(characters: characterType[]): void{

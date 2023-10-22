@@ -6,19 +6,19 @@ export interface characterType{
     LightCone: checkData
   }
 
-  interface relics {
+  export interface relics {
     Set: string[],
     Body: checkData[],
     Feet: checkData[],
   }
 
-  interface ornament {
+  export interface ornament {
     Set: string[],
     Sphere: checkData[],
     Rope: checkData[]
   }
 
-  interface checkData{
+  export interface checkData{
     data: string,
     checked: boolean
   }

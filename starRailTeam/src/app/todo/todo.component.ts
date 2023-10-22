@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DataService } from '../data.service';
+import { DataService } from '../DataService';
 import { dataType } from '../Models/character.model';
 
 
