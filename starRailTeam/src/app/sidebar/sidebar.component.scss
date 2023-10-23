@@ -4,7 +4,11 @@
   background-color: var(--fg);
   position: absolute;
   height: 100%;
-  filter: drop-shadow(0px 0px 0.6276150627615062vh rgba(0, 0, 0, 0.4));
+  box-shadow:
+  0px 0px 0.17384731670445955vh rgba(0, 0, 0, 0.094),
+  0px 0px 0.6046863189720333vh rgba(0, 0, 0, 0.155),
+  0px 0px 1.08843537414966vh rgba(0, 0, 0, 0.21),
+  0px 0px 1.5117157974300832vh rgba(0, 0, 0, 0.28);
   padding: 0.7347538574577517vh;
 }
 .sidebarOpen {
@@ -15,11 +19,17 @@
   height: 100%;
   position: absolute;
   background-color: var(--fg);
-  filter: drop-shadow(0px 0px 0.6276150627615062vh rgba(0, 0, 0, 0.4));
+  // filter: drop-shadow(0px 0px 0.6276150627615062vh rgba(0, 0, 0, 0.4));
+  box-shadow:
+  0px 0px 0.17384731670445955vh rgba(0, 0, 0, 0.094),
+  0px 0px 0.6046863189720333vh rgba(0, 0, 0, 0.155),
+  0px 0px 1.08843537414966vh rgba(0, 0, 0, 0.21),
+  0px 0px 1.5117157974300832vh rgba(0, 0, 0, 0.28);
   align-content: flex-start;
   padding: 0.7347538574577517vh;
   gap: 0.7347538574577517vh;
 }
+
 .menu-overlay {
   position: fixed;
   width: 100%;
@@ -27,9 +37,11 @@
   background-color: rgba(0, 0, 0, 0.5);
   // pointer-events: none;
 }
+
 .sidebarHeader {
   width: fill;
 }
+
 // TODO make this a componenet pls, thank you
 .material-symbols-outlined {
   font-size: 4.849375459221161vh;
@@ -40,6 +52,7 @@
   // to not have this keyboard navigatable
   user-select: none;
 }
+
 .material-symbols-outlined:hover {
   cursor: pointer;
   color: whitesmoke;
