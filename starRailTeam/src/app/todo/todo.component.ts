@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DataService } from '../DataService';
+import { DataService } from '../data.service';
 import { dataType } from '../Models/character.model';
 
 
@@ -25,14 +25,13 @@ export class TodoComponent implements OnInit{
     }
     toggleSectionCheckBox(event: Event, stat: string, Id: string, index: number){
       const sectionElement = document.getElementsByClassName(Id)
+      this.dataService.updateChecked(this.data.CharacterName, this.data.ArtifactName, this.data.EquipmentType, index);
       if (sectionElement.length <= 1) return;
       for(const x of sectionElement){
         if(x instanceof HTMLInputElement && x.value != stat){
          x.checked = false; 
         }
-      }const isChecked = (event.target as HTMLInputElement).checked;
-      this.dataService.updateChecked(this.data.CharacterName, this.data.ArtifactName, this.data.EquipmentType);
-      console.log(this.todoKey)
+      }
     }
 
     ngOnInit(): void {

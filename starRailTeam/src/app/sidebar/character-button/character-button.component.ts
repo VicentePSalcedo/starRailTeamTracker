@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { DataService } from 'src/app/DataService';
+import { DataService } from '../../data.service';
 
 @Component({
   selector: 'app-character-button',
@@ -10,7 +10,7 @@ export class CharacterButtonComponent {
   @Input() name!: string;
   @Input() index!: number;
   characterIsSelected(name: string): boolean {
-    if (this.dataService.selectedCharacters.includes(this.name)) {
+    if (this.dataService.checkIfCharacterInTeam(this.name)) {
       return true;
     } else {
       return false;
