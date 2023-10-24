@@ -8,16 +8,20 @@
         </h1>
     </div>  
     <app-section 
-        name = "LIGHTCONE"
+        artifactName = "LightCone"
         [todoData] = '[character.LightCone]'
+        [characterName] = 'character.Name'
         ></app-section>
         <app-section 
-        name = "RELICS"
+        artifactName = "Relics"
         set = {{character.Relics.Set}}
         [todoData] = '{"Body": character.Relics.Body, "Feet": character.Relics.Feet}'
+        [characterName] = 'character.Name'
         ></app-section>
     <app-section 
-        name = "ORNAMENTS"
+        artifactName = "Ornament"
         set = {{character.Ornament.Set}}
-        [todoData] = '{"Rope": character.Ornament.Rope, "Sphere": character.Ornament.Sphere}'></app-section>
+        [todoData] = '{"Rope": character.Ornament.Rope, "Sphere": character.Ornament.Sphere}'
+        [characterName] = 'character.Name'>
+    </app-section>
 </div>

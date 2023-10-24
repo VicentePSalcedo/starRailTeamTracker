@@ -6,8 +6,9 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./section.component.scss']
 })
 export class SectionComponent implements OnInit{
-  @Input({required: true}) name!: string;
+  @Input({required: true}) artifactName!: string;
   @Input({required: true}) todoData!: any
+  @Input({required: true}) characterName!: string ;
   @Input() set!: string;
 
 
