@@ -1,23 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { characterType } from '../Models/character.model';
 import { FirestoreService } from '../firestore.service';
 import { DataService } from '../data.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit, OnDestroy{
   characterList!: characterType[];
   sidebarOpen: boolean = true;
+
+  displayedCharacterSub!: Subscription;
+  allCharactersSub!: Subscription;
+  displayedCharacters!: characterType[];
   constructor(
     private firestoreService: FirestoreService,
     private dataService: DataService,
   ) {}
 
   getCharacterInArray(character: string): number{
-    return this.dataService.selectedCharacters.findIndex(data => data == character) + 1
+    return this.displayedCharacters.findIndex(data => data.Name == character) + 1
   }
 
   toggleSidebar() {
@@ -25,8 +30,7 @@ export class SidebarComponent {
   }
   toggleCharacter(name: string) {
     if (
-      !this.dataService.selectedCharacters.includes(name) &&
-      this.dataService.selectedCharacters.length < this.dataService.MAXTEAMSIZE
+      !this.dataService.checkIfCharacterInTeam(name) && this.displayedCharacters.length < this.dataService.MAXTEAMSIZE
     ) {
       this.dataService.addCharacter(name);
     } else {
@@ -34,11 +38,21 @@ export class SidebarComponent {
     }
   }
   ngOnInit(): void {
-    this.firestoreService.characterData$.subscribe((data) => {
+    this.allCharactersSub = this.firestoreService.characterData$.subscribe((data) => {
       this.characterList = data;
     });
     if (this.dataService.selectedCharacters.length > 0) {
       this.sidebarOpen = false;
     }
+
+    this.displayedCharacterSub = this.dataService.displayedCharacters$.subscribe(data => {
+      this.displayedCharacters = data;
+    })
   }
+
+  ngOnDestroy(): void {
+    this.displayedCharacterSub.unsubscribe();
+    this.allCharactersSub.unsubscribe();
+  }
+  
 }
