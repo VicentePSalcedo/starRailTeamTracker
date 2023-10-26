@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FirestoreService } from './firestore.service';
+import { FirestoreService } from './services/firestore.service';
+import { TeamsService } from './services/teams.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,7 @@ import { FirestoreService } from './firestore.service';
 })
 export class AppComponent {
   title = 'starRailTeam';
-  constructor(private fireStoreService: FirestoreService){
+  constructor(private fireStoreService: FirestoreService, private teamsService: TeamsService){
   }
 
 }

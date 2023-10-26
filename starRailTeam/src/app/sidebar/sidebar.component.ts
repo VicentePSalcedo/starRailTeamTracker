@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { characterType } from '../Models/character.model';
-import { FirestoreService } from '../firestore.service';
-import { DataService } from '../data.service';
+import { FirestoreService } from '../services/firestore.service';
+import { DataService } from '../services/data.service';
 import { Subscription } from 'rxjs';
 
 @Component({

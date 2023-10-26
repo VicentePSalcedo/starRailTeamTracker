@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { characterType, checkData, dataType, ornament, relics } from './Models/character.model';
+import { characterType, checkData, dataType, ornament, relics } from '../Models/character.model';
 import { FirestoreService } from './firestore.service';
 import { BehaviorSubject, Observable, take } from 'rxjs';
 @Injectable({
@@ -8,16 +8,14 @@ import { BehaviorSubject, Observable, take } from 'rxjs';
 
 //TODO Make two different services for characterData and selectedData
 export class DataService {
-  // Remeber to use this variable and not displayed character in card-holder
-  // --- --- ---
   selectedCharactersData$!: characterType[];
-  // --- --- ---
   MAXTEAMSIZE: number = 4;
   selectedCharacters: string[] = [];
+  
   private _displayedCharacters: BehaviorSubject<characterType[]> =
-    new BehaviorSubject<characterType[]>([]);
+  new BehaviorSubject<characterType[]>([]);
   displayedCharacters$ = this._displayedCharacters.asObservable();
-
+  
   private _allCharacters: characterType[] = [];
 
   constructor(private fireStoreService: FirestoreService) {
@@ -26,6 +24,10 @@ export class DataService {
       // this.filterCharacterList();
       this.loadFromCache();
     });
+
+    this.displayedCharacters$.subscribe(data => {
+      this.saveToCache(data);
+    })
   }
 
   getAllCharacters() {
@@ -36,14 +38,18 @@ export class DataService {
     if (this._displayedCharacters.value.length >= this.MAXTEAMSIZE || this.checkIfCharacterInTeam(characterName)) return;
     const newDisplayedCharacters = [...this._displayedCharacters.value, this._allCharacters.find(data => data.Name == characterName)]
     this._displayedCharacters.next(newDisplayedCharacters as characterType[])
-    this.saveToCache(this._displayedCharacters.value);
+    // this.saveToCache(this._displayedCharacters.value);
   }
   removeCharacter(characterName: string): void {
     if (this._displayedCharacters.value.length < 0 || !this.checkIfCharacterInTeam(characterName)) return;
     const newDisplayedCharacters = this._displayedCharacters.value;
     newDisplayedCharacters.splice(newDisplayedCharacters.findIndex(data => data.Name == characterName), 1)
     this._displayedCharacters.next(newDisplayedCharacters);
-    this.saveToCache(this._displayedCharacters.value);
+    // this.saveToCache(this._displayedCharacters.value);
+  }
+
+  setDisplayCharacters(characters: characterType[]){
+    this._displayedCharacters.next(characters);
   }
 
   filterCharacterList() {
@@ -77,7 +83,6 @@ export class DataService {
           pushedArray = this._displayedCharacters.value
           pushedArray.splice(this._displayedCharacters.value.findIndex(d => d.Name == character.Name), 1, character)
           this._displayedCharacters.next(pushedArray)
-          this.saveToCache(pushedArray);
           break;
         case "Ornament":
           freshCharacter = this.uncheckAll(character[equipmentType][artifactType as keyof ornament] as checkData[]);
@@ -87,14 +92,12 @@ export class DataService {
           pushedArray = this._displayedCharacters.value
           pushedArray.splice(this._displayedCharacters.value.findIndex(d => d.Name == character.Name), 1, character)
           this._displayedCharacters.next(pushedArray)
-          this.saveToCache(pushedArray);
           break;
         case "LightCone":
           character[equipmentType].checked = !character[equipmentType].checked;
           pushedArray.splice(this._displayedCharacters.value.findIndex(d => d.Name == character.Name), 1, character)
           
           this._displayedCharacters.next(pushedArray)
-          this.saveToCache(pushedArray);
           break;
 
       }

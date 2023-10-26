@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { characterType } from './Models/character.model';
+import { characterType } from '../Models/character.model';
 import { Firestore, collectionData, collection } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable, take } from 'rxjs';
 

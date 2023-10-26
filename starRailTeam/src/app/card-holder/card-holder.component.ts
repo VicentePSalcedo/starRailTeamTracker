@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FirestoreService } from '../firestore.service';
+import { FirestoreService } from '../services/firestore.service';
 import { characterType } from '../Models/character.model';
-import { DataService } from '../data.service';
+import { DataService } from '../services/data.service';
 
 
 @Component({
