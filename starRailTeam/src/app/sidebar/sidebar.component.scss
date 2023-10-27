@@ -1,4 +1,7 @@
+
 .sidebarClosed {
+  left: 0;
+  top: 0;
   display: flex;
   width: fit-content;
   background-color: var(--fg);
@@ -12,6 +15,8 @@
   padding: 0.7347538574577517vh;
 }
 .sidebarOpen {
+  left: 0;
+  top: 0;
   z-index: 1;
   display: flex;
   flex-wrap: wrap;
@@ -31,6 +36,8 @@
 }
 
 .menu-overlay {
+  left: 0;
+  top: 0;
   position: fixed;
   width: 100%;
   height: 100%;
