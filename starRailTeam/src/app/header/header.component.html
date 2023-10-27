@@ -1,9 +1,9 @@
 <div class="header">
+    <div class="RemoveAds endButtons">Remove Ads</div>
     <div class="endButtonsContainer" *ngIf="user == null; else loggedIn">
-        <div class="RemoveAds endButtons">Remove Ads</div>
         <div class="LoginToSave endButtons" (click)="login()">Login To Save</div>
     </div>
     <ng-template #loggedIn>
-        <div class="devLogOut" (click)="logOut()"></div>
+        <div class="logOut endButtons" (click)="logOut()">Logout</div>
     </ng-template>
 </div>
