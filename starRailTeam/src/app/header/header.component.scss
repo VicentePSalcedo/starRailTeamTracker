@@ -34,8 +34,10 @@
     align-self: center;
 }
 
-.devLogOut{
-    width: 5.2301255230125525vh;
-    height: 5.2301255230125525vh;
+.logOut{
+    padding: 1.0460251046025104vh;
+    outline: var(--accent) 0.20920502092050208vh solid;
+    align-self: center;
+    border-radius: 1.0460251046025104vh;
     margin-right: 2.092050209205021vh;
 }
