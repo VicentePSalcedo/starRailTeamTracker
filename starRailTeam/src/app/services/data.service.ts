@@ -9,7 +9,8 @@ import { BehaviorSubject, Observable, take } from 'rxjs';
 //TODO Make two different services for characterData and selectedData
 export class DataService {
   selectedCharactersData$!: characterType[];
-  MAXTEAMSIZE: number = 4;
+  MAXCHARACTERS: number = 4;
+  MAXTEAMSIZE: number = 3;
   selectedCharacters: string[] = [];
   
   private _displayedCharacters: BehaviorSubject<characterType[]> =
@@ -21,13 +22,8 @@ export class DataService {
   constructor(private fireStoreService: FirestoreService) {
     this.fireStoreService.characterData$.subscribe((data) => {
       this._allCharacters = data;
-      // this.filterCharacterList();
-      this.loadFromCache();
     });
-
-    this.displayedCharacters$.subscribe(data => {
-      this.saveToCache(data);
-    })
+    
   }
 
   getAllCharacters() {
@@ -35,7 +31,7 @@ export class DataService {
   }
 
   addCharacter(characterName: string): void {
-    if (this._displayedCharacters.value.length >= this.MAXTEAMSIZE || this.checkIfCharacterInTeam(characterName)) return;
+    if (this._displayedCharacters.value.length >= this.MAXCHARACTERS || this.checkIfCharacterInTeam(characterName)) return;
     const newDisplayedCharacters = [...this._displayedCharacters.value, this._allCharacters.find(data => data.Name == characterName)]
     this._displayedCharacters.next(newDisplayedCharacters as characterType[])
     // this.saveToCache(this._displayedCharacters.value);
@@ -113,22 +109,23 @@ export class DataService {
   }
 
   importIntoDisplayedCharacter(characters: characterType[]): void{
-    if(characters.length > this.MAXTEAMSIZE) return;
+    if(characters.length > this.MAXCHARACTERS) return;
     this._displayedCharacters.next(characters);
     characters.forEach(data => {
       this.selectedCharacters.push(data.Name);
     })
   }
 
-  loadFromCache(): boolean{
-    const charactersStorage = localStorage.getItem('characters');
-    if(!charactersStorage) return false;
-    this.importIntoDisplayedCharacter(JSON.parse(charactersStorage));
-    return true
+  loadFromCache(): characterType[][] | null{
+    const charactersStorage = localStorage.getItem('teams');
+    if(!charactersStorage) return null;
+    // this.importIntoDisplayedCharacter(JSON.parse(charactersStorage));
+    
+    return JSON.parse(charactersStorage);
   }
 
-  saveToCache(data: characterType[]): void{
-    if(data.length > this.MAXTEAMSIZE) return;
-    localStorage.setItem('characters', JSON.stringify(data));
+  saveToCache(data: characterType[][]): void{
+    if(data.length > this.MAXTEAMSIZE || data.map(x => x.length > this.MAXCHARACTERS).includes(true)) return;
+    localStorage.setItem('teams', JSON.stringify(data));
   }
 }

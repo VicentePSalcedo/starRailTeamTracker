@@ -1,0 +1,48 @@
+.team-selector{
+    display: flex;
+    position: relative;
+    text-align: center;
+    align-items: baseline;
+    font-size: 30px;
+    height: 100%;
+    top: 50%;
+    // border: 1px solid blue;
+}
+.currentIndex{
+    text-align: center;
+    color: var(--accent);
+    border: 3px solid var(--accent);
+    border-radius: 20px;
+    padding: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.arrow{
+    // border: 1px solid pink;
+    // padding: 10px;
+    width: 100px;
+    height: auto;
+    position: relative;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 45px;
+    text-align: center;
+    transition: all ease-in-out .2s;
+    line-height: 100%;
+    transform-origin: center;
+}
+.left, .right{
+    position: relative;
+}
+
+.left::before {
+    content: "<";
+}
+.right::before{
+    content: ">";
+}
+
+.arrow:hover{
+    cursor: pointer;
+    scale: 1.5;
+}

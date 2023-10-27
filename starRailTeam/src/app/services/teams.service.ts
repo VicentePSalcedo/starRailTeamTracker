@@ -13,7 +13,10 @@ export class TeamsService {
   currentTeam = 0;
 
   constructor(private dataService: DataService) {
+    this.handleCacheLoad();
     this.dataService.displayedCharacters$.subscribe(data => {
+      if(data.length == 0) return;
+      
       let newTeam = this._teams.value;
       newTeam[this.currentTeam] = data;
       this._teams.next(newTeam)
@@ -21,14 +24,20 @@ export class TeamsService {
     })
 
     this._teams.subscribe(data => {
-      // this.dataService.saveToCache(this._teams.value)
+      this.dataService.saveToCache(data);
     })
   }
-  //TODO Use this to see if the data coming from the displayedCharacters sub is the same as 
-  handleDisplayedSubscription(characters: characterType[]){
+  handleCacheLoad(){
+    const load = this.dataService.loadFromCache();
+    console.log(load);
+    
+    if(load){
+      this._teams.next(load);
+      this.dataService.setDisplayCharacters(this._teams.value[this.currentTeam]);
+    }
   }
   changeTeams(index: number){
-    if(index < 0) return;
+    if(index < 0 || index > this.dataService.MAXTEAMSIZE - 1) return;
     if(!this._teams.value[index]){
       this._teams.value[index] = [];
     }

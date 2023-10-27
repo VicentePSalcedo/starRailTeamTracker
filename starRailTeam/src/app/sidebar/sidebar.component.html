@@ -1,25 +1,25 @@
-<div *ngIf="sidebarOpen; then thenBlock; else elseBlock"></div>
-<ng-template #thenBlock>
-  <div class="sidebarOpen">
-    <div class="sidebarHeader">
+  <div *ngIf="sidebarOpen; then thenBlock; else elseBlock"></div>
+  <ng-template #thenBlock>
+    <div class="sidebarOpen">
+      <div class="sidebarHeader">
+        <span class="material-symbols-outlined" (click)="toggleSidebar()">
+          menu_open
+        </span>
+      </div>
+      <div class="characterContainer" *ngFor="let character of characterList">
+        <app-character-button
+          (click)="toggleCharacter(character.Name)"
+          [name]="character.Name"
+          [index]="getCharacterInArray(character.Name)"
+        ></app-character-button>
+      </div>
+    </div>
+    <div class="menu-overlay" (click)="toggleSidebar()"></div>
+  </ng-template>
+  <ng-template #elseBlock>
+    <div class="sidebarClosed">
       <span class="material-symbols-outlined" (click)="toggleSidebar()">
-        menu_open
+        menu
       </span>
     </div>
-    <div class="characterContainer" *ngFor="let character of characterList">
-      <app-character-button
-        (click)="toggleCharacter(character.Name)"
-        [name]="character.Name"
-        [index]="getCharacterInArray(character.Name)"
-      ></app-character-button>
-    </div>
-  </div>
-  <div class="menu-overlay" (click)="toggleSidebar()"></div>
-</ng-template>
-<ng-template #elseBlock>
-  <div class="sidebarClosed">
-    <span class="material-symbols-outlined" (click)="toggleSidebar()">
-      menu
-    </span>
-  </div>
-</ng-template>
+  </ng-template>
