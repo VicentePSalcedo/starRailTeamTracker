@@ -1,6 +1,13 @@
 import requests, csv, os
+import shutil
+from io import BytesIO
+from PIL import Image
 from bs4 import BeautifulSoup
 from firebaseConsole import FirebaseConsole
+from imageSettings import ImageSettings
+
+url = 'https://game8.co/games/Honkai-Star-Rail/archives/404256'
+imagesPath = './webscrapper/images/'
 
 def getCharacterData(url):
     soup = getWebPage(url)
@@ -10,13 +17,19 @@ def getSilverWolfData(url):
     soup = getWebPage(url)
     tab = soup.find('table', class_="a-table a-table")
     return tab
-def saveCharacterImages(characterLinks, imagesPath):
-    if not os.path.exists(imagesPath):
-        os.makedirs(imagesPath)
+def saveCharacterImages(characterLinks, imagesPath, shouldFormat):
+    shutil.rmtree(imagesPath)
+    os.makedirs(imagesPath)
     for link in characterLinks:
-        img_data = requests.get(link.next.attrs["data-src"]).content
-        with open(imagesPath + link.text.strip(' ') + '.png', 'wb') as handler:
-            handler.write(img_data)
+        requestContent = requests.get(link.next.attrs["data-src"]).content
+        if(shouldFormat):
+            img_data = BytesIO(requestContent)
+            im = Image.open(img_data).convert("RGB")
+            im.save(imagesPath + link.text.strip(' ') + '.webp', "webp")
+        else:
+            with open(imagesPath + link.text.strip(' ') + '.png', 'wb') as handler:
+                handler.write(requestContent)
+            
     return 
 def getWebPage(url):
     request = requests.get(url)
@@ -92,14 +105,15 @@ def writeToFireStore(characterLinks):
         db.writeToCollection(name,lightCone,relics,bodyMainStat,feetMainStat,ornament,sphereMainStat,ropeMainStat)
     return
 
-# hard coded settings
-url = 'https://game8.co/games/Honkai-Star-Rail/archives/404256'
-imagesPath = './webscrapper/images/'
+def startScrape(sendToDatabase=True, imageProperties=ImageSettings()):
+    soup = getWebPage(url)
+    tableLinks = getAllPlayableCharacterTableLinks(soup)
+    characaterLinks = getLinks(tableLinks)
+    if(sendToDatabase):
+        writeToFireStore(characaterLinks)
+    if(imageProperties.saveImages):
+        saveCharacterImages(characaterLinks, imagesPath, imageProperties.saveWithWebFormat)
 
-soup = getWebPage(url)
-tableLinks = getAllPlayableCharacterTableLinks(soup)
-characaterLinks = getLinks(tableLinks)
-# This function makes a folder in the repo and saves the image assets for each character
-# TODO add cli interface for this process so we don't have to open the code everytime to change settings
-#saveCharacterImages(characaterLinks, imagesPath)
-writeToFireStore(characaterLinks)
+
+imageSettings = ImageSettings(saveImages=True, saveWithWebFormat=True)
+startScrape(False, imageSettings)
