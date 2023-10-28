@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { UserAuthService } from '../user-auth.service';
+import { UserAuthService } from '../services/user-auth.service';
 import { User } from 'firebase/auth';
 import { Subscription } from 'rxjs';
 

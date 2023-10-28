@@ -16,6 +16,8 @@ import { LoginButtonComponent } from './login-button/login-button.component';
 import { RemoveAddsButtonComponent } from './remove-adds-button/remove-adds-button.component';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { HeaderComponent } from './header/header.component';
+import { TeamSelectorComponent } from './team-selector/team-selector.component';
+import { AdsenseModule } from 'ng2-adsense';
 
 @NgModule({
   declarations: [
@@ -29,13 +31,15 @@ import { HeaderComponent } from './header/header.component';
     TeamselectComponent,
     LoginButtonComponent,
     RemoveAddsButtonComponent,
-    HeaderComponent
+    HeaderComponent,
+    TeamSelectorComponent
   ],
   imports: [
     BrowserModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
-    provideAuth(() => getAuth())
+    provideAuth(() => getAuth()),
+    AdsenseModule.forRoot()
     
   ],
   providers: [],

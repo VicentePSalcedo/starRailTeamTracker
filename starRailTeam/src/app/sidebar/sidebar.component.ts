@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { characterType } from '../Models/character.model';
-import { FirestoreService } from '../firestore.service';
-import { DataService } from '../data.service';
+import { FirestoreService } from '../services/firestore.service';
+import { DataService } from '../services/data.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -30,7 +30,7 @@ export class SidebarComponent implements OnInit, OnDestroy{
   }
   toggleCharacter(name: string) {
     if (
-      !this.dataService.checkIfCharacterInTeam(name) && this.displayedCharacters.length < this.dataService.MAXTEAMSIZE
+      !this.dataService.checkIfCharacterInTeam(name) && this.displayedCharacters.length < this.dataService.MAXCHARACTERS
     ) {
       this.dataService.addCharacter(name);
     } else {
@@ -41,13 +41,14 @@ export class SidebarComponent implements OnInit, OnDestroy{
     this.allCharactersSub = this.firestoreService.characterData$.subscribe((data) => {
       this.characterList = data;
     });
-    if (this.dataService.selectedCharacters.length > 0) {
-      this.sidebarOpen = false;
-    }
 
     this.displayedCharacterSub = this.dataService.displayedCharacters$.subscribe(data => {
       this.displayedCharacters = data;
     })
+    if (this.displayedCharacters.length > 0) {
+      this.sidebarOpen = false;
+    }
+
   }
 
   ngOnDestroy(): void {
