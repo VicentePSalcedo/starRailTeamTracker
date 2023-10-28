@@ -6,13 +6,18 @@
           menu_open
         </span>
       </div>
-      <div class="characterContainer" *ngFor="let character of characterList">
-        <app-character-button
-          (click)="toggleCharacter(character.Name)"
-          [name]="character.Name"
-          [index]="getCharacterInArray(character.Name)"
-        ></app-character-button>
-      </div>
+      <ng-container *ngIf="characterList.length > 0; else loading">
+        <div class="characterContainer" *ngFor="let character of characterList">
+          <app-character-button
+            (click)="toggleCharacter(character.Name)"
+            [name]="character.Name"
+            [index]="getCharacterInArray(character.Name)"
+          ></app-character-button>
+        </div>
+      </ng-container>
+      <ng-template #loading>
+        <app-loading></app-loading>
+      </ng-template>
     </div>
     <div class="menu-overlay" (click)="toggleSidebar()"></div>
   </ng-template>

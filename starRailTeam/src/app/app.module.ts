@@ -18,6 +18,7 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { HeaderComponent } from './header/header.component';
 import { TeamSelectorComponent } from './team-selector/team-selector.component';
 import { AdsenseModule } from 'ng2-adsense';
+import { LoadingComponent } from './sidebar/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AdsenseModule } from 'ng2-adsense';
     LoginButtonComponent,
     RemoveAddsButtonComponent,
     HeaderComponent,
-    TeamSelectorComponent
+    TeamSelectorComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
