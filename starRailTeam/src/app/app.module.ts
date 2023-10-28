@@ -17,6 +17,8 @@ import { RemoveAddsButtonComponent } from './remove-adds-button/remove-adds-butt
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { HeaderComponent } from './header/header.component';
 
+import { StripeModule } from "stripe-angular"
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,8 +37,8 @@ import { HeaderComponent } from './header/header.component';
     BrowserModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
-    provideAuth(() => getAuth())
-    
+    provideAuth(() => getAuth()),
+    [ StripeModule.forRoot("pk_test_51O4TfeE1Dt8s3Ho5JdYN3bM5tTSCCNzIgaSk0DdHJXgGEQ9OO7mzf4AwmsFuV7xfhEQUOTqqBuj7BN2MyNeHMlJK00TLmG8q92") ]
   ],
   providers: [],
   bootstrap: [AppComponent]
