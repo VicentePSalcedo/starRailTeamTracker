@@ -10,4 +10,5 @@ export const environment = {
     messagingSenderId: '851893191654',
     measurementId: 'G-2LTS3TFENF',
   },
+  stripe: 'pk_test_51O4TfeE1Dt8s3Ho5JdYN3bM5tTSCCNzIgaSk0DdHJXgGEQ9OO7mzf4AwmsFuV7xfhEQUOTqqBuj7BN2MyNeHMlJK00TLmG8q92'
 };

@@ -38,7 +38,7 @@ import { StripeModule } from "stripe-angular"
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),
-    [ StripeModule.forRoot("pk_test_51O4TfeE1Dt8s3Ho5JdYN3bM5tTSCCNzIgaSk0DdHJXgGEQ9OO7mzf4AwmsFuV7xfhEQUOTqqBuj7BN2MyNeHMlJK00TLmG8q92") ]
+    [ StripeModule.forRoot(environment.stripe) ]
   ],
   providers: [],
   bootstrap: [AppComponent]
