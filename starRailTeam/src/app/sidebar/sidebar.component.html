@@ -2,12 +2,18 @@
   <ng-template #thenBlock>
     <div class="sidebarOpen">
       <div class="sidebarHeader">
+        <div class="search">
+          <div *ngIf="input.length > 0" class="material-symbols-outlined cancel" (click) = "emptyInput()">
+            cancel
+          </div>
+          <input class="characterInput" type="text" (input)="filterList($event)" [value]="input" placeholder="Character...">
+        </div>
         <span class="material-symbols-outlined" (click)="toggleSidebar()">
           menu_open
         </span>
       </div>
       <ng-container *ngIf="characterList.length > 0; else loading">
-        <div class="characterContainer" *ngFor="let character of characterList">
+        <div class="characterContainer" *ngFor="let character of filteredCharacters">
           <app-character-button
             (click)="toggleCharacter(character.Name)"
             [name]="character.Name"

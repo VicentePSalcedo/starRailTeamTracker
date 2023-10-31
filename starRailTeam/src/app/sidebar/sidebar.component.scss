@@ -46,7 +46,29 @@
 }
 
 .sidebarHeader {
-  width: stretch;
+  display: flex;
+  width: 100%;
+}
+
+.characterInput{
+  padding: 10px;
+  background-color: var(--fg);
+  color: var(--text);
+  font-size: 20px;
+  outline: 2px solid rgba(white, 0.3);
+  border-radius: 20px;
+  border: none;
+  width: auto;
+  transition: all .2s ease-out;
+}
+
+.characterInput:focus{
+  outline: 2px solid var(--accent);
+  box-shadow: 0 0 5px 1px var(--accent);
+}
+
+.search{
+  position: relative;
 }
 
 // TODO make this a componenet pls, thank you
@@ -63,4 +85,13 @@
 .material-symbols-outlined:hover {
   cursor: pointer;
   color: whitesmoke;
+
+}
+.material-symbols-outlined.cancel{
+  color: white;
+  position: absolute;
+  right: 0;
+  scale: 0.5;
+  opacity: 0.4;
+
 }
