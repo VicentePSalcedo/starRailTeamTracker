@@ -1,43 +1,54 @@
-# Welcome to Cloud Functions for Firebase for Python!
-# To get started, simply uncomment the below code or create your own.
-# Deploy with `firebase deploy`
-
-import os
+from firebase_functions import https_fn, options
 import stripe
-from flask import Flask, redirect, request
-from firebase_functions import https_fn
-from firebase_admin import initialize_app
+import json
+import os
+from flask import jsonify, redirect
+    
+with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "key.json"), "r") as D:
+    secret = json.loads(D.read())
+stripe.api_key = secret["key"]
 
-# This is your test secret API key.
-with open('key.json', 'r') as d:
-    stripe.api_key = d.read()
+YOUR_DOMAIN='https://localhost:5000'
 
-app = Flask(__name__,
-            static_url_path='',
-            static_folder='public')
+@https_fn.on_request(
+    cors=options.CorsOptions(
+        cors_origins=["*"],
+        cors_methods=["post"],
+    )
+)
+def create_checkout_session(req: https_fn.Request): # -> https_fn.Response:
+    try:
+        checkout_session = stripe.checkout.Session.create(
+            line_items=[
+                {
+                    'price': 'price_1O6EOxE1Dt8s3Ho5N4qf7AtF',
+                    'quantity': 1,
+                },
+        ],
+        mode='subscription',
+        success_url=YOUR_DOMAIN,
+        cancel_url=YOUR_DOMAIN,
+        automatic_tax={'enabled': True},
+        )
+    except Exception as e:
+        return str(e)
 
-YOUR_DOMAIN = 'http://localhost:4200'
 
-@app.route('/create-checkout-session', methods=['GET'])
-def create_checkout_session():
-#    try:
-#        checkout_session = stripe.checkout.Session.create(
-#            line_items=[
-#                {
-                    # Provide the exact Price ID  (for example, pr_1234) of the product you want to sell
-#                    'price': 'price_1O5DBEE1Dt8s3Ho54sPzwMGN',
-#                    'quantity': 1,
-#                },
-#            ],
-#            mode='subscription',
-#            success_url=YOUR_DOMAIN,
-#            cancel_url='www.youtube.com',
-#            automatic_tax={'enabled': True},
-#        )
-#    except Exception as e:
-#        return str(e)
-#
-    return 'Can you see me?'
+    # return redirect(str(checkout_session.url), code=302)
+    return https_fn.Response(checkout_session.url)
+    # return https_fn.Response(req)
 
-if __name__ == '__main__':
-    app.run(port=5001)
+@https_fn.on_request(
+    cors=options.CorsOptions(
+        cors_origins=["*"],
+        cors_methods=["post"],
+    )
+)
+def my_webhook_view(request):
+  payload = request.body
+
+  # For now, you only need to print out the webhook payload so you can see
+  # the structure.
+  print(payload)
+
+  return https_fn.Response(status=200)
