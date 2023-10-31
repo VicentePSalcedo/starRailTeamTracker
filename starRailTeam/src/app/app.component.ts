@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { FirestoreService } from './firestore.service';
+import { FirestoreService } from './services/firestore.service';
+import { TeamsService } from './services/teams.service';
+import { characterType } from './Models/character.model';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +10,9 @@ import { FirestoreService } from './firestore.service';
 })
 export class AppComponent {
   title = 'starRailTeam';
-  constructor(private fireStoreService: FirestoreService){
+  teams!: characterType[][];
+  constructor(private fireStoreService: FirestoreService, private teamsService: TeamsService){
   }
-
 }
 
 

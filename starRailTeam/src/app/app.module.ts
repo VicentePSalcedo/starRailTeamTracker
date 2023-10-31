@@ -20,6 +20,9 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 
 import { StripeModule } from "stripe-angular"
+import { TeamSelectorComponent } from './team-selector/team-selector.component';
+import { AdsenseModule } from 'ng2-adsense';
+import { LoadingComponent } from './sidebar/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,9 @@ import { StripeModule } from "stripe-angular"
     TeamselectComponent,
     LoginButtonComponent,
     RemoveAddsButtonComponent,
-    HeaderComponent
+    HeaderComponent,
+    TeamSelectorComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +47,10 @@ import { StripeModule } from "stripe-angular"
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),
+    AdsenseModule.forRoot(),
+    provideAuth(() => getAuth()),
     [ StripeModule.forRoot(environment.stripe.publicKey) ],
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
