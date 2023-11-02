@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserAuthService } from '../services/user-auth.service';
 import { User } from 'firebase/auth';
 import { Subscription } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-header',
@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
 
   constructor(private userAuth: UserAuthService, private http: HttpClient){}
   createCheckoutSession(){
+    if(!this.user) return this.login();
     this.http.post(
       'http://127.0.0.1:5001/starrailteamtracker/us-central1/request/create_checkout_session',
       'post from starRail app',

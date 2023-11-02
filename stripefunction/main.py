@@ -19,14 +19,15 @@ def create_checkout_session():
         checkout_session = stripe.checkout.Session.create(
             line_items=[
                 {
-                    'price': 'price_1O6EOxE1Dt8s3Ho5N4qf7AtF',
-                    'quantity': 1,
+                    "price": "price_1O6EOxE1Dt8s3Ho5N4qf7AtF",
+                    "quantity": 1,
                 },
-        ],
-        mode='subscription',
-        success_url=YOUR_DOMAIN,
-        cancel_url=YOUR_DOMAIN,
-        automatic_tax={'enabled': True},
+            ],
+            userID=[req.data],
+            mode="subscription",
+            success_url=YOUR_DOMAIN,
+            cancel_url=YOUR_DOMAIN,
+            automatic_tax={"enabled": True},
         )
     except Exception as e:
         return str(e)
@@ -42,23 +43,20 @@ def my_webhook_view():
     try:
         event = json.loads(str(payload))
     except json.decoder.JSONDecodeError as e:
-        print(' Webhook error wihle parsing basic request. ' + str(e))
+        print(" Webhook error wihle parsing basic request. " + str(e))
         return jsonify(success=False)
     if endpoint_secret:
         sig_header = request.headers.get('stripe-signature')
         try:
-            event = stripe.Webhook.construct_event(
-                payload, sig_header, endpoint_secret
-            )
+            event = stripe.Webhook.construct_event(payload, sig_header, endpoint_secret)
         except stripe.error.SignatureVerificationError as e:
-            print('⚠️  Webhook signature verification failed.' + str(e))
+            print("⚠️  Webhook signature verification failed." + str(e))
             return jsonify(success=False)
     if event and event['type'] == 'payment_intent.succeeded':
         payment_intent = event['data']['object']
         print('Payment for {} succeeded'.format(payment_intent['amount']))
     else:
-        print('Unhandled event type {}'.format(event['type']))
-
+        print("Unhandled event type {}".format(event["type"]))
     return jsonify(success=True)
 
 @https_fn.on_request(
