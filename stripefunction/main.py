@@ -1,23 +1,20 @@
-from firebase_functions import https_fn, options
-import stripe
 import json
 import os
-from flask import jsonify
+from firebase_functions import https_fn, options
+from flask import Flask, jsonify, request
+import stripe
     
 with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "key.json"), "r") as D:
     secret = json.loads(D.read())
 stripe.api_key = secret["key"]
 endpoint_secret = secret["web"]
 
-YOUR_DOMAIN='https://localhost:5000'
+app = Flask(__name__)
 
-@https_fn.on_request(
-    cors=options.CorsOptions(
-        cors_origins=["*"],
-        cors_methods=["post"],
-    )
-)
-def create_checkout_session(req: https_fn.Request): # -> https_fn.Response:
+YOUR_DOMAIN='http://localhost:5000'
+
+@app.post('/create_checkout_session')
+def create_checkout_session():
     try:
         checkout_session = stripe.checkout.Session.create(
             line_items=[
@@ -33,23 +30,21 @@ def create_checkout_session(req: https_fn.Request): # -> https_fn.Response:
         )
     except Exception as e:
         return str(e)
+    return (str(checkout_session.url))
 
-
-    # return redirect(str(checkout_session.url), code=302)
-    return https_fn.Response(checkout_session.url)
-    # return https_fn.Response(req)
-def my_webhook_view(request):
+@app.post('/my_webhook_view')
+def my_webhook_view():
     event = None
-    payload = request.data
-
+    payload = request
+    print('#######################################')
+    print(payload)
+    print('#######################################')
     try:
-        event = json.loads(payload)
+        event = json.loads(str(payload))
     except json.decoder.JSONDecodeError as e:
         print(' Webhook error wihle parsing basic request. ' + str(e))
         return jsonify(success=False)
     if endpoint_secret:
-        # Only verify the event if there is an endpoint secret defined
-        # Otherwise use the basic event deserialized with json
         sig_header = request.headers.get('stripe-signature')
         try:
             event = stripe.Webhook.construct_event(
@@ -59,9 +54,19 @@ def my_webhook_view(request):
             print('⚠️  Webhook signature verification failed.' + str(e))
             return jsonify(success=False)
     if event and event['type'] == 'payment_intent.succeeded':
-        payment_intent = event['data']['object']  # contains a stripe.PaymentIntent
+        payment_intent = event['data']['object']
         print('Payment for {} succeeded'.format(payment_intent['amount']))
     else:
         print('Unhandled event type {}'.format(event['type']))
 
     return jsonify(success=True)
+
+@https_fn.on_request(
+    cors=options.CorsOptions(
+        cors_origins=["*"],
+        cors_methods=["post"],
+    )
+)
+def request(req: https_fn.Request) -> https_fn.Response:
+    with app.request_context(req.environ):
+        return app.full_dispatch_request()

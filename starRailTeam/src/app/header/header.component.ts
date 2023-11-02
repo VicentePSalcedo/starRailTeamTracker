@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
   constructor(private userAuth: UserAuthService, private http: HttpClient){}
   createCheckoutSession(){
     this.http.post(
-      'http://127.0.0.1:5001/starrailteamtracker/us-central1/create_checkout_session',
+      'http://127.0.0.1:5001/starrailteamtracker/us-central1/request/create_checkout_session',
       'post from starRail app',
       { responseType:'text'})
       .subscribe( data => window.location.href = data);
