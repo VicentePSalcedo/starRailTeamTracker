@@ -1,7 +1,7 @@
 import json
 import os
 from firebase_functions import https_fn, options
-from flask import Flask, jsonify, request
+from flask import jsonify
 import stripe
     
 with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "key.json"), "r") as D:
@@ -9,12 +9,15 @@ with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "key.json"), 
 stripe.api_key = secret["key"]
 endpoint_secret = secret["web"]
 
-app = Flask(__name__)
-
 YOUR_DOMAIN='http://localhost:5000'
 
-@app.post('/create_checkout_session')
-def create_checkout_session():
+@https_fn.on_request(
+    cors=options.CorsOptions(
+        cors_origins=["*"],
+        cors_methods=["post"],
+    )
+)
+def create_checkout_session(request):
     try:
         checkout_session = stripe.checkout.Session.create(
             line_items=[
@@ -30,18 +33,7 @@ def create_checkout_session():
         )
     except Exception as e:
         return str(e)
-    return (str(checkout_session.url))
-
-
-@https_fn.on_request(
-    cors=options.CorsOptions(
-        cors_origins=["*"],
-        cors_methods=["post"],
-    )
-)
-def request(req: https_fn.Request) -> https_fn.Response:
-    with app.request_context(req.environ):
-        return app.full_dispatch_request()
+    return https_fn.Response(checkout_session.url)
 
 @https_fn.on_request(
     cors=options.CorsOptions(
