@@ -18,6 +18,7 @@ YOUR_DOMAIN='http://localhost:5000'
     )
 )
 def create_checkout_session(request):
+    print(request.data)
     try:
         checkout_session = stripe.checkout.Session.create(
             line_items=[
@@ -27,6 +28,8 @@ def create_checkout_session(request):
                 },
             ],
             mode="subscription",
+            # metadata={"test": request.data},
+            client_reference_id=str(request.data),
             success_url=YOUR_DOMAIN,
             cancel_url=YOUR_DOMAIN,
             automatic_tax={"enabled": True},
@@ -46,6 +49,7 @@ def my_webhook_view(request):
     payload = request.data
     try:
         event = json.loads(payload)
+        print(event["data"]["object"])
     except json.decoder.JSONDecodeError as e:
         print(" Webhook error wihle parsing basic request. " + str(e))
         return jsonify(success=False)
@@ -57,8 +61,9 @@ def my_webhook_view(request):
             print("⚠️  Webhook signature verification failed." + str(e))
             return jsonify(success=False)
     if event and event['type'] == 'payment_intent.succeeded':
+        print(event["data"]["object"])
         payment_intent = event['data']['object']
-        print('Payment for {} succeeded'.format(payment_intent['amount']))
+        # print(F"PRINTING FROM WEBHOOK: {payment_intent['client_reference_id']}")
     else:
         print("Unhandled event type {}".format(event["type"]))
     return jsonify(success=True)
