@@ -23,7 +23,6 @@ def create_checkout_session():
                     "quantity": 1,
                 },
             ],
-            userID=[req.data],
             mode="subscription",
             success_url=YOUR_DOMAIN,
             cancel_url=YOUR_DOMAIN,
@@ -33,15 +32,28 @@ def create_checkout_session():
         return str(e)
     return (str(checkout_session.url))
 
-@app.post('/my_webhook_view')
-def my_webhook_view():
+
+@https_fn.on_request(
+    cors=options.CorsOptions(
+        cors_origins=["*"],
+        cors_methods=["post"],
+    )
+)
+def request(req: https_fn.Request) -> https_fn.Response:
+    with app.request_context(req.environ):
+        return app.full_dispatch_request()
+
+@https_fn.on_request(
+    cors=options.CorsOptions(
+        cors_origins=["*"],
+        cors_methods=["post"],
+    )
+)
+def my_webhook_view(request):
     event = None
-    payload = request
-    print('#######################################')
-    print(payload)
-    print('#######################################')
+    payload = request.data
     try:
-        event = json.loads(str(payload))
+        event = json.loads(payload)
     except json.decoder.JSONDecodeError as e:
         print(" Webhook error wihle parsing basic request. " + str(e))
         return jsonify(success=False)
@@ -58,13 +70,3 @@ def my_webhook_view():
     else:
         print("Unhandled event type {}".format(event["type"]))
     return jsonify(success=True)
-
-@https_fn.on_request(
-    cors=options.CorsOptions(
-        cors_origins=["*"],
-        cors_methods=["post"],
-    )
-)
-def request(req: https_fn.Request) -> https_fn.Response:
-    with app.request_context(req.environ):
-        return app.full_dispatch_request()
