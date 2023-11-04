@@ -1,6 +1,8 @@
 import json
 import os
 from firebase_functions import https_fn, options
+from firebase_admin import firestore, credentials, initialize_app
+import firebase_admin 
 from flask import jsonify
 import stripe
     
@@ -8,6 +10,8 @@ with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "key.json"), 
     secret = json.loads(D.read())
 stripe.api_key = secret["key"]
 endpoint_secret = secret["web"]
+firestore_key = secret["firestore"]
+app = initialize_app()
 
 YOUR_DOMAIN='http://localhost:5000'
 
@@ -49,7 +53,6 @@ def my_webhook_view(request):
     payload = request.data
     try:
         event = json.loads(payload)
-        print(event["data"]["object"])
     except json.decoder.JSONDecodeError as e:
         print(" Webhook error wihle parsing basic request. " + str(e))
         return jsonify(success=False)
@@ -60,10 +63,21 @@ def my_webhook_view(request):
         except stripe.error.SignatureVerificationError as e:
             print("⚠️  Webhook signature verification failed." + str(e))
             return jsonify(success=False)
-    if event and event['type'] == 'payment_intent.succeeded':
-        print(event["data"]["object"])
+    if event and event['type'] == 'checkout.session.completed':
+        # print(event["data"]["object"])
         payment_intent = event['data']['object']
-        # print(F"PRINTING FROM WEBHOOK: {payment_intent['client_reference_id']}")
-    else:
-        print("Unhandled event type {}".format(event["type"]))
+        # print(f'LINE 65{event["data"]["object"].client_reference_id}')
+        client = firestore.client(app=app)
+        characters = client.collection("Characters").stream()
+        # print(characters.to_dict())
+        for doc in characters:
+            print(f"{doc.id} : {doc.to_dict()}")
+            print('TEST')
+        print('2TEST2')
+
+        # print(characters.to_dict())        
+            
+            
+    # else:
+        # print("Unhandled event type {}".format(event["type"]))
     return jsonify(success=True)
