@@ -12,6 +12,8 @@ stripe.api_key = secret["key"]
 endpoint_secret = secret["web"]
 firestore_key = secret["firestore"]
 app = initialize_app()
+client = firestore.client(app=app)
+
 
 YOUR_DOMAIN='http://localhost:5000'
 
@@ -22,9 +24,14 @@ YOUR_DOMAIN='http://localhost:5000'
     )
 )
 def create_checkout_session(request):
-    print(request.data)
+    customer = stripe.Customer.create(
+        metadata={
+            "uid": str(request.data.decode("utf-8"))
+        }
+    )
     try:
         checkout_session = stripe.checkout.Session.create(
+            customer=customer.id,
             line_items=[
                 {
                     "price": "price_1O6EOxE1Dt8s3Ho5N4qf7AtF",
@@ -32,14 +39,13 @@ def create_checkout_session(request):
                 },
             ],
             mode="subscription",
-            # metadata={"test": request.data},
-            client_reference_id=str(request.data),
+            client_reference_id=str(request.data.decode("utf-8")),
             success_url=YOUR_DOMAIN,
             cancel_url=YOUR_DOMAIN,
             automatic_tax={"enabled": True},
         )
     except Exception as e:
-        return str(e)
+        return https_fn.Response(response=e, status=400)
     return https_fn.Response(checkout_session.url)
 
 @https_fn.on_request(
@@ -64,20 +70,19 @@ def my_webhook_view(request):
             print("⚠️  Webhook signature verification failed." + str(e))
             return jsonify(success=False)
     if event and event['type'] == 'checkout.session.completed':
-        # print(event["data"]["object"])
-        payment_intent = event['data']['object']
-        # print(f'LINE 65{event["data"]["object"].client_reference_id}')
-        client = firestore.client(app=app)
-        characters = client.collection("Characters").stream()
-        # print(characters.to_dict())
-        for doc in characters:
-            print(f"{doc.id} : {doc.to_dict()}")
-            print('TEST')
-        print('2TEST2')
-
-        # print(characters.to_dict())        
+        paymentData = event['data']['object']
+        clientIndex = "client_reference_id"
+        subscribedField = "subscribed"
+        if clientIndex in paymentData:
+            userID = paymentData[clientIndex]
+            ref = client.collection("Users").document(userID)
             
-            
-    # else:
-        # print("Unhandled event type {}".format(event["type"]))
+            if(ref.get().exists):
+                ref.update({
+                    subscribedField: True
+                })
+            else:
+                ref.set({
+                    subscribedField: True
+                })
     return jsonify(success=True)
