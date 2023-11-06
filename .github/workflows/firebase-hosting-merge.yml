@@ -7,19 +7,22 @@ name: Deploy to Firebase Hosting on merge
     branches:
       - main
 jobs:
-  build_and_deploy:
+  build
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - run: npm ci && ng build
+      working-directory: ./app/
+  deploy-hosting:
+    name: Depoly
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: npm ci && npm run build
-        working-directory: ./app/
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_STARRAILTEAMTRACKER }}'
           channelId: live
           projectId: starrailteamtracker
-      - name: deploy functions 
-        run: firebase depoly --only functions
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
