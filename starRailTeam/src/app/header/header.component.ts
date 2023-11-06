@@ -20,7 +20,8 @@ export class HeaderComponent implements OnInit, OnDestroy{
       'http://127.0.0.1:5001/starrailteamtracker/us-central1/create_checkout_session',
       this.user.uid,
       { responseType:'text'})
-      .subscribe( data => window.location.href = data);
+      .subscribe( data => window.location.href = data
+      );
   }
   login(){
     this.userAuth.signInPopUpGoogle()
