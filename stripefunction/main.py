@@ -10,7 +10,6 @@ with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "key.json"), 
     secret = json.loads(D.read())
 stripe.api_key = secret["key"]
 endpoint_secret = secret["web"]
-firestore_key = secret["firestore"]
 app = initialize_app()
 client = firestore.client(app=app)
 
