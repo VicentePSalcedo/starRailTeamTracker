@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { characterType } from '../Models/character.model';
-import { Firestore, collectionData, collection } from '@angular/fire/firestore';
+import { Firestore, collectionData, collection, getDoc, doc } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable, take } from 'rxjs';
 
 @Injectable({
@@ -19,5 +19,15 @@ export class FirestoreService {
       this._characterData.next(data as characterType[]);
       // console.log(data)
     });
+  }
+
+  newUserCheck(userID: string): boolean{
+    const docRef = doc(this._fireStore, `Users`, userID)
+    const userSub$ =  getDoc(docRef)
+    return true;
+  }
+
+  createNewUser(userID: string): void{
+
   }
 }
