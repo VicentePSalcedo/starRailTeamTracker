@@ -15,7 +15,7 @@ app = initialize_app()
 client = firestore.client(app=app)
 
 
-YOUR_DOMAIN='http://localhost:5000'
+YOUR_DOMAIN='https://starrailteamtracker.web.app/'
 
 @https_fn.on_request(
     cors=options.CorsOptions(
