@@ -19,25 +19,3 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_STARRAILTEAMTRACKER }}'
           channelId: live
           projectId: starrailteamtracker
-      - name: "Authenticate to Google Cloud Staging"
-        id: "auth"
-        uses: "google-github-actions/auth@v0.4.0"
-        with:
-          token_format: "access_token"
-          workload_identity_provider: ""
-          service_account: ""
-
-      - name: "Setup Environment"
-        working-directory: ./stripefunction
-        env:
-          FIREBASE_TOKEN: ${{ steps.auth.outputs.access_token }}
-        run: |
-          python3.11 -m venv venv
-          . venv/bin/activate
-          python3.11 -m pip install -r requirements.txt
-
-      - name: "Select project"
-        run: firebase use project
-
-      - name: "Deploy"
-        run: firebase deploy --only functions:python
