@@ -1,0 +1,19 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+    match /Characters/{characters} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /users/{userId}/Teams/{team} {
+      allow read: if (request.auth.uid == userId);
+      allow write: if (request.auth.uid == userId) 
+                   && (team.matches('team[0-2]'))
+                   && (request.resource.data.keys().hasOnly(['characters']));
+    }
+  }
+}
