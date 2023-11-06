@@ -1,8 +1,7 @@
 import json
 import os
 from firebase_functions import https_fn, options
-from firebase_admin import firestore, credentials, initialize_app
-import firebase_admin 
+from firebase_admin import firestore, initialize_app
 from flask import jsonify
 import stripe
     
