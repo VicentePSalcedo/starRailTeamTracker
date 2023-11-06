@@ -19,8 +19,8 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_STARRAILTEAMTRACKER }}'
           channelId: live
           projectId: starrailteamtracker
-      - name: deploy to production
-        uses: w9jds/firebase-action@master
+      - name: deploy functions 
+        uses: docker://w9jds/firebase-action:master
         with:
           args: deploy --only functions
         env:
