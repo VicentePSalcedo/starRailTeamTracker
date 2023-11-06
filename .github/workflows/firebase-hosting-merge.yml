@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: npm ci && npm build
+      - run: npm ci && npm run build
         working-directory: ./app/
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -19,3 +19,9 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_STARRAILTEAMTRACKER }}'
           channelId: live
           projectId: starrailteamtracker
+      - name: deploy to production
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only functions
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
