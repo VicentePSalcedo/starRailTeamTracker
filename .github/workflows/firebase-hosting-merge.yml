@@ -6,7 +6,6 @@ name: Deploy to Firebase Hosting on merge
   push:
     branches:
       - main
-      - cicd
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
@@ -29,16 +28,3 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_STARRAILTEAMTRACKER }}'
           channelId: live
           projectId: starrailteamtracker
-      - id: 'auth'
-        name: Authenticate to Google Cloud
-        uses: 'google-github-actions/auth@v1'
-        with:
-          workload_identity_provider: 'projects/851893191654/locations/global/workloadIdentityPools/github/providers/github'
-          service_account: 'github-action-697918569@starrailteamtracker.iam.gserviceaccount.com'
-      - id: 'deploy'
-        name: Deploying Cloud Functions V4
-        uses: 'google-github-actions/deploy-cloud-functions@v1'
-        with:
-          source_dir: ./stripefunction/
-          name: 'stripefunction'
-          runtime: 'python312'
