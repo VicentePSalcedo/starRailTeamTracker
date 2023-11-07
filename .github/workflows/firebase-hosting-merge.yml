@@ -33,7 +33,6 @@ jobs:
         name: Authenticate to Google Cloud
         uses: 'google-github-actions/auth@v1'
         with:
-          token_format: "access_token"
           workload_identity_provider: '//iam.googleapis.com/projects/851893191654/locations/global/workloadIdentityPools/github/providers/Github'
           service_account: 'github-action-697918569@starrailteamtracker.iam.gserviceaccount.com'
       - id: 'deploy'
