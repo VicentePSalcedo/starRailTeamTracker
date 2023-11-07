@@ -41,4 +41,4 @@ jobs:
         uses: google-github-actions/deploy-cloud-functions@v1
         with:
           name: 'stripefunction'
-          runtim: 'python'
+          runtime: 'python'
