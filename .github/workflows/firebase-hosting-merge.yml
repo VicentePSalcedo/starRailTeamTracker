@@ -34,7 +34,7 @@ jobs:
         uses: 'google-github-actions/auth@v1'
         with:
           create_credentials_file: true
-          workload_identity_provider: 'projects/851893191654/locations/global/workloadIdentityPools/github/subject/github'
+          workload_identity_provider: '//iam.googleapis.com/projects/851893191654/locations/global/workloadIdentityPools/github/providers/github'
           service_account: 'github-action-697918569@starrailteamtracker.iam.gserviceaccount.com'
       - id: deploy
         name: Deploying Cloud Functions
