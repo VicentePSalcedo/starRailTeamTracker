@@ -39,5 +39,6 @@ jobs:
         name: Deploying Cloud Functions
         uses: 'google-github-actions/deploy-cloud-functions@v1'
         with:
+          source_dir: ./stripefunction/
           name: 'stripefunction'
           runtime: 'python312'
