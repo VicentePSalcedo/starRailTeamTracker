@@ -10,8 +10,11 @@ name: Deploy to Firebase Hosting on merge
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
     steps:
-      - name: Checking out repo
+      - name: Checking Out Repo
         uses: actions/checkout@v3
       - name: Install dependencies
         run: npm ci
@@ -19,9 +22,23 @@ jobs:
       - name: Building
         run: npm run build
         working-directory: ./app/
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - name: Deploying Webapp to Firebase
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_STARRAILTEAMTRACKER }}'
           channelId: live
           projectId: starrailteamtracker
+      - id: 'auth'
+        name: Authenticate to Google Cloud
+        uses: 'google-github-actions/auth@v1'
+        with:
+          create_credentials_file: true
+          workload_identity_provider: 'projects/851893191654/locations/global/workloadIdentityPools/github/subject/github'
+          service_account: 'service-851893191654@gs-project-accounts.iam.gserviceaccount.com'
+      - id: deploy
+        name: Deploying Cloud Functions
+        uses: google-github-actions/deploy-cloud-functions@v1
+        with:
+          name: 'stripefunction'
+          runtim: 'python'
