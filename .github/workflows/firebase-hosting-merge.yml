@@ -5,19 +5,20 @@ name: Deploy to Firebase Hosting on merge
 'on':
   push:
     branches:
+      - main
       - cicd
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
       - name: installing dependencies
-      - run: npm ci 
+        uses: actions/checkout@v3
+        run: npm ci 
         working-directory: ./app/
       - name: building
-      - run: npm run build
+        run: npm run build
         working-directory: ./app/
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_STARRAILTEAMTRACKER }}'
