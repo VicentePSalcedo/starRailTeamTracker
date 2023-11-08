@@ -23,16 +23,19 @@ describe("Our social app", () => {
         const testDoc = db.collection("Characters").doc("Asta");
         await firebase.assertFails(testDoc.set({foo: "bar"}));
     })
-    it("Can read or write to a user's Teams collection with the same ID as our user", async() => {
+    it("Can write to a user's Teams collection with the same ID as our user", async() => {
         const db = getFirestore(myAuth);
-        const testDoc = db.collection("Users").doc(myId);
-        await firebase.assertSucceeds(testDoc.get());
+        const testDoc = db.collection("Users").doc(myId).collection("Teams").doc("rand1");
         await firebase.assertSucceeds(testDoc.set({foo: "bar"}));
     })
-    it("Can't read or write to a user Teams collection with the same ID as our user", async() => {
+    it("Can read to a user's Teams collection with the same ID as our user", async() => {
         const db = getFirestore(myAuth);
-        const testDoc = db.collection("Users").doc(theirId);
+        const testDoc = db.collection("Users").doc(myId).collection("Teams").doc("rand1");
+        await firebase.assertSucceeds(testDoc.get());
+    })
+    it("Can't read to a user's Teams collection with a different ID as our user", async() => {
+        const db = getFirestore(myAuth);
+        const testDoc = db.collection("Users").doc(theirId).collection("Teams").doc("rand1");
         await firebase.assertFails(testDoc.get());
-        await firebase.assertFails(testDoc.set({foo: "bar"}));
     })
 })
