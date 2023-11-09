@@ -25,17 +25,17 @@ describe("Our social app", () => {
     })
     it("Can write to a user's Teams collection with the same ID as our user", async() => {
         const db = getFirestore(myAuth);
-        const testDoc = db.collection("Users").doc(myId).collection("Teams").doc("rand1");
+        const testDoc = db.collection("Users").doc(myId).collection("Teams").doc("teamsDoc");
         await firebase.assertSucceeds(testDoc.set({foo: "bar"}));
     })
     it("Can read to a user's Teams collection with the same ID as our user", async() => {
         const db = getFirestore(myAuth);
-        const testDoc = db.collection("Users").doc(myId).collection("Teams").doc("rand1");
+        const testDoc = db.collection("Users").doc(myId).collection("Teams").doc("teamsDoc");
         await firebase.assertSucceeds(testDoc.get());
     })
     it("Can't read to a user's Teams collection with a different ID as our user", async() => {
         const db = getFirestore(myAuth);
-        const testDoc = db.collection("Users").doc(theirId).collection("Teams").doc("rand1");
+        const testDoc = db.collection("Users").doc(theirId).collection("Teams").doc("teamsDoc");
         await firebase.assertFails(testDoc.get());
     })
 })
