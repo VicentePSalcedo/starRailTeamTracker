@@ -21,7 +21,7 @@ exports.onUserCreate = functions.auth.user().onCreate((user) => {
     "subscribed": false,
   });
   admin.firestore().doc(`${usersObject
-      .UserCollection}/${user.uid}/Teams/teamsDoc`)
+      .UserCollection}/${user.uid}/Teams`)
       .set({});
 });
 
