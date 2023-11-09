@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { DataService } from './data.service';
 import { characterType } from '../Models/character.model';
 import { BehaviorSubject } from 'rxjs';
+import { UserAuthService } from './user-auth.service';
+import { User } from 'firebase/auth';
+import { FirestoreService } from './firestore.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +15,7 @@ export class TeamsService {
   
   currentTeam = 0;
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, private userAuth: UserAuthService, private _firestore: FirestoreService) {
     this.handleCacheLoad();
     this.dataService.displayedCharacters$.subscribe(data => {
       if(data.length == 0) return;
@@ -26,6 +29,10 @@ export class TeamsService {
     this._teams.subscribe(data => {
       this.dataService.saveToCache(data);
     })
+
+    this.userAuth.user$.subscribe(data => {
+      this.handleDatabaseLoad(data)
+    })
   }
   handleCacheLoad(){
     const load = this.dataService.loadFromCache();
@@ -36,6 +43,18 @@ export class TeamsService {
       this.dataService.setDisplayCharacters(this._teams.value[this.currentTeam]);
     }
   }
+  handleDatabaseLoad(user: User | null ){
+    if(!user) return
+    this._firestore.getCollectionSubscription(`Users/${user.uid}/Teams`).subscribe(data => {
+      if((data as []).length == 0) return
+      this._teams.next((data as []).map(teamsData => {
+        const team = Object.values(teamsData)
+        return team as characterType[]}))
+      console.log(data);
+      
+    })
+  }
+  
   changeTeams(index: number){
     if(index < 0 || index > this.dataService.MAXTEAMSIZE - 1) return;
     if(!this._teams.value[index]){
@@ -45,4 +64,9 @@ export class TeamsService {
     this.dataService.setDisplayCharacters(this._teams.value[this.currentTeam]);
     
   }
+
+  getTeams(): characterType[][]{
+    return this._teams.value
+  }
+
 }
