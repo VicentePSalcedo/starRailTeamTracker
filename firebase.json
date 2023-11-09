@@ -29,7 +29,7 @@
     }
   ],
   "hosting": {
-    "public": "starRailTeam/dist/star-rail-team",
+    "public": "app/dist/star-rail-team",
     "ignore": [
       "firebase.json",
       "**/.*",

@@ -1,8 +1,7 @@
 import json
 import os
 from firebase_functions import https_fn, options
-from firebase_admin import firestore, credentials, initialize_app
-import firebase_admin 
+from firebase_admin import firestore, initialize_app
 from flask import jsonify
 import stripe
     
@@ -10,12 +9,11 @@ with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "key.json"), 
     secret = json.loads(D.read())
 stripe.api_key = secret["key"]
 endpoint_secret = secret["web"]
-firestore_key = secret["firestore"]
 app = initialize_app()
 client = firestore.client(app=app)
 
 
-YOUR_DOMAIN='http://localhost:5000'
+YOUR_DOMAIN='https://starrailteamtracker.web.app/'
 
 @https_fn.on_request(
     cors=options.CorsOptions(
