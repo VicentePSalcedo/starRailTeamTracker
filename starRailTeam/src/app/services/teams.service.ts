@@ -35,9 +35,7 @@ export class TeamsService {
     })
   }
   handleCacheLoad(){
-    const load = this.dataService.loadFromCache();
-    console.log(load);
-    
+    const load = this.dataService.loadFromCache();    
     if(load){
       this._teams.next(load);
       this.dataService.setDisplayCharacters(this._teams.value[this.currentTeam]);
@@ -50,7 +48,6 @@ export class TeamsService {
       this._teams.next((data as []).map(teamsData => {
         const team = Object.values(teamsData)
         return team as characterType[]}))
-      console.log(data);
       
     })
   }
