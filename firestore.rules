@@ -9,7 +9,7 @@ service cloud.firestore {
       allow read: if true;
       allow write: if false;
     }
-    match /Users/{userId}/Teams/teamsDoc {
+    match /Users/{userId}/Teams/{teamsId} {
       allow read, write: if isSignedIn(userId);
     }
 
