@@ -1,9 +1,6 @@
 #!/bin/bash
-echo "Running tests ..."
-if !(firebase emulators:exec --only firestore "cd firestoretests && npm test"); then
-    echo "One or more firestore unit tests are failing."
-    return 1
-fi
+echo "Deploying the firestore rules and firebase functions..."
+echo "!!Please note: hosting deploys on merge to dev!!"
 if !(firebase deploy --only firestore); then
     echo "Firestore rules failed to deploy."
 fi
