@@ -3,6 +3,9 @@ import { UserAuthService } from '../services/user-auth.service';
 import { User } from 'firebase/auth';
 import { Subscription } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { FirestoreService } from '../services/firestore.service';
+import { TeamsService } from '../services/teams.service';
+import { characterType } from '../Models/character.model';
 
 @Component({
   selector: 'app-header',
@@ -11,9 +14,14 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 })
 export class HeaderComponent implements OnInit, OnDestroy{
   user!: User | null;
+  teams!: characterType[][]
   private _userSubscription$!: Subscription;
 
-  constructor(private userAuth: UserAuthService, private http: HttpClient){}
+  constructor(private userAuth: UserAuthService, private http: HttpClient, private firestore: FirestoreService, private teamsService: TeamsService){
+    this.teamsService.teams$.subscribe(data => {
+      this.teams = data
+    })
+  }
   createCheckoutSession(){
     if(!this.user) return this.login();
     this.http.post(
@@ -30,6 +38,11 @@ export class HeaderComponent implements OnInit, OnDestroy{
   logOut(){
     this.userAuth.logOut();
 
+  }
+
+  save(){
+    if(!this.user) return;
+    this.firestore.writeToDoc(`Users/${this.user.uid}/Teams`, this.teams)
   }
 
   ngOnInit(): void {
