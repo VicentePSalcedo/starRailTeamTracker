@@ -40,9 +40,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   }
 
-  save() {
-    if (!this.user) return;
-    this.firestore.writeToDoc(`Users/${this.user.uid}/Teams`, this.teams)
+  save(){
+    if(!this.user) return;
+    const userID = this.user.uid
+    this.firestore.saveTeamToDB(`Users/${userID}/Teams`, this.teams)
+    this.firestore.writeDoc(`Users/${userID}/Metadata/timestamp`, {"timestamp": Date.now().toString()})
   }
 
   ngOnInit(): void {
