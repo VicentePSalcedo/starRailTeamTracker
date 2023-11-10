@@ -12,46 +12,46 @@ import { characterType } from '../Models/character.model';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit, OnDestroy{
+export class HeaderComponent implements OnInit, OnDestroy {
   user!: User | null;
   teams!: characterType[][]
   private _userSubscription$!: Subscription;
 
-  constructor(private userAuth: UserAuthService, private http: HttpClient, private firestore: FirestoreService, private teamsService: TeamsService){
+  constructor(private userAuth: UserAuthService, private http: HttpClient, private firestore: FirestoreService, private teamsService: TeamsService) {
     this.teamsService.teams$.subscribe(data => {
       this.teams = data
     })
   }
-  createCheckoutSession(){
-    if(!this.user) return this.login();
+  createCheckoutSession() {
+    if (!this.user) return this.login();
     this.http.post(
       'https://create-checkout-session-h7x52e2twq-uc.a.run.app',
       this.user.uid,
-      { responseType:'text'})
-      .subscribe( data => window.location.href = data
+      { responseType: 'text' })
+      .subscribe(data => window.location.href = data
       );
   }
-  login(){
+  login() {
     this.userAuth.signInPopUpGoogle()
   }
 
-  logOut(){
+  logOut() {
     this.userAuth.logOut();
 
   }
 
-  save(){
-    if(!this.user) return;
+  save() {
+    if (!this.user) return;
     this.firestore.writeToDoc(`Users/${this.user.uid}/Teams`, this.teams)
   }
 
   ngOnInit(): void {
-      this._userSubscription$ = this.userAuth.user$.subscribe(data =>{
-        this.user = data;
-      });
+    this._userSubscription$ = this.userAuth.user$.subscribe(data => {
+      this.user = data;
+    });
   }
 
   ngOnDestroy(): void {
-      this._userSubscription$.unsubscribe();
+    this._userSubscription$.unsubscribe();
   }
 }
