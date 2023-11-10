@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { characterType } from '../Models/character.model';
-import { Firestore, collectionData, collection, getDoc, doc, addDoc, setDoc, DocumentData} from '@angular/fire/firestore';
+import { Firestore, collectionData, collection, getDoc, doc, addDoc, setDoc, DocumentData, docData} from '@angular/fire/firestore';
 import { BehaviorSubject, Observable, Subscription, take } from 'rxjs';
 import { TeamsService } from './teams.service';
 import { User } from 'firebase/auth';
@@ -27,19 +27,20 @@ export class FirestoreService {
   }
 
 
-  writeToDoc(path: string, teamData: characterType[][]): void{
+  saveTeamToDB(path: string, teamData: characterType[][]): void{
     teamData.forEach((team, index) => {
-      // collection(this._fireStore, path)
       setDoc(doc(this._fireStore, path, `team${index}`), {...team})
     })    
-    // addDoc(collection(this._fireStore, path), {teamData})
-    // doc(this._fireStore, path).
-    // teamData.forEach(data => {
-    //   addDoc(collection(this._fireStore, path), data)
-    // })
+  }
+  writeDoc<T>(path: string, data: {}){
+    setDoc(doc(this._fireStore, path), data)
+  }
+  getDoc(path: string): Observable<DocumentData>{
+    return docData(doc(this._fireStore, path))
   }
   getCollectionSubscription(path: string): Observable<DocumentData>{
     const collectionRef = collection(this._fireStore, path)
     return (collectionData(collectionRef))
   }
+
 }
