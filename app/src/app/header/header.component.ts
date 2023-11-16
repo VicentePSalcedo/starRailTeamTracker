@@ -30,6 +30,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       { responseType: 'text' })
       .subscribe(data => window.location.href = data
       );
+    //TODO unsubscirbe from this ^^^
   }
   login() {
     this.userAuth.signInPopUpGoogle()
