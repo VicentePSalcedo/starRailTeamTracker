@@ -12,6 +12,7 @@ export class DataService {
   MAXCHARACTERS: number = 4;
   MAXTEAMSIZE: number = 3;
   selectedCharacters: string[] = [];
+  savedTimestamp: number = 0;
   
   private _displayedCharacters: BehaviorSubject<characterType[]> =
   new BehaviorSubject<characterType[]>([]);
@@ -23,7 +24,10 @@ export class DataService {
     this.fireStoreService.characterData$.subscribe((data) => {
       this._allCharacters = data;
     });
-    
+    const storageTimestamp = localStorage.getItem("timestamp") ;
+    if(storageTimestamp){
+      this.savedTimestamp = Number(storageTimestamp)
+    }
   }
 
   getAllCharacters() {
@@ -126,6 +130,8 @@ export class DataService {
 
   saveToCache(data: characterType[][]): void{
     if(data.length > this.MAXTEAMSIZE || data.map(x => x.length > this.MAXCHARACTERS).includes(true)) return;
+    const currentTimestamp = Date.now().toString()
     localStorage.setItem('teams', JSON.stringify(data));
+    localStorage.setItem("timestamp", currentTimestamp)
   }
 }

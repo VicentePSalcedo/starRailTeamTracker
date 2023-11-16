@@ -17,7 +17,7 @@ YOUR_DOMAIN='https://starrailteamtracker.web.app/'
 
 @https_fn.on_request(
     cors=options.CorsOptions(
-        cors_origins=["*"],
+        cors_origins=["https://starrailteamtracker.web.app"],
         cors_methods=["post"],
     )
 )
@@ -33,7 +33,7 @@ def create_checkout_session(request):
             customer=customer.id,
             line_items=[
                 {
-                    "price": "price_1O6EOxE1Dt8s3Ho5N4qf7AtF",
+                    "price": "price_1O7019E1Dt8s3Ho54Aaf80mA",
                     "quantity": 1,
                 },
             ],
@@ -52,7 +52,7 @@ def create_checkout_session(request):
 
 @https_fn.on_request(
     cors=options.CorsOptions(
-        cors_origins=["*"],
+        cors_origins=["https://my-webhook-view-h7x52e2twq-uc.a.run.app"],
         cors_methods=["post"],
     )
 )

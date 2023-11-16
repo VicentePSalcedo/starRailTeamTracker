@@ -9,11 +9,13 @@ service cloud.firestore {
       allow read: if true;
       allow write: if false;
     }
-    match /users/{userId}/Teams/{team} {
-      allow read: if (request.auth.uid == userId);
-      allow write: if (request.auth.uid == userId) 
-                   && (team.matches('team[0-2]'))
-                   && (request.resource.data.keys().hasOnly(['characters']));
+    match /Users/{userId}/Teams/{teamsId} {
+      allow read, write: if isSignedIn(userId);
     }
+
+    function isSignedIn(userId){
+        return request.auth != null && request.auth.uid == userId;
+    }
+
   }
 }
