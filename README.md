@@ -9,5 +9,5 @@ a small webapp for the game Honkai: Star Rail
     - Login in to save progress and access on any device
     - Click Remove ads to subscribe and remove adds, this will add 3 additional team slots as well
 
-![Alt text](assets/srttexamplesidebarclosed.png)
-![Alt text](assets/srttexamplesidebaropen.png)
+![Sidebar closed](assets/srttexamplesidebarclosed.png)
+![Sidebar opened](assets/srttexamplesidebaropened.png)
