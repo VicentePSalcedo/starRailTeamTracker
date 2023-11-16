@@ -8,3 +8,6 @@ a small webapp for the game Honkai: Star Rail
     - Characters Selected will display a checklist of the best lightcones and relics
     - Login in to save progress and access on any device
     - Click Remove ads to subscribe and remove adds, this will add 3 additional team slots as well
+
+![Alt text](assets/srttexamplesidebarclosed.png)
+![Alt text](assets/srttexamplesidebaropen.png)
