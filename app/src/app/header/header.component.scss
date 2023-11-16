@@ -6,6 +6,7 @@
     height: 8.368200836820083vh;
     width: 100%;
     justify-content: flex-end;
+    align-items: center;
 }
 
 .endButtonsContainer{
@@ -41,4 +42,31 @@
     align-self: center;
     border-radius: 1.0460251046025104vh;
     margin-right: 2.092050209205021vh;
+}
+
+.profileContainer{
+    height: 50px;
+    width: 50px;
+    margin-right: 2.092050209205021vh;
+}
+
+.profile-icon{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 100%;
+    position: relative;
+    cursor: pointer;
+    
+}
+.profile-image{
+    max-height: 100%;
+    // object-fit: cover;
+    // left: 50%;
+    // top: 50%;
+    // transform: translate(-50%, -50%);
+}
+
+.profile-icon:hover ~ .profile-dropdown{
+    background-color: green;
 }

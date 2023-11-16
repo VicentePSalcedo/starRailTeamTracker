@@ -47,6 +47,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.firestore.writeDoc(`Users/${userID}/Metadata/timestamp`, {"timestamp": Date.now().toString()})
   }
 
+  showProfileDropdown(event: Event){
+    // document.getElementById("dropdown").class
+  }
+
   ngOnInit(): void {
     this._userSubscription$ = this.userAuth.user$.subscribe(data => {
       this.user = data;
