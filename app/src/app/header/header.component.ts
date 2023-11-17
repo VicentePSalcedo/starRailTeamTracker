@@ -15,12 +15,14 @@ import { characterType } from '../Models/character.model';
 export class HeaderComponent implements OnInit, OnDestroy {
   user!: User | null;
   teams!: characterType[][]
+  isProfileMenuDropped: boolean = false;
   private _userSubscription$!: Subscription;
 
   constructor(private userAuth: UserAuthService, private http: HttpClient, private firestore: FirestoreService, private teamsService: TeamsService) {
     this.teamsService.teams$.subscribe(data => {
       this.teams = data
     })
+
   }
   createCheckoutSession() {
     if (!this.user) return this.login();
@@ -48,7 +50,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   showProfileDropdown(event: Event){
-    // document.getElementById("dropdown").class
+    this.isProfileMenuDropped = !this.isProfileMenuDropped;
   }
 
   ngOnInit(): void {

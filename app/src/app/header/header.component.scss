@@ -48,6 +48,7 @@
     height: 50px;
     width: 50px;
     margin-right: 2.092050209205021vh;
+    position: relative;
 }
 
 .profile-icon{
@@ -67,6 +68,36 @@
     // transform: translate(-50%, -50%);
 }
 
-.profile-icon:hover ~ .profile-dropdown{
-    background-color: green;
+.profile-dropdown{
+    opacity: 0;
+    border-radius: 15px;
+    top: 70px;
+    right: 0;
+    height: auto;
+    width: 220px;
+    background-color: var(--fg);
+    position: absolute;
+    text-wrap: nowrap;
+
+}
+
+.dropdown-active{
+    opacity: 1;
+}
+.dropdown-button{
+    font-weight: bolder;
+    padding: 10px 50px 10px 50px;
+    cursor: pointer;
+}
+.button-containers{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    width: auto;
+}
+.deleteAccount{
+    position: relative;
+    color: #ED5B5B;
+    margin-bottom: 20px;
 }
