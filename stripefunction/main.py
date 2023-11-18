@@ -84,10 +84,14 @@ def my_webhook_view(request):
             ref.update({
                 subscribedField: True
             })
+            
         else:
             ref.set({
                 subscribedField: True
             })
+        ref.collection("Metadata").document("subscriberID").set({
+            "subscriberID": customer
+        })
             #### HANDLE SUBS THAT ENDED/FAILED INVOICING PAYMENT ####
     if event['type'] == 'customer.subscription.deleted' or event['type'] == 'invoice.payment_failed':
         paymentData = event['data']['object']
