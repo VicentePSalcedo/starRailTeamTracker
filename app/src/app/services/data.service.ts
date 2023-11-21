@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { characterType, checkData, dataType, ornament, relics } from '../Models/character.model';
 import { FirestoreService } from './firestore.service';
-import { BehaviorSubject, Observable, take } from 'rxjs';
+import { BehaviorSubject, Observable, skip, take } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -21,8 +21,17 @@ export class DataService {
   private _allCharacters: characterType[] = [];
 
   constructor(private fireStoreService: FirestoreService) {
-    this.fireStoreService.characterData$.subscribe((data) => {
+    this.fireStoreService.characterData$.pipe(
+      skip(1)
+    ).subscribe((data) => {
       this._allCharacters = data;
+      this.addCharacter("Asta")
+      this.addCharacter("Arlan")
+      this.addCharacter("Bailu")
+      this.addCharacter("Blade")
+
+      // console.log(this._displayedCharacters);
+      
     });
 
     this.addCharacter("Arlan")
@@ -42,6 +51,8 @@ export class DataService {
 
   addCharacter(characterName: string): void {
     if (this._displayedCharacters.value.length >= this.MAXCHARACTERS || this.checkIfCharacterInTeam(characterName)) return;
+    console.log(this._allCharacters);
+    
     const newDisplayedCharacters = [...this._displayedCharacters.value, this._allCharacters.find(data => data.Name == characterName)]
     this._displayedCharacters.next(newDisplayedCharacters as characterType[])
     // this.saveToCache(this._displayedCharacters.value);

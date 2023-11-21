@@ -10,7 +10,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit, OnDestroy{
-  sidebarOpen: boolean = true;
+  //change back to true when done testing
+  sidebarOpen: boolean = false;
   input: string = '';
   
   displayedCharacterSub!: Subscription;
