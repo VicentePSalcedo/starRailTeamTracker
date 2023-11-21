@@ -24,6 +24,11 @@ export class DataService {
     this.fireStoreService.characterData$.subscribe((data) => {
       this._allCharacters = data;
     });
+    this.addCharacter("Arlan")
+    this.addCharacter("Asta")
+    this.addCharacter("Bailu")
+    this.addCharacter("Blade")
+
     const storageTimestamp = localStorage.getItem("timestamp") ;
     if(storageTimestamp){
       this.savedTimestamp = Number(storageTimestamp)
