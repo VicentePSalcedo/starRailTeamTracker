@@ -33,11 +33,6 @@ export class DataService {
       // console.log(this._displayedCharacters);
       
     });
-
-    this.addCharacter("Arlan")
-    this.addCharacter("Asta")
-    this.addCharacter("Bailu")
-    this.addCharacter("Blade")
     
     const storageTimestamp = localStorage.getItem("timestamp") ;
     if(storageTimestamp){
