@@ -25,10 +25,6 @@ export class DataService {
       skip(1)
     ).subscribe((data) => {
       this._allCharacters = data;
-      this.addCharacter("Asta")
-      this.addCharacter("Arlan")
-      this.addCharacter("Bailu")
-      this.addCharacter("Blade")
 
       // console.log(this._displayedCharacters);
       
