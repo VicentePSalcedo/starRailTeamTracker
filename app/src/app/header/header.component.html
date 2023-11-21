@@ -16,5 +16,17 @@ data-full-width-responsive="true"></ins>
     <ng-template #loggedIn>
         <div class="RemoveAds endButtons" (click)="save()">Save</div>
         <div class="LoginToSave endButtons" (click)="logOut()">  Logout  </div>
+        <div class="profileContainer">
+            <div class="profile-icon" (click)="showProfileDropdown($event)">
+                <img class="profile-image endButtons" src={{user?.photoURL}} alt="" referrerpolicy="no-referrer">
+            </div>
+            <div class="profile-dropdown" [ngClass]="isProfileMenuDropped ? 'dropdown-active' : ''">
+                <div class="button-containers">
+                    <div class="dropdown-button">Unsubscribe</div>
+                    <div class="dropdown-button">Logout</div>
+                </div>
+                <div class="dropdown-button deleteAccount">Delete Account</div>
+            </div>
+        </div>
     </ng-template>
 </div>
