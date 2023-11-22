@@ -15,7 +15,7 @@ import { characterType } from '../Models/character.model';
 export class HeaderComponent implements OnInit, OnDestroy {
   user!: User | null;
   teams!: characterType[][]
-  isProfileMenuDropped: boolean = true;
+  isProfileMenuDropped: boolean = false;
   private _userSubscription$!: Subscription;
 
   constructor(private userAuth: UserAuthService, private http: HttpClient, private firestore: FirestoreService, private teamsService: TeamsService) {
@@ -52,6 +52,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   showProfileDropdown(event: Event){
     this.isProfileMenuDropped = !this.isProfileMenuDropped;
   }
+  unsubscribe(){}
 
   ngOnInit(): void {
     this._userSubscription$ = this.userAuth.user$.subscribe(data => {
