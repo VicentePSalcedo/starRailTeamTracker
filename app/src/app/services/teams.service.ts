@@ -25,18 +25,19 @@ export class TeamsService {
       this._teams.next(newTeam)
       // this._teams.value[this.currentTeam] = data;      
     })
-
+    
     //SKIP THE FIRST DATA EMITION FOR TEAMS DATA
     this._teams.pipe(skip(1)).subscribe(data => {
       this.dataService.saveToCache(data);
       this      
     })
-
+    
     this.userAuth.user$.subscribe(data => {
       this.handleDatabaseLoad(data)
     })
+    // this.dataService.addCharacter("Asta")
   }
-
+  
   handleCacheLoad(){
     const load = this.dataService.loadFromCache();    
     if(load){
