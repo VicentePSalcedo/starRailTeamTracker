@@ -2,6 +2,8 @@
 
 # Star Rail Team Tracker
 a small webapp for the game Honkai: Star Rail
+# Link to Site
+[here](https://starrailteamtracker.web.app/)
 
 ## Features:
     - Users can create up to 3 teams
