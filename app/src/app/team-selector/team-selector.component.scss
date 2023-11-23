@@ -3,29 +3,29 @@
     position: relative;
     text-align: center;
     align-items: baseline;
-    font-size: 30px;
+    font-size: 2.7778vh;
     height: 100%;
     top: 50%;
-    // border: 1px solid blue;
+    // border: 0.0926vh solid blue;
 }
 .currentIndex{
     text-align: center;
     color: var(--accent);
-    border: 3px solid var(--accent);
-    border-radius: 20px;
-    padding: 15px;
-    padding-left: 20px;
-    padding-right: 20px;
+    border: 0.2778vh solid var(--accent);
+    border-radius: 1.8519vh;
+    padding: 1.3889vh;
+    padding-left: 1.8519vh;
+    padding-right: 1.8519vh;
 }
 .arrow{
-    // border: 1px solid pink;
-    // padding: 10px;
-    width: 100px;
+    // border: 0.0926vh solid pink;
+    // padding: 0.9259vh;
+    width: 9.2593vh;
     height: auto;
     position: relative;
     color: var(--accent);
     font-weight: 700;
-    font-size: 45px;
+    font-size: 4.1667vh;
     text-align: center;
     transition: all ease-in-out .2s;
     line-height: 100%;
