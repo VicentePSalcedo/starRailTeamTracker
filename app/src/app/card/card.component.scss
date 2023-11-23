@@ -4,14 +4,21 @@
     width: 32.3vh;
     background-color: var(--fg);
     border-radius: 3.7656903765690375vh;
-
+    
     text-align: center;
     box-shadow:
-        0vh 0vh 0.17384731670445955vh rgba(0, 0, 0, 0.094),
-        0vh 0vh 0.6046863189720333vh rgba(0, 0, 0, 0.155),
-        0vh 0vh 1.08843537414966vh rgba(0, 0, 0, 0.21),
-        0vh 0vh 1.5117157974300832vh rgba(0, 0, 0, 0.28);
+    0vh 0vh 0.17384731670445955vh rgba(0, 0, 0, 0.094),
+    0vh 0vh 0.6046863189720333vh rgba(0, 0, 0, 0.155),
+    0vh 0vh 1.08843537414966vh rgba(0, 0, 0, 0.21),
+    0vh 0vh 1.5117157974300832vh rgba(0, 0, 0, 0.28);
+    margin-bottom: 10vh;
 }
+@media screen and (min-width: 480px) {
+    .card{
+        margin-bottom: 0;
+    }
+}
+
 
 .Card-Header {
     position: relative;

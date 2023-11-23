@@ -9,7 +9,6 @@ import { SectionComponent } from './section/section.component';
 import { TodoComponent } from './todo/todo.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { CharacterButtonComponent } from './sidebar/character-button/character-button.component';
-import { TeamselectComponent } from './teamselect/teamselect.component';
 import { LoginButtonComponent } from './login-button/login-button.component';
 import { RemoveAddsButtonComponent } from './remove-adds-button/remove-adds-button.component';
 import { HeaderComponent } from './header/header.component';
@@ -33,7 +32,6 @@ import { LoadingComponent } from './sidebar/loading/loading.component';
     TodoComponent,
     SidebarComponent,
     CharacterButtonComponent,
-    TeamselectComponent,
     LoginButtonComponent,
     RemoveAddsButtonComponent,
     HeaderComponent,

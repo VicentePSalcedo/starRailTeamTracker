@@ -1,18 +1,25 @@
 
 .sidebarClosed {
-  left: 0;
+  left: 0vh;
   top: 0;
   display: flex;
   width: fit-content;
   background-color: var(--fg);
-  position: absolute;
-  height: 100%;
+  position: fixed;
+  height: auto;
   box-shadow:
   0vh 0vh 0.17384731670445955vh rgba(0, 0, 0, 0.094),
   0vh 0vh 0.6046863189720333vh rgba(0, 0, 0, 0.155),
   0vh 0vh 1.08843537414966vh rgba(0, 0, 0, 0.21),
   0vh 0vh 1.5117157974300832vh rgba(0, 0, 0, 0.28);
-  padding: 0.7347538574577517vh;
+  padding: 0.9259vh;
+  border-radius: 1.1111vh;
+}
+@media screen and (min-width: 480px) {
+  .sidebarClosed {
+    height: 100vh;
+    padding: 0.7347538574577517vh;
+  }
 }
 .sidebarOpen {
   left: 0;
@@ -22,7 +29,7 @@
   flex-wrap: wrap;
   width: 36.00293901542983vh;
   height: 100%;
-  position: absolute;
+  position: fixed;
   background-color: var(--fg);
   // filter: drop-shadow(0vh 0vh 0.6276150627615062vh rgba(0, 0, 0, 0.4));
   box-shadow:
