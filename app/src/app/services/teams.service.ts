@@ -16,7 +16,7 @@ export class TeamsService {
   currentTeam = 0;
 
   constructor(private dataService: DataService, private userAuth: UserAuthService, private _firestore: FirestoreService) {
-    // this.handleCacheLoad();
+    this.handleCacheLoad();
     this.dataService.displayedCharacters$.subscribe(data => {
       if(data.length == 0) return;
       
