@@ -40,6 +40,7 @@
   align-content: flex-start;
   padding: 0.7347538574577517vh;
   gap: 0.7347538574577517vh;
+  animation: ease-in-out sidebarOpening 550ms;
 }
 
 .menu-overlay {
@@ -75,6 +76,7 @@
 }
 
 .search{
+  display: flex;
   position: relative;
 }
 
@@ -101,4 +103,13 @@
   scale: 0.5;
   opacity: 0.4;
 
+}
+
+@keyframes sidebarOpening{
+  0%{
+    transform: translateX(-100%);
+  }
+  100%{
+    transform: translateX(0%);
+  }
 }
