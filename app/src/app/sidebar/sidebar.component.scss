@@ -40,6 +40,7 @@
   align-content: flex-start;
   padding: 0.7347538574577517vh;
   gap: 0.7347538574577517vh;
+  opacity: 1;
   animation: ease-in-out sidebarOpening 550ms;
 }
 
@@ -51,6 +52,7 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   // pointer-events: none;
+  animation: ease-in-out sidebarClickOut 550ms
 }
 
 .sidebarHeader {
@@ -111,5 +113,13 @@
   }
   100%{
     transform: translateX(0%);
+  }
+}
+@keyframes sidebarClickOut{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
   }
 }
