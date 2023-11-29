@@ -3,7 +3,7 @@
     height: 75.31380753138075vh;
     width: 172.5941422594142vh;
     position: relative;
-    border: #333131 5px solid;
+    border: #333131 0.5230125523012552vh solid;
     border-radius: 2.6150627615062763vh;
     padding-top: 7.845188284518828vh;
     opacity: 0.35;
@@ -22,7 +22,7 @@
     transform: translateX(-50%);
 }
 .material-symbols-outlined {
-    font-size: 45px;
+    font-size: 4.707112970711297vh;
     text-align: center;
     color: var(--accent);
     user-select: none;
@@ -40,38 +40,101 @@
     justify-content: center;
     align-items: center;
 }
+.stepContent{
+    text-align: center;
+}
 
 .kafkaStep{
     width: 3.7037vh;
     height: 3.7037vh;
 }
+.team-selector{
+    scale: 0.5;
+    display: flex;
+    position: relative;
+    text-align: center;
+    align-items: baseline;
+    font-size: 2.7778vh;
+    border-radius: 0;
+    background-color: transparent;
+}
+.currentIndex{
+    text-align: center;
+    color: var(--accent);
+    border: 0.2778vh solid var(--accent);
+    border-radius: 1.8519vh;
+    padding: 1.3889vh;
+    padding-left: 1.8519vh;
+    padding-right: 1.8519vh;
+}
+.arrow{
+    // border: 0.0926vh solid pink;
+    // padding: 0.9259vh;
+    width: 9.2593vh;
+    height: auto;
+    position: relative;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 4.1667vh;
+    text-align: center;
+    transition: all ease-in-out .2s;
+    line-height: 100%;
+    transform-origin: center;
+}
+.left, .right{
+    position: relative;
+}
+
+.left::before {
+    content: "<";
+}
+.right::before{
+    content: ">";
+}
+
+.arrow:hover{
+    cursor: pointer;
+    scale: 1.5;
+}
+
 @media screen and (max-width: 479px) {
     .tutorialContainer{
         height: 80vh;
-        width: 400px;
-        padding-top: 10px;
+        width: 41.84100418410042vh;
+        padding-top: 1.0460251046025104vh;
     }
     .stepsContainer{
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 15px;
+        gap: 1.5690376569037656vh;
     }
     .footer{
         bottom: 12%
     }
     .header{
-        font-size: 15px;
-        padding-bottom: 10px;
+        font-size: 1.5690376569037656vh;
+        padding-bottom: 1.0460251046025104vh;
     }
     .step{
         flex-direction: row;
-        gap: 10px;
-        width: 300px;
-        border: #333131 3px dotted;
-        border-width: 4px;
-        border-radius: 15px;
-        padding: 10px;
+        gap: 1.0460251046025104vh;
+        width: 31.380753138075313vh;
+        border: #333131 0.3138075313807531vh dotted;
+        border-width: 0.41841004184100417vh;
+        border-radius: 1.5690376569037656vh;
+        padding: 1.0460251046025104vh;
+    }
+    .stepContent{
+        text-align: left;
+    }
+    .team-selector{
+        width: 0px;
+        padding-right: 4.707112970711297vh;
+        padding-left: 0px;
+        margin-left: 0px;
+        left: -1.5690376569037656vh;
+
     }
 }
