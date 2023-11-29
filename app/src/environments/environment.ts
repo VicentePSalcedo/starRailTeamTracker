@@ -1,11 +1,14 @@
 export const environment = {
   firebase: {
-  apiKey: "AIzaSyDkidX3VUMUcCR_-7VzBCHBuCEjY6UmoZo",
-  authDomain: "starrailteamtrackerdev.firebaseapp.com",
-  projectId: "starrailteamtrackerdev",
-  storageBucket: "starrailteamtrackerdev.appspot.com",
-  messagingSenderId: "1052789471276",
-  appId: "1:1052789471276:web:01f4afa5184398d0b0b989"
+    projectId: 'starrailteamtracker',
+    appId: '1:851893191654:web:f027228e8255bc24324c27',
+    databaseURL: 'https://starrailteamtracker-default-rtdb.firebaseio.com',
+    storageBucket: 'starrailteamtracker.appspot.com',
+    locationId: 'us-central',
+    apiKey: 'AIzaSyBtUTedlwiEr_vQYrXVzXy3rkSj78kj-II',
+    authDomain: 'starrailteamtracker.firebaseapp.com',
+    messagingSenderId: '851893191654',
+    measurementId: 'G-2LTS3TFENF',
   },
   production: false,
   stripe: {
