@@ -1,0 +1,77 @@
+
+.tutorialContainer{
+    height: 75.31380753138075vh;
+    width: 172.5941422594142vh;
+    position: relative;
+    border: #333131 5px solid;
+    border-radius: 2.6150627615062763vh;
+    padding-top: 7.845188284518828vh;
+    opacity: 0.35;
+}
+
+.header{
+    text-align: center;
+    padding-bottom: 6.9444vh;
+}
+
+.footer{
+    text-align: center;
+    position: absolute;
+    bottom: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.material-symbols-outlined {
+    font-size: 45px;
+    text-align: center;
+    color: var(--accent);
+    user-select: none;
+}
+
+.stepsContainer{
+    display: flex;
+    justify-content: space-around;
+}
+
+.step{
+    width: 23.1481vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.kafkaStep{
+    width: 3.7037vh;
+    height: 3.7037vh;
+}
+@media screen and (max-width: 479px) {
+    .tutorialContainer{
+        height: 80vh;
+        width: 400px;
+        padding-top: 10px;
+    }
+    .stepsContainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+    }
+    .footer{
+        bottom: 12%
+    }
+    .header{
+        font-size: 15px;
+        padding-bottom: 10px;
+    }
+    .step{
+        flex-direction: row;
+        gap: 10px;
+        width: 300px;
+        border: #333131 3px dotted;
+        border-width: 4px;
+        border-radius: 15px;
+        padding: 10px;
+    }
+}

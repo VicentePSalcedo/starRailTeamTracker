@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit, OnDestroy{
-  sidebarOpen: boolean = true;
+  sidebarOpen: boolean = false;
   input: string = '';
   
   displayedCharacterSub!: Subscription;
@@ -51,7 +51,7 @@ export class SidebarComponent implements OnInit, OnDestroy{
       !this.dataService.checkIfCharacterInTeam(name) && this.displayedCharacters.length < this.dataService.MAXCHARACTERS
     ) {
       this.dataService.addCharacter(name);
-    } else {
+    } else {      
       this.dataService.removeCharacter(name);
     }
   }

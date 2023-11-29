@@ -14,6 +14,10 @@ export class CardHolderComponent implements OnInit {
 
   constructor(private dataService: DataService) {}
 
+  getCharacterLength(): number{
+    return this.displayedCharacters.length
+  }
+
   ngOnInit(): void {
     this.dataService.displayedCharacters$.subscribe(data => {
       this.displayedCharacters = data;
