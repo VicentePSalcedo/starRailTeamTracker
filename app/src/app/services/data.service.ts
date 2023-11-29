@@ -28,8 +28,6 @@ export class DataService {
 
       // console.log(this._displayedCharacters);
       
-    });
-    
     const storageTimestamp = localStorage.getItem("timestamp") ;
     if(storageTimestamp){
       this.savedTimestamp = Number(storageTimestamp)
