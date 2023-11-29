@@ -53,7 +53,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isProfileMenuDropped = !this.isProfileMenuDropped;
   }
   manageSubscription(){
-    window.location.href = 'https://billing.stripe.com/p/login/test_aEU16Rg7rg8I11K4gg'
+    window.location.href = 'https://billing.stripe.com/p/login/7sIcQwfQO03benCbII'
   }
 
   ngOnInit(): void {
