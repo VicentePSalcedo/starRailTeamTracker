@@ -17,26 +17,27 @@ export class TeamsService {
 
   constructor(private dataService: DataService, private userAuth: UserAuthService, private _firestore: FirestoreService) {
     this.handleCacheLoad();
-    this.dataService.displayedCharacters$.subscribe(data => {
-      if(data.length == 0) return;
-      
+    this.dataService.displayedCharacters$.pipe(
+      skip(1)
+    ).subscribe(data => {      
       let newTeam = this._teams.value;
       newTeam[this.currentTeam] = data;
       this._teams.next(newTeam)
       // this._teams.value[this.currentTeam] = data;      
     })
-
+    
     //SKIP THE FIRST DATA EMITION FOR TEAMS DATA
     this._teams.pipe(skip(1)).subscribe(data => {
       this.dataService.saveToCache(data);
       this      
     })
-
+    
     this.userAuth.user$.subscribe(data => {
       this.handleDatabaseLoad(data)
     })
+    // this.dataService.addCharacter("Asta")
   }
-
+  
   handleCacheLoad(){
     const load = this.dataService.loadFromCache();    
     if(load){

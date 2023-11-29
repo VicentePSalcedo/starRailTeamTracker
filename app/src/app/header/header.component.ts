@@ -15,12 +15,14 @@ import { characterType } from '../Models/character.model';
 export class HeaderComponent implements OnInit, OnDestroy {
   user!: User | null;
   teams!: characterType[][]
+  isProfileMenuDropped: boolean = false;
   private _userSubscription$!: Subscription;
 
   constructor(private userAuth: UserAuthService, private http: HttpClient, private firestore: FirestoreService, private teamsService: TeamsService) {
     this.teamsService.teams$.subscribe(data => {
       this.teams = data
     })
+
   }
   createCheckoutSession() {
     if (!this.user) return this.login();
@@ -30,7 +32,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       { responseType: 'text' })
       .subscribe(data => window.location.href = data
       );
-    //TODO unsubscirbe from this ^^^
   }
   login() {
     this.userAuth.signInPopUpGoogle()
@@ -46,6 +47,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     const userID = this.user.uid
     this.firestore.saveTeamToDB(`Users/${userID}/Teams`, this.teams)
     this.firestore.writeDoc(`Users/${userID}/Metadata/timestamp`, {"timestamp": Date.now().toString()})
+  }
+
+  showProfileDropdown(event: Event){
+    this.isProfileMenuDropped = !this.isProfileMenuDropped;
+  }
+  manageSubscription(){
+    window.location.href = 'https://billing.stripe.com/p/login/test_aEU16Rg7rg8I11K4gg'
   }
 
   ngOnInit(): void {

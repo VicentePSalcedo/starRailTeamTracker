@@ -6,6 +6,7 @@
     height: 8.368200836820083vh;
     width: 100%;
     justify-content: flex-end;
+    align-items: center;
 }
 
 .endButtonsContainer{
@@ -22,7 +23,7 @@
     font-weight: 800;
 }
 
-.LoginToSave{
+.outlinedButton{
     padding: 1.0460251046025104vh;
     outline: var(--accent) 0.20920502092050208vh solid;
     align-self: center;
@@ -41,4 +42,71 @@
     align-self: center;
     border-radius: 1.0460251046025104vh;
     margin-right: 2.092050209205021vh;
+}
+
+.profileContainer{
+    height: 4.6296vh;
+    width: 4.6296vh;
+    margin-right: 2.092050209205021vh;
+    position: relative;
+}
+
+.profile-icon{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 100%;
+    position: relative;
+    cursor: pointer;
+    
+}
+.profile-image{
+    max-height: 100%;
+}
+
+.profile-dropdown{
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    border-radius: 1.3889vh;
+    top: 2.7778vh;
+    right: 0;
+    min-height: 18.5185vh;
+    height: auto;
+    width: 22.3704vh;
+    background-color: var(--fg);
+    position: absolute;
+    text-wrap: nowrap;
+    padding-bottom: 7.4074vh;
+    transition: all ease-in-out 0s;
+
+
+}
+
+.dropdown-active{
+    transition: 
+        opacity ease-in 450ms,
+        top ease-in-out 400ms;
+    pointer-events: all;
+    opacity: 1;
+    top: 6.4815vh;
+}
+.dropdown-button{
+    font-weight: bolder;
+    padding: 0.9259vh 4.6296vh 0.9259vh 4.6296vh;
+    cursor: pointer;
+}
+.button-containers{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1.8519vh;
+    width: auto;
+}
+.deleteAccount{
+    position: absolute;
+    color: #ED5B5B;
+    margin-bottom: 1.8519vh;
+    bottom: 0vh;
+    text-align: center;
 }

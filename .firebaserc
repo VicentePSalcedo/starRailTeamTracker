@@ -1,5 +1,9 @@
 {
-  "projects": {
-    "default": "starrailteamtracker"
-  }
+    "projects": {
+        "dev": "starrailteamtrackerdev",
+        "production": "starrailteamtracker",
+        "default": "starrailteamtrackerdev"
+    },
+    "targets": {},
+    "etags": {}
 }
