@@ -32,7 +32,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       { responseType: 'text' })
       .subscribe(data => window.location.href = data
       );
-    //TODO unsubscirbe from this ^^^
   }
   login() {
     this.userAuth.signInPopUpGoogle()
@@ -53,7 +52,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   showProfileDropdown(event: Event){
     this.isProfileMenuDropped = !this.isProfileMenuDropped;
   }
-  unsubscribe(){}
+  manageSubscription(){
+    window.location.href = 'https://billing.stripe.com/p/login/test_aEU16Rg7rg8I11K4gg'
+  }
 
   ngOnInit(): void {
     this._userSubscription$ = this.userAuth.user$.subscribe(data => {
