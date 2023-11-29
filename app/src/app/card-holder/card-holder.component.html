@@ -1,3 +1,8 @@
 <div class="card-holder">
-    <app-card *ngFor='let character of displayedCharacters' [character] = "character"></app-card>
+    <ng-container *ngIf="displayedCharacters.length == 0; else noLanding">
+        <app-tutorial></app-tutorial>
+    </ng-container>
+    <ng-template #noLanding>
+        <app-card *ngFor='let character of displayedCharacters' [character] = "character"></app-card>
+    </ng-template>
 </div>

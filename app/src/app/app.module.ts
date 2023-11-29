@@ -22,6 +22,7 @@ import { StripeModule } from "stripe-angular"
 import { TeamSelectorComponent } from './team-selector/team-selector.component';
 import { AdsenseModule } from 'ng2-adsense';
 import { LoadingComponent } from './sidebar/loading/loading.component';
+import { TutorialComponent } from './tutorial/tutorial.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { LoadingComponent } from './sidebar/loading/loading.component';
     RemoveAddsButtonComponent,
     HeaderComponent,
     TeamSelectorComponent,
-    LoadingComponent
+    LoadingComponent,
+    TutorialComponent
   ],
   imports: [
     BrowserModule,
