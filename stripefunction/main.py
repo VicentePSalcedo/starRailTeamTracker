@@ -13,11 +13,11 @@ app = initialize_app()
 client = firestore.client(app=app)
 
 
-YOUR_DOMAIN='https://starrailteamtracker.web.app/'
+YOUR_DOMAIN='https://starrailteamtrackerdev.web.app/'
 
 @https_fn.on_request(
     cors=options.CorsOptions(
-        cors_origins=["https://starrailteamtracker.web.app"],
+        cors_origins=["https://starrailteamtrackerdev.web.app"],
         cors_methods=["post"],
     )
 )
@@ -33,7 +33,7 @@ def create_checkout_session(request):
             customer=customer.id,
             line_items=[
                 {
-                    "price": "price_1O7019E1Dt8s3Ho54Aaf80mA",
+                    "price": "price_1OFPDmE1Dt8s3Ho52CTCCkyq",
                     "quantity": 1,
                 },
             ],
