@@ -28,6 +28,7 @@ export class DataService {
 
       // console.log(this._displayedCharacters);
       
+    });
     const storageTimestamp = localStorage.getItem("timestamp") ;
     if(storageTimestamp){
       this.savedTimestamp = Number(storageTimestamp)
@@ -40,7 +41,7 @@ export class DataService {
 
   addCharacter(characterName: string): void {
     if (this._displayedCharacters.value.length >= this.MAXCHARACTERS || this.checkIfCharacterInTeam(characterName)) return;
-    console.log(this._allCharacters);
+    // console.log(this._allCharacters);
     
     const newDisplayedCharacters = [...this._displayedCharacters.value, this._allCharacters.find(data => data.Name == characterName)]
     this._displayedCharacters.next(newDisplayedCharacters as characterType[])
