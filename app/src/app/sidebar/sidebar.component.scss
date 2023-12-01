@@ -1,4 +1,3 @@
-
 .sidebarClosed {
   left: 0vh;
   top: 0;
@@ -14,6 +13,7 @@
   0vh 0vh 1.5117157974300832vh rgba(0, 0, 0, 0.28);
   padding: 0.9259vh;
   border-radius: 1.1111vh;
+  z-index: 2;
 }
 @media screen and (min-width: 480px) {
   .sidebarClosed {
@@ -24,7 +24,7 @@
 .sidebarOpen {
   left: 0;
   top: 0;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   flex-wrap: wrap;
   width: 36.00293901542983vh;
@@ -52,7 +52,8 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   // pointer-events: none;
-  animation: ease-in-out sidebarClickOut 550ms
+  animation: ease-in-out sidebarClickOut 550ms;
+  z-index: 1;
 }
 
 .sidebarHeader {
