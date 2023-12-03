@@ -23,6 +23,18 @@ import { TeamSelectorComponent } from './team-selector/team-selector.component';
 import { AdsenseModule } from 'ng2-adsense';
 import { LoadingComponent } from './sidebar/loading/loading.component';
 import { TutorialComponent } from './tutorial/tutorial.component';
+import { RouterModule, Routes, provideRouter } from '@angular/router';
+import { PrivacyComponent } from './privacy/privacy.component';
+import { HomeComponent } from './home/home.component';
+import { FooterComponent } from './footer/footer.component';
+
+
+const routes: Routes = [
+  {path: "privacy", component: PrivacyComponent},
+  {path: "", component: HomeComponent},
+  {path: "404", component: HomeComponent},
+  {path: "**", component: HomeComponent}
+]
 
 @NgModule({
   declarations: [
@@ -38,7 +50,10 @@ import { TutorialComponent } from './tutorial/tutorial.component';
     HeaderComponent,
     TeamSelectorComponent,
     LoadingComponent,
-    TutorialComponent
+    TutorialComponent,
+    PrivacyComponent,
+    HomeComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +65,7 @@ import { TutorialComponent } from './tutorial/tutorial.component';
     AdsenseModule.forRoot(),
     provideAuth(() => getAuth()),
     [ StripeModule.forRoot(environment.stripe.publicKey) ],
+    RouterModule.forRoot(routes)
     
   ],
   providers: [],
