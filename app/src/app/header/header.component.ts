@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   createCheckoutSession() {
     if (!this.user) return this.login();
     this.http.post(
-      'https://create-checkout-session-3ea6rzobva-uc.a.run.app ',
+      environment.checkoutSessionUrl,
       this.user.uid,
       { responseType: 'text' })
       .subscribe(data => window.location.href = data
@@ -61,9 +61,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this._userSubscription$ = this.userAuth.user$.subscribe(data => {
       this.user = data;
     });
-    console.log(environment.checkoutSessionUrl);
-    console.log("test");
-    
     
   }
 
