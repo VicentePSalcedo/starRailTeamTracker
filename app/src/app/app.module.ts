@@ -14,7 +14,7 @@ import { RemoveAddsButtonComponent } from './remove-adds-button/remove-adds-butt
 import { HeaderComponent } from './header/header.component';
 
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
-import { environment } from '../environments/environment';
+import { environment } from '../environments/environment.development';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 

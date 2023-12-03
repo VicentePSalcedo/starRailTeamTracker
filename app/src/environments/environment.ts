@@ -10,8 +10,9 @@ export const environment = {
     messagingSenderId: '851893191654',
     measurementId: 'G-2LTS3TFENF',
   },
-  production: true,
+  production: false,
   stripe: {
     publicKey: 'pk_test_51O4TfeE1Dt8s3Ho5JdYN3bM5tTSCCNzIgaSk0DdHJXgGEQ9OO7mzf4AwmsFuV7xfhEQUOTqqBuj7BN2MyNeHMlJK00TLmG8q92'
   },
+  checkoutSessionUrl: 'https://create-checkout-session-h7x52e2twq-uc.a.run.app',
 };

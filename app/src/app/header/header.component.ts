@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { FirestoreService } from '../services/firestore.service';
 import { TeamsService } from '../services/teams.service';
 import { characterType } from '../Models/character.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -60,6 +61,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this._userSubscription$ = this.userAuth.user$.subscribe(data => {
       this.user = data;
     });
+    console.log(environment.checkoutSessionUrl);
+    console.log("test");
+    
+    
   }
 
   ngOnDestroy(): void {

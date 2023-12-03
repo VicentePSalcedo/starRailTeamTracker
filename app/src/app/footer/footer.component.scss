@@ -6,6 +6,8 @@
     text-align: center;
     background-color: var(--fg);
     font-size: 1.8996960486322187vh;
+    overflow: hidden;
+
 }
 
 @media screen and (max-width: 479px) {
@@ -13,7 +15,8 @@
         height: 150px;
         display: block;
         font-size: 40px;
-        border-top-left-radius: 25px;
-        border-top-right-radius: 25px;
+        // border-top-left-radius: 25px;
+        // border-top-right-radius: 25px;
+        overflow: hidden;
     }
 }
