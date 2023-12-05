@@ -13,7 +13,8 @@ import { LoginButtonComponent } from './login-button/login-button.component';
 import { RemoveAddsButtonComponent } from './remove-adds-button/remove-adds-button.component';
 import { HeaderComponent } from './header/header.component';
 
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { getApp, initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { ReCaptchaV3Provider, initializeAppCheck, provideAppCheck } from '@angular/fire/app-check';
 import { environment } from '../environments/environment.development';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { getAuth, provideAuth } from '@angular/fire/auth';
@@ -27,6 +28,7 @@ import { RouterModule, Routes, provideRouter } from '@angular/router';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
+import { AppcheckComponent } from './appcheck/appcheck.component';
 
 
 const routes: Routes = [
@@ -54,19 +56,23 @@ const routes: Routes = [
     PrivacyComponent,
     HomeComponent,
     FooterComponent,
+    AppcheckComponent,
   ],
   imports: [
     BrowserModule,
     // import HttpClientModule after BrowserModule
     HttpClientModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAppCheck(() => initializeAppCheck(getApp(), {
+      provider: new ReCaptchaV3Provider("6Lfk1yApAAAAAInvNd-mVQLqjQtTwYhSGPLEIssK"),
+      isTokenAutoRefreshEnabled: true
+    })),
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),
     AdsenseModule.forRoot(),
     provideAuth(() => getAuth()),
     [ StripeModule.forRoot(environment.stripe.publicKey) ],
-    RouterModule.forRoot(routes)
-    
+    RouterModule.forRoot(routes),
   ],
   providers: [],
   bootstrap: [AppComponent]
