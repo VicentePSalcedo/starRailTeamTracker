@@ -28,7 +28,6 @@ import { RouterModule, Routes, provideRouter } from '@angular/router';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
-import { AppcheckComponent } from './appcheck/appcheck.component';
 
 
 const routes: Routes = [
@@ -56,17 +55,12 @@ const routes: Routes = [
     PrivacyComponent,
     HomeComponent,
     FooterComponent,
-    AppcheckComponent,
   ],
   imports: [
     BrowserModule,
     // import HttpClientModule after BrowserModule
     HttpClientModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAppCheck(() => initializeAppCheck(getApp(), {
-      provider: new ReCaptchaV3Provider("6Lfk1yApAAAAAInvNd-mVQLqjQtTwYhSGPLEIssK"),
-      isTokenAutoRefreshEnabled: true
-    })),
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),
     AdsenseModule.forRoot(),
