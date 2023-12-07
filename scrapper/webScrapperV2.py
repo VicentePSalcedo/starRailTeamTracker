@@ -29,7 +29,6 @@ def saveCharacterImages(characterLinks, imagesPath, shouldFormat):
         else:
             with open(imagesPath + link.text.strip(' ') + '.png', 'wb') as handler:
                 handler.write(requestContent)
-            
     return 
 def getWebPage(url):
     request = requests.get(url)
@@ -73,23 +72,22 @@ def writeToFireStore(characterLinks):
         sphereMainStat = []
         ropeMainStat = []
         characterData = getCharacterData(link.attrs["href"])
-        guideInfo = characterData.find_all('a')
+        links = characterData.find_all('a')
         tr = characterData.find_all('tr')
         mainStats = tr[4].find_all('b')
-        lightCone += guideInfo[0].text
-        if len(guideInfo) == 8:
-            relics.append(guideInfo[1].text)
-            ornament.append(guideInfo[2].text)
-        elif len(guideInfo) == 9:
-            relics.append(guideInfo[1].text)
-            relics.append(guideInfo[2].text)
-            ornament.append(guideInfo[3].text)
+        lightCone += links[0].text
+        if len(links) == 8:
+            relics.append(links[1].text)
+            ornament.append(links[2].text)
+        elif len(links) == 9:
+            relics.append(links[1].text)
+            relics.append(links[2].text)
+            ornament.append(links[3].text)
         bodyMainStat = appendMainStats(mainStats[0].nextSibling.split('/'))
         feetMainStat = appendMainStats(mainStats[1].nextSibling.split('/'))
         sphereMainStat = appendMainStats(mainStats[2].nextSibling.split('/'))
         ropeMainStat = appendMainStats(mainStats[3].nextSibling.split('/'))
         lightCone = lightCone.strip()
-
         db.writeToCollection(name,lightCone,relics,bodyMainStat,feetMainStat,ornament,sphereMainStat,ropeMainStat)
     return
 
