@@ -7,7 +7,7 @@ from firebaseConsole import FirebaseConsole
 from imageSettings import ImageSettings
 
 url = 'https://game8.co/games/Honkai-Star-Rail/archives/404256'
-imagesPath = './webscrapper/images/'
+imagesPath = './images/'
 
 def getCharacterData(url):
     soup = getWebPage(url)
@@ -72,34 +72,22 @@ def writeToFireStore(characterLinks):
         feetMainStat = []
         sphereMainStat = []
         ropeMainStat = []
-        if name == 'Silver Wolf':
-            silverWolfData = getSilverWolfData(link.attrs["href"])
-            silverWolfInfo = silverWolfData.find_all('a')
-            silverWolfMainStats = silverWolfData.find_all('b')
-            lightCone += silverWolfInfo[0].text
-            relics.append(silverWolfInfo[4].text)
-            ornament.append(silverWolfInfo[5].text)
-            bodyMainStat = appendMainStats(silverWolfMainStats[3].nextSibling.split('or'))
-            feetMainStat = appendMainStats(silverWolfMainStats[4].nextSibling.split('or'))
-            sphereMainStat = appendMainStats(silverWolfMainStats[5].nextSibling.split('or'))
-            ropeMainStat = appendMainStats(silverWolfMainStats[6].nextSibling.split('or'))
-        else:
-            characterData = getCharacterData(link.attrs["href"])
-            guideInfo = characterData.find_all('a')
-            tr = characterData.find_all('tr')
-            mainStats = tr[4].find_all('b')
-            lightCone += guideInfo[0].text
-            if len(guideInfo) == 8:
-                relics.append(guideInfo[1].text)
-                ornament.append(guideInfo[2].text)
-            elif len(guideInfo) == 9:
-                relics.append(guideInfo[1].text)
-                relics.append(guideInfo[2].text)
-                ornament.append(guideInfo[3].text)
-            bodyMainStat = appendMainStats(mainStats[0].nextSibling.split('/'))
-            feetMainStat = appendMainStats(mainStats[1].nextSibling.split('/'))
-            sphereMainStat = appendMainStats(mainStats[2].nextSibling.split('/'))
-            ropeMainStat = appendMainStats(mainStats[3].nextSibling.split('/'))
+        characterData = getCharacterData(link.attrs["href"])
+        guideInfo = characterData.find_all('a')
+        tr = characterData.find_all('tr')
+        mainStats = tr[4].find_all('b')
+        lightCone += guideInfo[0].text
+        if len(guideInfo) == 8:
+            relics.append(guideInfo[1].text)
+            ornament.append(guideInfo[2].text)
+        elif len(guideInfo) == 9:
+            relics.append(guideInfo[1].text)
+            relics.append(guideInfo[2].text)
+            ornament.append(guideInfo[3].text)
+        bodyMainStat = appendMainStats(mainStats[0].nextSibling.split('/'))
+        feetMainStat = appendMainStats(mainStats[1].nextSibling.split('/'))
+        sphereMainStat = appendMainStats(mainStats[2].nextSibling.split('/'))
+        ropeMainStat = appendMainStats(mainStats[3].nextSibling.split('/'))
         lightCone = lightCone.strip()
 
         db.writeToCollection(name,lightCone,relics,bodyMainStat,feetMainStat,ornament,sphereMainStat,ropeMainStat)
@@ -116,4 +104,4 @@ def startScrape(sendToDatabase=True, imageProperties=ImageSettings()):
 
 
 imageSettings = ImageSettings(saveImages=True, saveWithWebFormat=True)
-startScrape(False, imageSettings)
+startScrape(True, imageSettings)

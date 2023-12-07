@@ -1,0 +1,15 @@
+export const environment = {
+  firebase: {
+    apiKey: "AIzaSyDkidX3VUMUcCR_-7VzBCHBuCEjY6UmoZo",
+    authDomain: "starrailteamtrackerdev.firebaseapp.com",
+    projectId: "starrailteamtrackerdev",
+    storageBucket: "starrailteamtrackerdev.appspot.com",
+    messagingSenderId: "1052789471276",
+    appId: "1:1052789471276:web:01f4afa5184398d0b0b989"
+  },
+  production: false,
+  stripe: {
+    publicKey: 'pk_test_51O4TfeE1Dt8s3Ho5JdYN3bM5tTSCCNzIgaSk0DdHJXgGEQ9OO7mzf4AwmsFuV7xfhEQUOTqqBuj7BN2MyNeHMlJK00TLmG8q92'
+  },
+  checkoutSessionUrl: 'https://create-checkout-session-3ea6rzobva-uc.a.run.app',
+};

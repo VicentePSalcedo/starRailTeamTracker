@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { FirestoreService } from '../services/firestore.service';
 import { TeamsService } from '../services/teams.service';
 import { characterType } from '../Models/character.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -27,7 +28,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   createCheckoutSession() {
     if (!this.user) return this.login();
     this.http.post(
-      'https://create-checkout-session-h7x52e2twq-uc.a.run.app',
+      environment.checkoutSessionUrl,
       this.user.uid,
       { responseType: 'text' })
       .subscribe(data => window.location.href = data
@@ -60,6 +61,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this._userSubscription$ = this.userAuth.user$.subscribe(data => {
       this.user = data;
     });
+    
   }
 
   ngOnDestroy(): void {

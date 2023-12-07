@@ -13,8 +13,9 @@ import { LoginButtonComponent } from './login-button/login-button.component';
 import { RemoveAddsButtonComponent } from './remove-adds-button/remove-adds-button.component';
 import { HeaderComponent } from './header/header.component';
 
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
-import { environment } from '../environments/environment';
+import { getApp, initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { ReCaptchaV3Provider, initializeAppCheck, provideAppCheck } from '@angular/fire/app-check';
+import { environment } from '../environments/environment.development';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 
@@ -23,6 +24,18 @@ import { TeamSelectorComponent } from './team-selector/team-selector.component';
 import { AdsenseModule } from 'ng2-adsense';
 import { LoadingComponent } from './sidebar/loading/loading.component';
 import { TutorialComponent } from './tutorial/tutorial.component';
+import { RouterModule, Routes, provideRouter } from '@angular/router';
+import { PrivacyComponent } from './privacy/privacy.component';
+import { HomeComponent } from './home/home.component';
+import { FooterComponent } from './footer/footer.component';
+
+
+const routes: Routes = [
+  {path: "privacy", component: PrivacyComponent},
+  {path: "", component: HomeComponent},
+  {path: "404", component: HomeComponent},
+  {path: "**", component: HomeComponent}
+]
 
 @NgModule({
   declarations: [
@@ -38,7 +51,10 @@ import { TutorialComponent } from './tutorial/tutorial.component';
     HeaderComponent,
     TeamSelectorComponent,
     LoadingComponent,
-    TutorialComponent
+    TutorialComponent,
+    PrivacyComponent,
+    HomeComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +66,7 @@ import { TutorialComponent } from './tutorial/tutorial.component';
     AdsenseModule.forRoot(),
     provideAuth(() => getAuth()),
     [ StripeModule.forRoot(environment.stripe.publicKey) ],
-    
+    RouterModule.forRoot(routes),
   ],
   providers: [],
   bootstrap: [AppComponent]

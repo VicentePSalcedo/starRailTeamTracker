@@ -5,19 +5,15 @@ from firebase_admin import firestore, initialize_app
 from flask import jsonify
 import stripe
     
-with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "key.json"), "r") as D:
-    secret = json.loads(D.read())
-stripe.api_key = secret["key"]
-endpoint_secret = secret["web"]
+stripe.api_key = os.environ.get('STRIPE_KEY')
+endpoint_secret = os.environ.get('STRIPE_WEB')
 app = initialize_app()
 client = firestore.client(app=app)
 
 
-YOUR_DOMAIN='https://starrailteamtracker.web.app/'
-
 @https_fn.on_request(
     cors=options.CorsOptions(
-        cors_origins=["https://starrailteamtracker.web.app"],
+        cors_origins=[os.environ.get('CORS_CHECKOUT')],
         cors_methods=["post"],
     )
 )
@@ -33,7 +29,7 @@ def create_checkout_session(request):
             customer=customer.id,
             line_items=[
                 {
-                    "price": "price_1O7019E1Dt8s3Ho54Aaf80mA",
+                    "price": os.environ.get('PRICE'),
                     "quantity": 1,
                 },
             ],
@@ -42,8 +38,8 @@ def create_checkout_session(request):
                 "uid": uid
             },
             customer_update={"address": "auto"},
-            success_url=YOUR_DOMAIN,
-            cancel_url=YOUR_DOMAIN,
+            success_url=os.environ.get('YOUR_DOMAIN'),
+            cancel_url=os.environ.get('YOUR_DOMAIN'),
             automatic_tax={"enabled": True},
         )
     except Exception as e:
@@ -52,7 +48,7 @@ def create_checkout_session(request):
 
 @https_fn.on_request(
     cors=options.CorsOptions(
-        cors_origins=["https://my-webhook-view-h7x52e2twq-uc.a.run.app"],
+        cors_origins=[os.environ.get('CORS_MY_WEB')],
         cors_methods=["post"],
     )
 )
