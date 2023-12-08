@@ -30,7 +30,7 @@ export class FirestoreService {
   saveTeamToDB(path: string, teamData: characterType[][]): void{
     teamData.forEach((team, index) => {
       setDoc(doc(this._fireStore, path, `team${index}`), {...team})
-    })    
+    })
   }
   writeDoc<T>(path: string, data: {}){
     setDoc(doc(this._fireStore, path), data)
