@@ -10,7 +10,6 @@ endpoint_secret = os.environ.get('STRIPE_WEB')
 app = initialize_app()
 client = firestore.client(app=app)
 
-
 @https_fn.on_request(
     cors=options.CorsOptions(
         cors_origins=[os.environ.get('CORS_CHECKOUT')],
@@ -18,6 +17,7 @@ client = firestore.client(app=app)
     )
 )
 def create_checkout_session(request):
+    print(os.environ.get('CORS_CHECKOUT'))
     uid = str(request.data.decode("utf-8"))
     customer = stripe.Customer.create(
         metadata={
@@ -43,6 +43,7 @@ def create_checkout_session(request):
             automatic_tax={"enabled": True},
         )
     except Exception as e:
+        print("failed")
         return str(e)
     return https_fn.Response(checkout_session.url)
 
