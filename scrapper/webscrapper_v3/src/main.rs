@@ -1,4 +1,4 @@
-use firestore::*;
+use firestore::{struct_path::paths, *};
 use regex::Regex;
 use scraper::{Html, Selector};
 use serde::{Deserialize, Serialize};
@@ -6,20 +6,24 @@ use serde::{Deserialize, Serialize};
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     let db = FirestoreDb::new("starrailteamtrackerdev").await?;
-    const COLLECTION_NAME: &'static str = "Characters";
+    const COLLECTION_NAME: &'static str = "test";
 
     let response = get_html("https://game8.co/games/Honkai-Star-Rail/archives/404256");
-    let tbodies = get_tag(&response, "tbody");
+    let tbodies = get_tag(&response.await.as_ref().unwrap(), "tbody");
 
     let tbody_fragment = Html::parse_fragment(&tbodies[1]);
     let a_selector = Selector::parse("a").unwrap();
 
+    println!("Writing to {:?}...", COLLECTION_NAME);
     for (count, element) in tbody_fragment.select(&a_selector).enumerate() {
         if count % 4 == 0 {
             let text: Vec<&str> = element.text().collect();
             let name = text[0].trim();
-            let character_data = get_html(&element.value().attr("href").unwrap().to_string());
-            let table = get_tag(&character_data, "div.a-tabContainer");
+            let character_data = get_html(&element.value().attr("href").unwrap());
+            let table = get_tag(
+                &character_data.await.as_ref().unwrap(),
+                "div.a-tabContainer",
+            );
             let links = get_tag(&table.concat(), "a");
             let main_stats_html = get_tag(&table.concat(), "td");
             let light_cone = get_text(&links[0], "a").trim().to_owned();
@@ -47,27 +51,28 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
             let rope_main_stat: Vec<String> =
                 delims.split(final_stats[3]).map(str::to_string).collect();
             let character = Character {
-                name: name.to_owned(),
-                light_cone: LightCone {
-                    data: light_cone,
-                    checked: false,
+                Name: name.to_owned(),
+                LightCone: LightCone {
+                    Data: light_cone,
+                    Checked: false,
                 },
-                relics: Relics {
-                    set: relics,
-                    body: body_main_stat,
-                    feet: feet_main_stat,
+                Relics: Relics {
+                    Set: relics,
+                    Body: body_main_stat,
+                    Feet: feet_main_stat,
                 },
-                ornament: Ornament {
-                    set: ornaments,
-                    sphere: sphere_main_stat,
-                    rope: rope_main_stat,
+                Ornament: Ornament {
+                    Set: ornaments,
+                    Sphere: sphere_main_stat,
+                    Rope: rope_main_stat,
                 },
             };
-            let _object_returned: Character = db
+            let _update_builder: Character = db
                 .fluent()
-                .insert()
-                .into(COLLECTION_NAME)
-                .document_id(&character.name)
+                .update()
+                .fields(paths!(Character::{Name, LightCone, Relics, Ornament}))
+                .in_col(COLLECTION_NAME)
+                .document_id(&character.Name)
                 .object(&character)
                 .execute()
                 .await?;
@@ -75,7 +80,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
     }
     Ok(())
 }
-
 fn get_text(text: &str, tag: &str) -> String {
     let light_cone_html = Html::parse_fragment(text);
     let selector = Selector::parse(tag).unwrap();
@@ -91,31 +95,32 @@ fn get_tag(text: &str, tag: &str) -> Vec<String> {
     }
     result
 }
-fn get_html(url: &str) -> String {
-    reqwest::blocking::get(url).unwrap().text().unwrap()
+async fn get_html(url: &str) -> Result<String, reqwest::Error> {
+    let res = reqwest::get(url).await?.text().await?;
+    Ok(res)
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 struct Character {
-    name: String,
-    light_cone: LightCone,
-    relics: Relics,
-    ornament: Ornament,
+    Name: String,
+    LightCone: LightCone,
+    Relics: Relics,
+    Ornament: Ornament,
 }
 #[derive(Debug, Clone, Deserialize, Serialize)]
 struct LightCone {
-    data: String,
-    checked: bool,
+    Data: String,
+    Checked: bool,
 }
 #[derive(Debug, Clone, Deserialize, Serialize)]
 struct Relics {
-    set: Vec<String>,
-    body: Vec<String>,
-    feet: Vec<String>,
+    Set: Vec<String>,
+    Body: Vec<String>,
+    Feet: Vec<String>,
 }
 #[derive(Debug, Clone, Deserialize, Serialize)]
 struct Ornament {
-    set: Vec<String>,
-    sphere: Vec<String>,
-    rope: Vec<String>,
+    Set: Vec<String>,
+    Sphere: Vec<String>,
+    Rope: Vec<String>,
 }
