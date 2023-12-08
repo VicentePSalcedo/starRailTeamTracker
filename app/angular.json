@@ -85,13 +85,13 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "starRailTeam:build:production"
+              "buildTarget": "starRailTeam:build:production"
             },
             "development": {
-              "browserTarget": "starRailTeam:build:development"
+              "buildTarget": "starRailTeam:build:development"
             },
             "local": {
-              "browserTarget": "starRailTeam:build:local"
+              "buildTarget": "starRailTeam:build:local"
             }
           },
           "defaultConfiguration": "local"
@@ -99,7 +99,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "starRailTeam:build"
+            "buildTarget": "starRailTeam:build"
           }
         },
         "test": {
