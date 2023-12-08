@@ -1,0 +1,19 @@
+<div *ngIf="characterIsSelected(name); else elseBlock">
+  <div class="characterContainer">
+    <p class="borderNumber">{{index}}</p>
+    <img 
+      class="characterButton characterBoarder"
+      src="\assets\{{ name }}.webp"
+      alt="{{ name }}.webp"
+      title="{{name}}"
+    />
+  </div>
+</div>
+<ng-template #elseBlock>
+  <img
+    class="characterButton"
+    src="\assets\{{ name }}.webp"
+    alt="{{ name }}.webp"
+    title="{{name}}"
+  />
+</ng-template>

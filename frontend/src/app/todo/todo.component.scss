@@ -1,0 +1,97 @@
+input[type=checkbox]{
+    position: relative;
+    appearance: none;
+    background-color: white;
+    height: 1em;
+    width: 1em;
+    border-radius: 25%;
+    margin-right: 0.7322175732217573vh;
+    
+}
+input[type=checkbox]:checked::before{
+    content: '\2714';
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.9em;
+    position: absolute;
+    color: var(--text);
+}
+input[type=checkbox]:checked{
+    background-color: var(--accent);
+}
+
+// TINKER WITH THIS
+// input[type=checkbox]:checked + label::after{
+//     content: "";
+//     position: absolute;
+//     width: 100%;
+//     height: 4px;
+//     left: 0;
+//     top: 50%;
+//     transform: translate(0, -50%);
+//     border-radius: 10px;
+//     background-color: var(--accent);
+//     opacity: 100%;
+// }
+input[type=checkbox]:checked + label{
+    text-decoration: line-through;
+    text-decoration-thickness: 3px;
+    color: var(--accent);
+}
+
+
+
+
+.todoLine{
+    display: flex;
+    // gap: 1.0460251046025104vh;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    align-self: center;
+    border-radius: 1.0460251046025104vh;
+    margin-bottom: 1.0460251046025104vh;
+    // border: red 1px solid;
+}
+
+.todo{
+    accent-color: var(--accent);
+}
+
+input[type=checkbox]:hover{
+    cursor: pointer;
+}
+
+.label{
+    font-weight: lighter;
+    font-size: 2.092050209205021vh;
+    align-self: center;
+    
+}
+
+label, p{
+    text-align: center;
+    font-size: 1.5690376569037656vh;
+}
+label{
+    margin-right: 1.0460251046025104vh;
+    cursor: pointer;
+    position: relative;
+}
+
+.todoContainer{
+    display: flex;
+    align-items: flex-start;
+    // border: 1px pink solid;
+}
+
+.hasLabel{
+    border: rgba(255, 255, 255, 0.10) 0.15690376569037656vh solid;
+}
+.noLabel{
+    border: none;
+    text-align: start;
+    align-items: flex-start;
+}
+

@@ -1,0 +1,126 @@
+.sidebarClosed {
+  left: 0vh;
+  top: 0;
+  display: flex;
+  width: fit-content;
+  background-color: var(--fg);
+  position: fixed;
+  height: auto;
+  box-shadow:
+  0vh 0vh 0.17384731670445955vh rgba(0, 0, 0, 0.094),
+  0vh 0vh 0.6046863189720333vh rgba(0, 0, 0, 0.155),
+  0vh 0vh 1.08843537414966vh rgba(0, 0, 0, 0.21),
+  0vh 0vh 1.5117157974300832vh rgba(0, 0, 0, 0.28);
+  padding: 0.9259vh;
+  border-radius: 1.1111vh;
+  z-index: 2;
+}
+@media screen and (min-width: 480px) {
+  .sidebarClosed {
+    height: 100vh;
+    padding: 0.7347538574577517vh;
+  }
+}
+.sidebarOpen {
+  left: 0;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  width: 36.00293901542983vh;
+  height: 100%;
+  position: fixed;
+  background-color: var(--fg);
+  // filter: drop-shadow(0vh 0vh 0.6276150627615062vh rgba(0, 0, 0, 0.4));
+  box-shadow:
+  0vh 0vh 0.17384731670445955vh rgba(0, 0, 0, 0.094),
+  0vh 0vh 0.6046863189720333vh rgba(0, 0, 0, 0.155),
+  0vh 0vh 1.08843537414966vh rgba(0, 0, 0, 0.21),
+  0vh 0vh 1.5117157974300832vh rgba(0, 0, 0, 0.28);
+  align-content: flex-start;
+  padding: 0.7347538574577517vh;
+  gap: 0.7347538574577517vh;
+  opacity: 1;
+  animation: ease-in-out sidebarOpening 550ms;
+}
+
+.menu-overlay {
+  left: 0;
+  top: 0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  // pointer-events: none;
+  animation: ease-in-out sidebarClickOut 550ms;
+  z-index: 1;
+}
+
+.sidebarHeader {
+  display: flex;
+  width: 100%;
+}
+
+.characterInput{
+  padding: 0.9259vh;
+  background-color: var(--fg);
+  color: var(--text);
+  font-size: 1.8519vh;
+  outline: 0.1852vh solid rgba(white, 0.3);
+  border-radius: 1.8519vh;
+  border: none;
+  width: auto;
+  transition: all .2s ease-out;
+}
+
+.characterInput:focus{
+  outline: 0.1852vh solid var(--accent);
+  box-shadow: 0 0 0.463vh 0.0926vh var(--accent);
+}
+
+.search{
+  display: flex;
+  position: relative;
+}
+
+// TODO make this a componenet pls, thank you
+.material-symbols-outlined {
+  font-size: 4.849375459221161vh;
+  color: var(--accent);
+  float: right;
+  transition-duration: 0.2s;
+  // TODO find a better way to get this effect, it hurts accessability
+  // to not have this keyboard navigatable
+  user-select: none;
+}
+
+.material-symbols-outlined:hover {
+  cursor: pointer;
+  color: whitesmoke;
+
+}
+.material-symbols-outlined.cancel{
+  color: white;
+  position: absolute;
+  right: 0;
+  scale: 0.5;
+  opacity: 0.4;
+
+}
+
+@keyframes sidebarOpening{
+  0%{
+    transform: translateX(-100%);
+  }
+  100%{
+    transform: translateX(0%);
+  }
+}
+@keyframes sidebarClickOut{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
