@@ -6,7 +6,11 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "dev:ssr": "ng run starRailTeam:serve-ssr",
+    "serve:ssr": "node dist/starRailTeam/server/main.js",
+    "build:ssr": "ng build && ng run starRailTeam:server",
+    "prerender": "ng run starRailTeam:prerender"
   },
   "private": true,
   "dependencies": {
@@ -20,7 +24,7 @@
     "@angular/platform-browser-dynamic": "^17.0.0",
     "@angular/platform-server": "^17.0.0",
     "@angular/router": "^17.0.0",
-    "@angular/ssr": "^17.0.0",
+    "@angular/ssr": "^17.0.6",
     "@nguniversal/express-engine": "^7.0.2",
     "@types/stripe-v3": "^3.1.32",
     "boostrap": "^2.0.0",

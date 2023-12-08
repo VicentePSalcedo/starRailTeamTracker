@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/star-rail-team",
+            "outputPath": "dist/starRailTeam/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -127,6 +127,80 @@
             "version": 2,
             "browserTarget": "starRailTeam:build:production"
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/starRailTeam/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json",
+            "inlineStyleLanguage": "scss"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ],
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
+            },
+            "local": {
+              "buildOptimizer": false,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.local.ts"
+                }
+              ],
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@angular-devkit/build-angular:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "starRailTeam:build:development",
+              "serverTarget": "starRailTeam:server:development"
+            },
+            "production": {
+              "browserTarget": "starRailTeam:build:production",
+              "serverTarget": "starRailTeam:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@angular-devkit/build-angular:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "starRailTeam:build:production",
+              "serverTarget": "starRailTeam:server:production"
+            },
+            "development": {
+              "browserTarget": "starRailTeam:build:development",
+              "serverTarget": "starRailTeam:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
