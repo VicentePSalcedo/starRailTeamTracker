@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   createCheckoutSession() {
     if (!this.user) return this.login();
     this.http.post(
-      'http://127.0.0.1:5001/starrailteamtrackerdev/us-central1/create_checkout_session',
+      environment.checkoutSessionURL,
       this.user.uid,
       { responseType: 'text' })
       .subscribe(data => window.location.href = data
