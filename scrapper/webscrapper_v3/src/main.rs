@@ -24,6 +24,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
         if count % 4 == 0 {
             // Saves Characters to Firestore
             let text: Vec<&str> = element.text().collect();
+            println!("{:?}", element.html());
 
             let name = text[0].trim();
             let character_data = get_html(&element.value().attr("href").unwrap());
@@ -91,7 +92,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
                 .object(&character)
                 .execute()
                 .await?;
-            //Saves Images to assets folder
         }
     }
     Ok(())
