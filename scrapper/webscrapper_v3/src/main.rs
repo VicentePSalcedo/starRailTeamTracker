@@ -1,7 +1,9 @@
+mod character;
+use std::fs;
+
 use firestore::{struct_path::paths, *};
 use regex::Regex;
 use scraper::{Html, Selector};
-use serde::{Deserialize, Serialize};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
@@ -16,8 +18,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
 
     println!("Writing to {:?}...", COLLECTION_NAME);
 
+    fs::create_dir_all("assets").unwrap();
+
     for (count, element) in tbody_fragment.select(&a_selector).enumerate() {
         if count % 4 == 0 {
+            // Saves Characters to Firestore
             let text: Vec<&str> = element.text().collect();
 
             let name = text[0].trim();
@@ -59,33 +64,34 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
             let rope_main_stat: Vec<String> =
                 delims.split(final_stats[3]).map(str::to_string).collect();
 
-            let character = Character {
+            let character = character::Character {
                 Name: name.to_owned(),
-                LightCone: LightCone {
+                LightCone: character::LightCone {
                     Data: light_cone,
                     Checked: false,
                 },
-                Relics: Relics {
+                Relics: character::Relics {
                     Set: relics,
                     Body: body_main_stat,
                     Feet: feet_main_stat,
                 },
-                Ornament: Ornament {
+                Ornament: character::Ornament {
                     Set: ornaments,
                     Sphere: sphere_main_stat,
                     Rope: rope_main_stat,
                 },
             };
 
-            let _update_builder: Character = db
+            let _update_builder: character::Character = db
                 .fluent()
                 .update()
-                .fields(paths!(Character::{Name, LightCone, Relics, Ornament}))
+                .fields(paths!(character::Character::{Name, LightCone, Relics, Ornament}))
                 .in_col(COLLECTION_NAME)
                 .document_id(&character.Name)
                 .object(&character)
                 .execute()
                 .await?;
+            //Saves Images to assets folder
         }
     }
     Ok(())
@@ -108,29 +114,4 @@ fn get_tag(text: &str, tag: &str) -> Vec<String> {
 async fn get_html(url: &str) -> Result<String, reqwest::Error> {
     let res = reqwest::get(url).await?.text().await?;
     Ok(res)
-}
-
-#[derive(Debug, Clone, Deserialize, Serialize)]
-struct Character {
-    Name: String,
-    LightCone: LightCone,
-    Relics: Relics,
-    Ornament: Ornament,
-}
-#[derive(Debug, Clone, Deserialize, Serialize)]
-struct LightCone {
-    Data: String,
-    Checked: bool,
-}
-#[derive(Debug, Clone, Deserialize, Serialize)]
-struct Relics {
-    Set: Vec<String>,
-    Body: Vec<String>,
-    Feet: Vec<String>,
-}
-#[derive(Debug, Clone, Deserialize, Serialize)]
-struct Ornament {
-    Set: Vec<String>,
-    Sphere: Vec<String>,
-    Rope: Vec<String>,
 }
