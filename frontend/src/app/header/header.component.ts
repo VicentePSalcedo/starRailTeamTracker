@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { FirestoreService } from '../services/firestore.service';
 import { TeamsService } from '../services/teams.service';
 import { characterType } from '../Models/character.model';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-header',

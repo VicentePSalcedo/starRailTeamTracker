@@ -35,7 +35,7 @@ export class FirestoreService {
   writeDoc<T>(path: string, data: {}){
     setDoc(doc(this._fireStore, path), data)
   }
-  getDoc(path: string): Observable<DocumentData>{
+  getDoc(path: string): Observable<DocumentData | undefined>{
     return docData(doc(this._fireStore, path))
   }
   getCollectionSubscription(path: string): Observable<DocumentData>{
