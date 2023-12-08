@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   createCheckoutSession() {
     if (!this.user) return this.login();
     this.http.post(
-      environment.checkoutSessionURL,
+      environment.checkoutSessionUrl,
       this.user.uid,
       { responseType: 'text' })
       .subscribe(data => window.location.href = data
