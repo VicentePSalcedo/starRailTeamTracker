@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   createCheckoutSession() {
     if (!this.user) return this.login();
     this.http.post(
-      environment.checkoutSessionUrl,
+      'http://127.0.0.1:5001/starrailteamtrackerdev/us-central1/create_checkout_session',
       this.user.uid,
       { responseType: 'text' })
       .subscribe(data => window.location.href = data
@@ -61,7 +61,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this._userSubscription$ = this.userAuth.user$.subscribe(data => {
       this.user = data;
     });
-    
+
   }
 
   ngOnDestroy(): void {
