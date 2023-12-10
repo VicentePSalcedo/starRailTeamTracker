@@ -15,7 +15,7 @@ import { HeaderComponent } from './header/header.component';
 
 import { getApp, initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { ReCaptchaV3Provider, initializeAppCheck, provideAppCheck } from '@angular/fire/app-check';
-import { environment } from '../environments/environment.development';
+import { environment } from '../environments/environment';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 

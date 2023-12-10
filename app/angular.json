@@ -89,9 +89,12 @@
             },
             "development": {
               "browserTarget": "starRailTeam:build:development"
+            },
+            "local": {
+              "browserTarget": "starRailTeam:build:local"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "local"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
