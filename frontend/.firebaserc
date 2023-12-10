@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "starrailteamtrackerdev": {
+      "hosting": {
+        "starrailteamtrackerdev": [
+          "starrailteamtrackerdev"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "starrailteamtrackerdev"
+  }
+}

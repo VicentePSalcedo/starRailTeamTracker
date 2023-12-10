@@ -1,0 +1,24 @@
+.loading{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7347538574577517vh;
+}
+
+.square{
+    border-radius: 30%;
+    height: 6.318883174136664vh;
+    width: 6.318883174136664vh;
+}
+
+.skeleton{
+    animation: skele-load .8s linear infinite alternate;
+  }
+  
+  @keyframes skele-load{
+    0%{
+      background-color: hsl(202, 5%, 60%)
+    }
+    100%{
+      background-color: hsl(0, 0%, 87%)
+    }
+  }
