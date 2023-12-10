@@ -1,7 +1,8 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Inject, Injectable, OnInit, PLATFORM_ID } from '@angular/core';
 import { characterType, checkData, dataType, ornament, relics } from '../Models/character.model';
 import { FirestoreService } from './firestore.service';
 import { BehaviorSubject, Observable, skip, take } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 @Injectable({
   providedIn: 'root',
 })
@@ -19,8 +20,10 @@ export class DataService {
   displayedCharacters$ = this._displayedCharacters.asObservable();
 
   private _allCharacters: characterType[] = [];
-
-  constructor(private fireStoreService: FirestoreService) {
+  isBrowser;
+  //give platform id a type :)
+  constructor(private fireStoreService: FirestoreService, @Inject(PLATFORM_ID) private platformId: any) {
+    this.isBrowser = isPlatformBrowser(platformId)
     this.fireStoreService.characterData$.pipe(
       skip(1)
     ).subscribe((data) => {
@@ -29,10 +32,11 @@ export class DataService {
       // console.log(this._displayedCharacters);
 
     });
-    // const storageTimestamp = localStorage.getItem("timestamp") ;
-    // if(storageTimestamp){
-    //   this.savedTimestamp = Number(storageTimestamp)
-    // }
+    if(!this.isBrowser) return
+    const storageTimestamp = localStorage.getItem("timestamp") ;
+      if(storageTimestamp){
+        this.savedTimestamp = Number(storageTimestamp)
+      }
   }
 
   getAllCharacters() {
@@ -129,19 +133,20 @@ export class DataService {
     })
   }
 
-  // loadFromCache(): characterType[][] | null{
-  //   const charactersStorage = localStorage.getItem('teams');
-  //   if(!charactersStorage) return null;
-  //   this.importIntoDisplayedCharacter(JSON.parse(charactersStorage));
-  //
-  //   return JSON.parse(charactersStorage);
-  // }
+  loadFromCache(): characterType[][] | null{
+    if(!this.isBrowser) return null
+    const charactersStorage = localStorage.getItem('teams');
+    if(!charactersStorage) return null;
+    this.importIntoDisplayedCharacter(JSON.parse(charactersStorage));
+  
+    return JSON.parse(charactersStorage);
+  }
 
   saveToCache(data: characterType[][]): void{
     if(data.length > this.MAXTEAMSIZE || data.map(x => x.length > this.MAXCHARACTERS).includes(true)) return;
     const currentTimestamp = Date.now().toString()
-
-    // localStorage.setItem('teams', JSON.stringify(data));
-    // localStorage.setItem("timestamp", currentTimestamp)
+    if(!this.isBrowser) return
+    localStorage.setItem('teams', JSON.stringify(data));
+    localStorage.setItem("timestamp", currentTimestamp)
   }
 }

@@ -39,12 +39,12 @@ export class TeamsService {
   }
 
   handleCacheLoad(){
-    // const load = this.dataService.loadFromCache();
-    // if(load){
-    //   this._teams.next(load);
-    //   //PUT THIS INTO A NEW FUNCTION, AND HAVE ON TEAMS CHANGE CALL IT.
-    //   this.dataService.setDisplayCharacters(this._teams.value[this.currentTeam]);
-    // }
+    const load = this.dataService.loadFromCache();
+    if(load){
+      this._teams.next(load);
+      //PUT THIS INTO A NEW FUNCTION, AND HAVE ON TEAMS CHANGE CALL IT.
+      this.dataService.setDisplayCharacters(this._teams.value[this.currentTeam]);
+    }
   }
   handleDatabaseLoad(user: User | null ){
     if(!user) return
