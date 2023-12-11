@@ -26,6 +26,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
             let text: Vec<&str> = element.text().collect();
 
             let name = text[0].trim();
+            println!("{:?} saving", name);
             let character_data = get_html(&element.value().attr("href").unwrap());
 
             let table = get_tag(
@@ -92,6 +93,20 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
                 .execute()
                 .await?;
             //Saves Images to assets folder
+            let character_img_link_html = Html::parse_fragment(&element.inner_html());
+            let img_selector = Selector::parse("img").unwrap();
+            let character_img_link = character_img_link_html
+                .select(&img_selector)
+                .next()
+                .unwrap()
+                .value()
+                .attr("data-src")
+                .unwrap();
+            println!("{:?}", character_img_link);
+            let img_response = reqwest::get(character_img_link).await?;
+            let img_bytes = img_response.bytes().await?;
+            let img_name = format!("assets/{}.png", name);
+            fs::write(img_name, img_bytes).unwrap();
         }
     }
     Ok(())
