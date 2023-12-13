@@ -1,0 +1,9 @@
+<div class="card-holder">
+    @if (displayedCharacters.length == 0) {
+            <app-tutorial></app-tutorial>
+    }@else{
+        @for (character of displayedCharacters; track character) {
+            <app-card [character] = "character"></app-card>
+        }
+    }
+</div>

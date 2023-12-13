@@ -1,0 +1,16 @@
+<div class="todoLine" [ngClass]="todoKey ? 'hasLabel' : 'noLabel'">
+    @if (todoKey) {
+    <p class="label">{{todoKey}}</p>
+
+    }
+    <div class="todoContainer">
+        @for (stat of todoData; track stat; let x = $index) {
+            <div class="todo">
+                <input [ngClass]="sectionID" [value]="stat.data" type="checkbox" id={{stat.data}}{{checkboxID}}
+                    [checked]="stat.checked" (change)="toggleSectionCheckBox($event, stat.data, sectionID, x)">
+                <label for={{stat.data}}{{checkboxID}}>{{stat.data}}</label>
+            </div>
+        }
+
+    </div>
+</div>

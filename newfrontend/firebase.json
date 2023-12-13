@@ -1,0 +1,11 @@
+{
+  "hosting": [
+    {
+      "target": "newfrontend",
+      "source": ".",
+      "frameworksBackend": {
+        "region": "us-east1"
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+@if (characterIsSelected(name)) {
+  <div class="characterContainer">
+    <p class="borderNumber">{{index}}</p>
+    <img 
+    class="characterButton characterBoarder"
+    src="\assets\{{ name }}.webp"
+    alt="{{ name }}.webp"
+    title="{{name}}"
+    />
+  </div>
+}@else {
+  <img
+  class="characterButton"
+  src="\assets\{{ name }}.webp"
+  alt="{{ name }}.webp"
+  title="{{name}}"
+  />
+
+}
