@@ -1,34 +1,47 @@
 mod character;
-use std::fs;
-
+// mod webp;
 use firestore::{struct_path::paths, *};
+use image::EncodableLayout;
 use regex::Regex;
 use scraper::{Html, Selector};
+use std::env::args;
+use std::fs;
+use std::fs::File;
+use std::io::Write;
+use webp::{Encoder, WebPMemory};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
-    let db = FirestoreDb::new("starrailteamtrackerdev").await?;
+    let target = args().nth(1).expect("missing target: [dev, prod]");
+    let save_imgs = if args().len() == 2 {
+        args().nth(2).expect("missing save_imgs: [true, false]")
+    } else {
+        "false".to_owned()
+    };
+    if target != "dev" && target != "prod" {
+        panic!("target must be either dev or prod");
+    }
+    let db = if target == "dev" {
+        FirestoreDb::new("starrailteamtrackerdev").await?
+    } else {
+        FirestoreDb::new("starrailteamtracker").await?
+    };
     const COLLECTION_NAME: &'static str = "Characters";
 
     let response = get_html("https://game8.co/games/Honkai-Star-Rail/archives/404256");
-
     let tbodies = get_tag(&response.await.as_ref().unwrap(), "tbody");
     let tbody_fragment = Html::parse_fragment(&tbodies[1]);
     let a_selector = Selector::parse("a").unwrap();
 
-    println!("Writing to {:?}...", COLLECTION_NAME);
-
     fs::create_dir_all("assets").unwrap();
 
+    // Saves Characters to Firestore
     for (count, element) in tbody_fragment.select(&a_selector).enumerate() {
         if count % 4 == 0 {
-            // Saves Characters to Firestore
             let text: Vec<&str> = element.text().collect();
-
             let name = text[0].trim();
-            println!("{:?} saving", name);
+            println!("{}", name);
             let character_data = get_html(&element.value().attr("href").unwrap());
-
             let table = get_tag(
                 &character_data.await.as_ref().unwrap(),
                 "div.a-tabContainer",
@@ -48,28 +61,28 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
                 relics.push(get_text(&links[2], "a").trim().to_owned());
                 ornaments.push(get_text(&links[2], "a").trim().to_owned());
             }
-
             let regex = Regex::new(r#"(<b class=\"a-bold\">)[A-Za-z]*(</b>):*"#).unwrap();
             let preped_main_stats_html = regex.replace_all(&main_stats_html[3], " ");
             let ruf_stats = get_text(&preped_main_stats_html, "html");
             let final_stats: Vec<&str> = ruf_stats.trim().split("  ").collect();
-
             let delims = Regex::new(r"/| or ").unwrap();
-
             let body_main_stat: Vec<String> =
                 delims.split(final_stats[0]).map(str::to_string).collect();
+            let body_main_stat: Vec<character::Checked> = add_stats(&body_main_stat);
             let feet_main_stat: Vec<String> =
                 delims.split(final_stats[1]).map(str::to_string).collect();
+            let feet_main_stat: Vec<character::Checked> = add_stats(&feet_main_stat);
             let sphere_main_stat: Vec<String> =
                 delims.split(final_stats[2]).map(str::to_string).collect();
+            let sphere_main_stat: Vec<character::Checked> = add_stats(&sphere_main_stat);
             let rope_main_stat: Vec<String> =
                 delims.split(final_stats[3]).map(str::to_string).collect();
-
+            let rope_main_stat: Vec<character::Checked> = add_stats(&rope_main_stat);
             let character = character::Character {
                 Name: name.to_owned(),
                 LightCone: character::LightCone {
-                    Data: light_cone,
-                    Checked: false,
+                    data: light_cone,
+                    checked: false,
                 },
                 Relics: character::Relics {
                     Set: relics,
@@ -82,7 +95,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
                     Rope: rope_main_stat,
                 },
             };
-
             let _update_builder: character::Character = db
                 .fluent()
                 .update()
@@ -102,14 +114,29 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
                 .value()
                 .attr("data-src")
                 .unwrap();
-            println!("{:?}", character_img_link);
-            let img_response = reqwest::get(character_img_link).await?;
-            let img_bytes = img_response.bytes().await?;
-            let img_name = format!("assets/{}.png", name);
-            fs::write(img_name, img_bytes).unwrap();
+            if save_imgs == "true" {
+                let img_response = reqwest::get(character_img_link).await?;
+                let img_bytes = img_response.bytes().await?;
+                let dynamic_image = image::load_from_memory(&img_bytes).unwrap();
+                let img_name = format!("assets/{}.webp", name);
+                let encoder: Encoder = Encoder::from_image(&dynamic_image).unwrap();
+                let encoded_webp: WebPMemory = encoder.encode(65f32);
+                let mut webp_image = File::create(img_name).unwrap();
+                webp_image.write_all(encoded_webp.as_bytes()).unwrap();
+            }
         }
     }
     Ok(())
+}
+fn add_stats(main_stats: &Vec<String>) -> Vec<character::Checked> {
+    let mut result: Vec<character::Checked> = Vec::new();
+    for stat in main_stats {
+        result.push(character::Checked {
+            checked: false,
+            data: stat.to_owned(),
+        });
+    }
+    result
 }
 fn get_text(text: &str, tag: &str) -> String {
     let light_cone_html = Html::parse_fragment(text);
