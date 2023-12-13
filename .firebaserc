@@ -1,23 +1,23 @@
 {
-    "projects": {
-        "dev": "starrailteamtrackerdev",
-        "production": "starrailteamtracker",
-        "default": "starrailteamtrackerdev"
+  "projects": {
+    "dev": "starrailteamtrackerdev",
+    "production": "starrailteamtracker",
+    "default": "starrailteamtrackerdev"
+  },
+  "targets": {
+    "starrailteamtrackerdev": {
+      "hosting": {
+        "newfrontend": [
+          "starrailteamtrackerdev"
+        ]
+      }
     },
-    "targets": {
-        "starrailteamtrackerdev": {
-            "hosting": {
-                "newfrontend": [
-                    "starrailteamtrackerdev"
-                ]
-            }
-        },
-        "starrailteamtracker": {
-            "hosting": {
-                "newfrontend": [
-                    "starrailteamtracker"
-                ]
-            }
-        }
+    "starrailteamtracker": {
+      "hosting": {
+        "newfrontend": [
+          "starrailteamtracker"
+        ]
+      }
     }
+  }
 }
