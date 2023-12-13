@@ -6,6 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
+    "devBuild": "ng build --configuration=development",
+    "prodBuild": "ng build --configuration=production",
     "test": "ng test",
     "serve:ssr:newfrontend": "node dist/newfrontend/server/server.mjs"
   },
