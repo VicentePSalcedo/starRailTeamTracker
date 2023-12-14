@@ -2,7 +2,7 @@
   "hosting": [
     {
       "target": "newfrontend",
-      "source": ".",
+      "public": "./dist/newfrontend/browser", 
       "frameworksBackend": {
         "region": "us-east1"
       }

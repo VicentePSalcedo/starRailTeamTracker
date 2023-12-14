@@ -8,6 +8,7 @@ export const environment = {
     appId: "1:1052789471276:web:01f4afa5184398d0b0b989"
   },
   production: false,
+  environment_type: "dev",
   stripe: {
     publicKey: 'pk_test_51O4TfeE1Dt8s3Ho5JdYN3bM5tTSCCNzIgaSk0DdHJXgGEQ9OO7mzf4AwmsFuV7xfhEQUOTqqBuj7BN2MyNeHMlJK00TLmG8q92'
   },
