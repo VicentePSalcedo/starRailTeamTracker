@@ -1,4 +1,8 @@
 {
+  "projects": {
+    "default": "starrailteamtrackerdev",
+    "prod": "starrailteamtracker"
+  },
   "targets": {
     "starrailteamtrackerdev": {
       "hosting": {
@@ -6,9 +10,14 @@
           "starrailteamtrackerdev"
         ]
       }
+    },
+    "starrailteamtracker": {
+      "hosting": {
+        "newfrontend":[
+          "starrailteamtracker"
+        ]
+      }
     }
   },
-  "projects": {
-    "default": "starrailteamtrackerdev"
-  }
+  "etags": {}
 }
