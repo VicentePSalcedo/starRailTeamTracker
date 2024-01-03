@@ -1,0 +1,39 @@
+@if (sidebarOpen) {
+  <div class="sidebarOpen">
+    <div class="sidebarHeader">
+      <div class="search">
+        @if (input.length > 0) {
+          <div class="material-symbols-outlined cancel" (click) = "emptyInput()">
+            cancel
+          </div>
+        }
+        <input class="characterInput" type="text" (input)="filterList($event)" [value]="input" placeholder="Character...">
+      </div>
+      <span class="material-symbols-outlined" (click)="toggleSidebar()">
+        menu_open
+      </span>
+    </div>
+      @if (characterList.length > 0) {
+        <!-- IF SOMETHING GOES HORRIBLY WRONG LOOK AT THIS!! -->
+        @for (character of filteredCharacters; track character.Name) {
+          <div class="characterContainer">
+            <app-character-button
+              (click)="toggleCharacter(character.Name)"
+              [name]="character.Name"
+              [index]="getCharacterInArray(character.Name)"
+            ></app-character-button>
+          </div>
+        }
+      }@else {
+        <app-loading></app-loading>
+      }
+    </div>  
+    <div class="menu-overlay" (click)="toggleSidebar()"></div>
+}@else {
+  <div class="sidebarClosed">
+    <span class="material-symbols-outlined" (click)="toggleSidebar()">
+      menu
+    </span>
+  </div>
+
+}

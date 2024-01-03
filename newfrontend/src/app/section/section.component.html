@@ -1,0 +1,27 @@
+@if(todoData != undefined) {
+<div class="section">
+    <div class="sectionHeader">
+        <h2 class="title">{{artifactName}}</h2>
+        @if (set) {
+        <p class="set">{{set}}</p>
+        }
+    </div>
+    <div class="allTodosContainer">
+        <div class="allTodos">
+            @if (isArray()) {
+                @for (key of todoData; track key) {
+                    <app-todo [todoData]='[key]'
+                        [data]='{CharacterName: characterName, EquipmentType: "LightCone", ArtifactName: artifactName}'></app-todo>
+                }
+            }@else {
+                @for (key of todoData | keyvalue; track key) {
+                    <app-todo [todoKey]='key.key' [todoData]='key.value'
+                        [data]='{CharacterName: characterName, EquipmentType: key.key, ArtifactName: artifactName}'></app-todo>
+                    }
+                }
+        </div>
+    </div>
+
+</div>
+
+}

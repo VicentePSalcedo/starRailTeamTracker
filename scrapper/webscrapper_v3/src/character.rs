@@ -12,20 +12,25 @@ pub struct Character {
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct LightCone {
-    pub Data: String,
-    pub Checked: bool,
+    pub data: String,
+    pub checked: bool,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Relics {
     pub Set: Vec<String>,
-    pub Body: Vec<String>,
-    pub Feet: Vec<String>,
+    pub Body: Vec<Checked>,
+    pub Feet: Vec<Checked>,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Ornament {
     pub Set: Vec<String>,
-    pub Sphere: Vec<String>,
-    pub Rope: Vec<String>,
+    pub Sphere: Vec<Checked>,
+    pub Rope: Vec<Checked>,
+}
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct Checked {
+    pub checked: bool,
+    pub data: String,
 }

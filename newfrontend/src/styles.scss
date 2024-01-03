@@ -1,0 +1,20 @@
+:root{
+    --bg: #262626;
+    --fg: #1E1E1E;
+    --accent: #7D5BED;
+    --text: white;
+
+    --bg-rgb: 38 38 38;
+}
+
+*, *::before, *::after{
+    box-sizing: border-box;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+body{
+    background-color: var(--bg);
+    color: var(--text);
+    // overflow: hidden;
+}
